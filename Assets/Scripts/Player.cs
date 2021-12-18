@@ -11,6 +11,11 @@ public class Player : MonoBehaviour
     public float moveSpeed = 7f;
     public float jumpForce = 15f;
 
+    // FSM
+    private enum State
+    { idle, running, jumping, falling, hurt }
+    [SerializeField] private State state = State.idle;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -36,11 +41,28 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            // If on ground
             if (Mathf.Abs(rb.velocity.y) < 0.01f)
             {
                 Jump();
             }
         }
+
+        AnimationControl();
+    }
+
+    private void AnimationControl()
+    {
+        if (Mathf.Abs(rb.velocity.x) > 0.1f)
+        {
+            state = State.running;
+        }
+        else
+        {
+            state = State.idle;
+        }
+
+        anim.SetInteger("state", (int)state);
     }
 
     private void Jump()
