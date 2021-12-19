@@ -53,7 +53,15 @@ public class Player : MonoBehaviour
 
     private void AnimationControl()
     {
-        if (Mathf.Abs(rb.velocity.x) > 0.1f)
+        if (rb.velocity.y > 0.1f)
+        {
+            state = State.jumping;
+        }
+        else if (rb.velocity.y < -0.1f)
+        {
+            state = State.falling;
+        }
+        else if (Mathf.Abs(rb.velocity.x) > 0.1f)
         {
             state = State.running;
         }
