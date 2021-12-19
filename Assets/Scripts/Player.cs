@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float horInput;
     public float moveSpeed = 7f;
     public float jumpForce = 15f;
+    public bool inAttack;
 
     // FSM
     private enum State
@@ -24,6 +25,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (inAttack) return;
+
         verInput = Input.GetAxis("Vertical");
         horInput = Input.GetAxis("Horizontal");
 
@@ -39,13 +42,18 @@ public class Player : MonoBehaviour
         }
         rb.velocity = new Vector2(horInput * moveSpeed, rb.velocity.y);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
         {
             // If on ground
             if (Mathf.Abs(rb.velocity.y) < 0.01f)
             {
                 Jump();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Attack();
         }
 
         AnimationControl();
@@ -71,6 +79,24 @@ public class Player : MonoBehaviour
         }
 
         anim.SetInteger("state", (int)state);
+    }
+
+    private void Attack()
+    {
+        anim.SetTrigger("attack");
+    }
+
+    public void BeginAttackAnim()
+    {
+        inAttack = true;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0f;
+    }
+
+    public void EndAttackAnim()
+    {
+        inAttack = false;
+        rb.gravityScale = 3f;
     }
 
     private void Jump()

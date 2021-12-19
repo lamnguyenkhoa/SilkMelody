@@ -336,6 +336,7 @@ MonoBehaviour:
   horInput: 0
   moveSpeed: 7
   jumpForce: 15
+  inAttack: 0
   state: 0
 --- !u!1 &724069776
 GameObject:
