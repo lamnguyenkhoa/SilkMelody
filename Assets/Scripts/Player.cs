@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     public float jumpForce = 15f;
     public bool inAttack;
 
+    private Transform slashPos;
+    public PlayerSlash slashPrefab;
+
     // FSM
     private enum State
     { idle, running, jumping, falling, hurt }
@@ -21,6 +24,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        slashPos = transform.Find("SlashPos");
     }
 
     private void Update()
@@ -91,6 +95,13 @@ public class Player : MonoBehaviour
         inAttack = true;
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0f;
+    }
+
+    public void AttackDealDamage()
+    {
+        PlayerSlash slash = Instantiate(slashPrefab, slashPos);
+        slash.player = this.transform;
+        slash.transform.localPosition = Vector3.zero;
     }
 
     public void EndAttackAnim()
