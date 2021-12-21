@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private SpriteRenderer sprite;
+    private Material originalMat;
+    public Material flashMat;
+
+    private void Start()
     {
-        
+        sprite = GetComponent<SpriteRenderer>();
+        originalMat = sprite.material;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+    }
+
+    public void Damaged()
+    {
+        StopAllCoroutines();
+        StartCoroutine(SpriteFlash());
+    }
+
+    private IEnumerator SpriteFlash()
+    {
+        sprite.material = flashMat;
+        yield return new WaitForSeconds(0.15f);
+        sprite.material = originalMat;
     }
 }

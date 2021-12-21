@@ -45,6 +45,7 @@ public class PlayerSlash : MonoBehaviour
             // Push enemy backward slightly
             Vector2 knockbackForce = (Vector2)(enemy.transform.position - player.position);
             enemy.GetComponent<Rigidbody2D>().AddForce(knockbackForce, ForceMode2D.Impulse);
+            enemy.Damaged();
         }
     }
 }
