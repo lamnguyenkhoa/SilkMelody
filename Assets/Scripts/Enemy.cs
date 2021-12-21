@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [Header("Stat")]
     public float maxHp;
-    private float hp;
+    private float currentHp;
     public int damage;
     public float knockbackForce = 1f;
     public bool knockbackAble = true;
@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        hp = maxHp;
+        currentHp = maxHp;
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         originalMat = sprite.material;
@@ -36,8 +36,8 @@ public class Enemy : MonoBehaviour
         {
             StopAllCoroutines();
             StartCoroutine(SpriteFlash());
-            hp -= amount;
-            if (hp <= 0)
+            currentHp -= amount;
+            if (currentHp <= 0)
                 Death();
         }
     }

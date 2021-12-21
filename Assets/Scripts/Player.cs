@@ -8,9 +8,9 @@ public class Player : MonoBehaviour
     private Animator anim;
     public float verInput;
     public float horInput;
-    public float moveSpeed = 7f;
-    public float jumpForce = 15f;
+    public PlayerStatSO playerStat;
     public bool inAttack;
+    public bool disableControl = false;
 
     private Transform slashPos;
     public PlayerSlash slashPrefab;
@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (disableControl) return;
         if (inAttack) return;
 
         verInput = Input.GetAxis("Vertical");
@@ -44,7 +45,7 @@ public class Player : MonoBehaviour
         {
             Flip(false);
         }
-        rb.velocity = new Vector2(horInput * moveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(horInput * playerStat.moveSpeed, rb.velocity.y);
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
         {
@@ -61,6 +62,9 @@ public class Player : MonoBehaviour
         }
 
         AnimationControl();
+
+        // Prevent bug
+        Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
     }
 
     private void AnimationControl()
@@ -85,6 +89,14 @@ public class Player : MonoBehaviour
         anim.SetInteger("state", (int)state);
     }
 
+    public void Damaged(int amount, Vector3 knockbackDir)
+    {
+        playerStat.currentHp -= amount;
+        playerStat.currentHp = Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
+        StartCoroutine(InvincibleFrame());
+        rb.AddForce(knockbackDir * 5f, ForceMode2D.Impulse);
+    }
+
     private void Attack()
     {
         anim.SetTrigger("attack");
@@ -102,6 +114,7 @@ public class Player : MonoBehaviour
         PlayerSlash slash = Instantiate(slashPrefab, slashPos);
         slash.player = this.transform;
         slash.transform.localPosition = Vector3.zero;
+        slash.damage = playerStat.damage;
     }
 
     public void EndAttackAnim()
@@ -112,7 +125,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
         // Play some dust particle when jump
     }
 
@@ -134,6 +147,24 @@ public class Player : MonoBehaviour
                 transform.localScale = new Vector2(1, 1);
                 //SwitchDirectionDust();
             }
+        }
+    }
+
+    private IEnumerator InvincibleFrame()
+    {
+        disableControl = true;
+        rb.velocity = Vector2.zero;
+        yield return new WaitForSeconds(playerStat.minIFrame);
+        disableControl = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Enemy enemy = collision.transform.GetComponent<Enemy>();
+        if (enemy)
+        {
+            Vector2 knockbackDir = (Vector2)(transform.position - enemy.transform.position).normalized;
+            Damaged(enemy.damage, knockbackDir);
         }
     }
 }

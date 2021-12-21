@@ -165,4 +165,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e4e13184e82654384a1af04ed07e33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHp: 2
+  damage: 1
+  knockbackForce: 1
+  knockbackAble: 1
+  isInvulnerable: 0
   flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}

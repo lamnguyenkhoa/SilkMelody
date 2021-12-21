@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerSlash : MonoBehaviour
 {
     public Transform player;
+    public float damage = 1f;
     private SpriteRenderer sprite;
     private Color originalColor;
     public float fadeSpeed = 0.2f;
@@ -43,8 +44,8 @@ public class PlayerSlash : MonoBehaviour
         if (enemy)
         {
             // Push enemy backward slightly
-            Vector2 knockbackForce = (Vector2)(enemy.transform.position - player.position);
-            enemy.Damaged(1, knockbackForce.normalized);
+            Vector2 knockbackDir = (Vector2)(enemy.transform.position - player.position).normalized;
+            enemy.Damaged(damage, knockbackDir);
         }
     }
 }
