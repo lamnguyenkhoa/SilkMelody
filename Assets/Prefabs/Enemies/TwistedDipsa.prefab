@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5304113295416871646}
   - component: {fileID: 5304113295416871644}
   m_Layer: 0
-  m_Name: EnemyTF
+  m_Name: TwistedDipsa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

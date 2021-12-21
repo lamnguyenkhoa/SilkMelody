@@ -1487,7 +1487,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3948018697234521737, guid: 17b5050de626d824fbe5295147c07027, type: 3}
       propertyPath: m_Name
-      value: Enemy1
+      value: Crawling
       objectReference: {fileID: 0}
     - target: {fileID: 3948018697234521842, guid: 17b5050de626d824fbe5295147c07027, type: 3}
       propertyPath: m_RootOrder
@@ -1533,6 +1533,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3948018697234521843, guid: 17b5050de626d824fbe5295147c07027, type: 3}
+      propertyPath: maxHp
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3948018697234521843, guid: 17b5050de626d824fbe5295147c07027, type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17b5050de626d824fbe5295147c07027, type: 3}
 --- !u!1001 &5304113296983591678
@@ -1542,6 +1550,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5304113295416871644, guid: acbbd6cb12873b94aaae7699462c9df0, type: 3}
+      propertyPath: maxHp
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304113295416871644, guid: acbbd6cb12873b94aaae7699462c9df0, type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5304113295416871649, guid: acbbd6cb12873b94aaae7699462c9df0, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1588,7 +1604,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5304113295416871650, guid: acbbd6cb12873b94aaae7699462c9df0, type: 3}
       propertyPath: m_Name
-      value: EnemyTF
+      value: TwistedDipsa
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acbbd6cb12873b94aaae7699462c9df0, type: 3}
