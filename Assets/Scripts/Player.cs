@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator anim;
+    private PlayerSoundEffect soundEffect;
     private SpriteRenderer sprite;
     public float verInput;
     public float horInput;
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         slashPos = transform.Find("SlashSpawnPos");
         sprite = GetComponent<SpriteRenderer>();
+        soundEffect = GetComponent<PlayerSoundEffect>();
     }
 
     private void Update()
@@ -94,6 +96,7 @@ public class Player : MonoBehaviour
 
     public void Damaged(int amount, Vector3 knockbackDir)
     {
+        soundEffect.PlayDamagedSound();
         playerStat.currentHp -= amount;
         playerStat.currentHp = Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
         StartCoroutine(DamagedFreezeTime(amount));
@@ -105,6 +108,7 @@ public class Player : MonoBehaviour
     private void Attack()
     {
         anim.SetTrigger("attack");
+        soundEffect.PlayAttackSound();
     }
 
     public void BeginAttackAnim()
@@ -186,7 +190,7 @@ public class Player : MonoBehaviour
     private IEnumerator DamagedFreezeTime(int damageAmount)
     {
         Time.timeScale = 0f;
-        yield return new WaitForSecondsRealtime(0.25f * damageAmount);
+        yield return new WaitForSecondsRealtime(0.35f * damageAmount);
         Time.timeScale = 1f;
     }
 

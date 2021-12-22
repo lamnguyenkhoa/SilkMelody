@@ -13,9 +13,11 @@ public class PlayerSlash : MonoBehaviour
     private float fadeSpeed = 0f;
     public float fadeSpeedAccel = 0.1f;
     private float lightOriginalIntensitiy;
+    [SerializeField] private AudioSource hitEnemySound;
+    private bool playedImpact = false;
 
     private float timer;
-    public float activeTime = 0.25f;
+    public float activeTime = 0.15f;
 
     private void Start()
     {
@@ -42,8 +44,18 @@ public class PlayerSlash : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 1f);
         }
+    }
+
+    public void PlayHitEnemySound()
+    {
+        float randomVolume = Random.Range(0.8f, 1f);
+        float randomPitch = Random.Range(0.7f, 1.3f);
+
+        hitEnemySound.volume = randomVolume;
+        hitEnemySound.pitch = randomPitch;
+        hitEnemySound.Play();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -51,10 +63,17 @@ public class PlayerSlash : MonoBehaviour
         Enemy enemy = collision.GetComponent<Enemy>();
         if (enemy)
         {
-            sparkLight.enabled = true;
+            // Play effect that only happened ONCE (if player hit enemy)
+            if (!playedImpact)
+            {
+                sparkLight.enabled = true;
+                PlayHitEnemySound();
+                playedImpact = true;
+            }
             // Push enemy backward slightly
             Vector2 knockbackDir = (Vector2)(enemy.transform.position - player.position).normalized;
             enemy.Damaged(damage, knockbackDir);
+            // Play hit/damaged effect on enemy (if there are multiple enemies within attack)
         }
     }
 }
