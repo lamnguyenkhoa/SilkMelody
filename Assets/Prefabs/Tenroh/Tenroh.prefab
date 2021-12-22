@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5268734040163008459}
   - component: {fileID: 5268734040163008456}
   - component: {fileID: 5268734040163008458}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tenroh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,6 +170,7 @@ MonoBehaviour:
   horInput: 0
   playerStat: {fileID: 11400000, guid: efb225c053021f54da0c927e53a7548d, type: 2}
   inAttack: 0
+  disableControl: 0
   slashPrefab: {fileID: 1553535645527644202, guid: 70413a68e7556fd41896fc28428e7a60, type: 3}
   state: 0
 --- !u!1 &5268734040863652193
@@ -181,8 +182,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5268734040863652192}
-  m_Layer: 0
-  m_Name: SlashPos
+  m_Layer: 7
+  m_Name: SlashSpawnPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

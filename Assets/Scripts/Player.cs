@@ -6,11 +6,13 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator anim;
+    private SpriteRenderer sprite;
     public float verInput;
     public float horInput;
     public PlayerStatSO playerStat;
     public bool inAttack;
     public bool disableControl = false;
+    public bool inIFrame = false;
 
     private Transform slashPos;
     public PlayerSlash slashPrefab;
@@ -24,7 +26,8 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        slashPos = transform.Find("SlashPos");
+        slashPos = transform.Find("SlashSpawnPos");
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -93,8 +96,10 @@ public class Player : MonoBehaviour
     {
         playerStat.currentHp -= amount;
         playerStat.currentHp = Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
-        StartCoroutine(InvincibleFrame());
-        rb.AddForce(knockbackDir * 5f, ForceMode2D.Impulse);
+        StartCoroutine(DamagedFreezeTime(amount));
+        StartCoroutine(IFrame());
+        StartCoroutine(Stunned());
+        rb.AddForce(knockbackDir * 5f + Vector3.up * 5f, ForceMode2D.Impulse);
     }
 
     private void Attack()
@@ -150,12 +155,38 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator InvincibleFrame()
+    private IEnumerator IFrame()
+    {
+        int playerLayerId = LayerMask.NameToLayer("Player");
+        int EnemyLayerId = LayerMask.NameToLayer("Enemy");
+
+        inIFrame = true;
+        Physics2D.IgnoreLayerCollision(playerLayerId, EnemyLayerId, true);
+        Color originalColor = sprite.color;
+        Color iFrameColor = sprite.color;
+        iFrameColor.a = 0.5f;
+        sprite.color = iFrameColor;
+
+        yield return new WaitForSeconds(playerStat.iFrameTime);
+
+        inIFrame = false;
+        Physics2D.IgnoreLayerCollision(playerLayerId, EnemyLayerId, false);
+        sprite.color = originalColor;
+    }
+
+    private IEnumerator Stunned()
     {
         disableControl = true;
         rb.velocity = Vector2.zero;
-        yield return new WaitForSeconds(playerStat.minIFrame);
+        yield return new WaitForSeconds(playerStat.stunTime);
         disableControl = false;
+    }
+
+    private IEnumerator DamagedFreezeTime(int damageAmount)
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(0.25f * damageAmount);
+        Time.timeScale = 1f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -164,7 +195,8 @@ public class Player : MonoBehaviour
         if (enemy)
         {
             Vector2 knockbackDir = (Vector2)(transform.position - enemy.transform.position).normalized;
-            Damaged(enemy.damage, knockbackDir);
+            if (!inIFrame)
+                Damaged(enemy.damage, knockbackDir);
         }
     }
 }

@@ -17,5 +17,5 @@ MonoBehaviour:
   damage: 1
   moveSpeed: 7
   jumpForce: 15
-  minIFrame: 0.3
-  damagedFreezeTime: 0.2
+  stunTime: 0.3
+  iFrameTime: 3

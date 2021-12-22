@@ -11,11 +11,10 @@ public class PlayerStatSO : ScriptableObject
     public float moveSpeed = 7f;
     public float jumpForce = 15f;
 
-    public float minIFrame = 0.3f;
-    public float damagedFreezeTime = 0.2f;
+    public float stunTime = 0.3f;
+    public float iFrameTime = 3f;
 
-    /** Note: If player get damaged, they will go into i-frame till they hit the ground (or 0.3f if
-     * they are already on the ground. During the i-frame period, if they attack or dash, they will
-     * cancel out of it.
+    /** Note: If player get damaged, they will be stunned for a short time and has
+     * i-frame for a long time.
      */
 }
