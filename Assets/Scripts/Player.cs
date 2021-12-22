@@ -120,6 +120,7 @@ public class Player : MonoBehaviour
         slash.player = this.transform;
         slash.transform.localPosition = Vector3.zero;
         slash.damage = playerStat.damage;
+        slash.transform.parent = null;
     }
 
     public void EndAttackAnim()

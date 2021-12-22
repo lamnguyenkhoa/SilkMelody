@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5304113295416871647}
   - component: {fileID: 5304113295416871646}
   - component: {fileID: 5304113295416871644}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TwistedDipsa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 2
   damage: 1
-  knockbackForce: 1
+  knockbackForce: 2
   knockbackAble: 1
   isInvulnerable: 0
   flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
