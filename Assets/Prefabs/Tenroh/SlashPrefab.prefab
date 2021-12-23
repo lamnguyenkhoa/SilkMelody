@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1786011909}
   - component: {fileID: 1786011910}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 6468432894482900958}
   - component: {fileID: 1553535645527644202}
   - component: {fileID: 1478593772}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SlashPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,6 +10,8 @@ public class PlayerStatSO : ScriptableObject
     public float damage = 1f;
     public float moveSpeed = 7f;
     public float jumpForce = 15f;
+    public float enemyKnockbackPower = 2f;
+    public float selfKnockbackPower = 1f;
 
     public float stunTime = 0.3f;
     public float iFrameTime = 3f;

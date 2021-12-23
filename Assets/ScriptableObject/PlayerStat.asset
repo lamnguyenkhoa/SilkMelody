@@ -17,5 +17,7 @@ MonoBehaviour:
   damage: 1
   moveSpeed: 7
   jumpForce: 15
+  enemyKnockbackPower: 5
+  selfKnockbackPower: 1
   stunTime: 0.3
   iFrameTime: 3

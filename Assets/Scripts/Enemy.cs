@@ -8,7 +8,6 @@ public class Enemy : MonoBehaviour
     public float maxHp;
     private float currentHp;
     public int damage;
-    public float knockbackForce = 1f;
     public bool knockbackAble = true;
     public bool isInvulnerable = false;
 
@@ -26,11 +25,11 @@ public class Enemy : MonoBehaviour
         originalMat = sprite.material;
     }
 
-    public void Damaged(float amount, Vector3 knockbackDir)
+    public void Damaged(float amount, Vector3 knockbackForce)
     {
         if (knockbackAble)
         {
-            Knockback(knockbackDir);
+            Knockback(knockbackForce);
         }
         if (!isInvulnerable)
         {
@@ -47,9 +46,9 @@ public class Enemy : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private void Knockback(Vector3 knockbackDir)
+    private void Knockback(Vector3 knockbackForce)
     {
-        rb.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
+        rb.AddForce(knockbackForce, ForceMode2D.Impulse);
     }
 
     private IEnumerator SpriteFlash()

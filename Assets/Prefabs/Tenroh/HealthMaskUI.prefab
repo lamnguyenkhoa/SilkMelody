@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8227380436690438656}
   - component: {fileID: 8227380436690438659}
   m_Layer: 5
-  m_Name: HealthMask
+  m_Name: HealthMaskUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

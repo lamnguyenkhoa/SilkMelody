@@ -8,6 +8,7 @@ public class PlayerSlash : MonoBehaviour
     [HideInInspector] public Transform player;
     public Light2D sparkLight;
     public float damage = 1f;
+    public float knockbackPower = 1f;
     private SpriteRenderer sprite;
     private Color fadeColor;
     private float fadeSpeed = 0f;
@@ -71,8 +72,8 @@ public class PlayerSlash : MonoBehaviour
                 playedImpact = true;
             }
             // Push enemy backward slightly
-            Vector2 knockbackDir = (Vector2)(enemy.transform.position - player.position).normalized;
-            enemy.Damaged(damage, knockbackDir);
+            Vector2 knockbackForce = (Vector2)(enemy.transform.position - player.position).normalized * knockbackPower;
+            enemy.Damaged(damage, knockbackForce);
             // Play hit/damaged effect on enemy (if there are multiple enemies within attack)
         }
     }
