@@ -48,11 +48,8 @@ public class CrawlingAI : MonoBehaviour
             stabilized = false;
             ChangeDirection();
         }
-
-        if (stabilized)
+        if (stabilized && !stat.shouldStopMoving)
             rb.velocity = Vector2.Lerp(rb.velocity, moveVelocity, 0.1f);
-        else
-            rb.velocity = Vector2.Lerp(rb.velocity, Vector2.zero, 0.1f);
     }
 
     private void ChangeDirection()

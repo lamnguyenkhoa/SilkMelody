@@ -10,6 +10,10 @@ public class Enemy : MonoBehaviour
     public int damage;
     public bool knockbackAble = true;
     public bool isInvulnerable = false;
+    public bool shouldStopMoving = false;
+
+    private Coroutine spriteFlashCoroutine;
+    private Coroutine stopMovingCoroutine;
 
     [Header("Other")]
     private SpriteRenderer sprite;
@@ -33,8 +37,9 @@ public class Enemy : MonoBehaviour
         }
         if (!isInvulnerable)
         {
-            StopAllCoroutines();
-            StartCoroutine(SpriteFlash());
+            if (spriteFlashCoroutine != null)
+                StopCoroutine(spriteFlashCoroutine);
+            spriteFlashCoroutine = StartCoroutine(SpriteFlash());
             currentHp -= amount;
             if (currentHp <= 0)
                 Death();
@@ -48,7 +53,18 @@ public class Enemy : MonoBehaviour
 
     private void Knockback(Vector3 knockbackForce)
     {
+        rb.velocity = Vector2.zero;
         rb.AddForce(knockbackForce, ForceMode2D.Impulse);
+        if (stopMovingCoroutine != null)
+            StopCoroutine(stopMovingCoroutine);
+        stopMovingCoroutine = StartCoroutine(StopMoving());
+    }
+
+    private IEnumerator StopMoving()
+    {
+        shouldStopMoving = true;
+        yield return new WaitForSeconds(0.25f);
+        shouldStopMoving = false;
     }
 
     private IEnumerator SpriteFlash()

@@ -20,4 +20,4 @@ MonoBehaviour:
   enemyKnockbackPower: 5
   selfKnockbackPower: 1
   stunTime: 0.3
-  iFrameTime: 3
+  iFrameTime: 2
