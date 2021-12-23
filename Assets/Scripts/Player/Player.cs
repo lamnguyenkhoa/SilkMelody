@@ -96,6 +96,9 @@ public class Player : MonoBehaviour
 
     public void Damaged(int amount, Vector3 knockbackDir)
     {
+        if (inIFrame) return;
+        if (amount == 0)
+            Debug.Log("This attack deal 0 damage!");
         soundEffect.PlayDamagedSound();
         playerStat.currentHp -= amount;
         playerStat.currentHp = Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
@@ -165,9 +168,12 @@ public class Player : MonoBehaviour
     {
         int playerLayerId = LayerMask.NameToLayer("Player");
         int EnemyLayerId = LayerMask.NameToLayer("Enemy");
+        int EnemyAttackLayerId = LayerMask.NameToLayer("EnemyAttack");
 
         inIFrame = true;
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyLayerId, true);
+        Physics2D.IgnoreLayerCollision(playerLayerId, EnemyAttackLayerId, true);
+
         Color originalColor = sprite.color;
         Color iFrameColor = sprite.color;
         iFrameColor.a = 0.5f;
@@ -177,6 +183,7 @@ public class Player : MonoBehaviour
 
         inIFrame = false;
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyLayerId, false);
+        Physics2D.IgnoreLayerCollision(playerLayerId, EnemyAttackLayerId, false);
         sprite.color = originalColor;
     }
 
@@ -201,8 +208,7 @@ public class Player : MonoBehaviour
         if (enemy)
         {
             Vector2 knockbackDir = (Vector2)(transform.position - enemy.transform.position).normalized;
-            if (!inIFrame)
-                Damaged(enemy.damage, knockbackDir);
+            Damaged(enemy.damage, knockbackDir);
         }
     }
 }
