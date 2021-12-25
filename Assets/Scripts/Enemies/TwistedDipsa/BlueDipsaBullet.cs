@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RedDipsaBullet : MonoBehaviour
+public class BlueDipsaBullet : MonoBehaviour
 {
     public int damage = 1;
 
@@ -18,7 +18,7 @@ public class RedDipsaBullet : MonoBehaviour
         {
             // Effect here
             player.Damaged(damage, (player.transform.position - transform.position).normalized);
-            Debug.Log("Player hit by red dipsa bullet! Slow now!");
+            Debug.Log("Player hit by blue dipsa bullet! Drain mana now!");
         }
         PlayDestroyEffect();
         Destroy(this.gameObject);
