@@ -12,7 +12,7 @@ public class CrawlingAI : MonoBehaviour
     private Vector2 moveVelocity;
     public bool nearWall = false;
     public bool nearFall = false;
-    public LayerMask playerMask;
+    public LayerMask notWallMask;
     private bool stabilized;
 
     private void Start()
@@ -29,13 +29,13 @@ public class CrawlingAI : MonoBehaviour
     private void FixedUpdate()
     {
         // Check if end of platform or hit wall (exclude player's layer)
-        RaycastHit2D groundInfo = Physics2D.Raycast(checkObstaclePos.position, Vector2.down, 1f, ~playerMask);
+        RaycastHit2D groundInfo = Physics2D.Raycast(checkObstaclePos.position, Vector2.down, 1f, ~notWallMask);
         if (groundInfo.collider)
             nearFall = false;
         else
             nearFall = true;
 
-        if (Physics2D.OverlapCircle(checkObstaclePos.position, 0.1f, ~playerMask))
+        if (Physics2D.OverlapCircle(checkObstaclePos.position, 0.1f, ~notWallMask))
             nearWall = true;
         else
             nearWall = false;

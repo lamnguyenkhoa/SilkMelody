@@ -202,6 +202,9 @@ MonoBehaviour:
   knockbackAble: 1
   isInvulnerable: 0
   shouldStopMoving: 0
+  dropLoot: {fileID: 2142000902567130090, guid: 56dbe5fb90cf17147948a203d3e34035, type: 3}
+  dropAmount: 5
+  lootPos: {fileID: 5304113295416871649}
   flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
 --- !u!114 &232690038
 MonoBehaviour:

@@ -12,14 +12,18 @@ public class Enemy : MonoBehaviour
     public bool isInvulnerable = false;
     public bool shouldStopMoving = false;
 
-    private Coroutine spriteFlashCoroutine;
-    private Coroutine stopMovingCoroutine;
+    [Header("Loot")]
+    public GameObject dropLoot;
+    public int dropAmount;
+    public Transform lootPos;
 
     [Header("Other")]
+    public Material flashMat;
     private SpriteRenderer sprite;
     private Material originalMat;
-    public Material flashMat;
     private Rigidbody2D rb;
+    private Coroutine spriteFlashCoroutine;
+    private Coroutine stopMovingCoroutine;
 
     private void Start()
     {
@@ -48,6 +52,16 @@ public class Enemy : MonoBehaviour
 
     private void Death()
     {
+        if (dropLoot)
+        {
+            for (int i = 0; i < dropAmount; i++)
+            {
+                Vector2 explodeForce = new Vector2(Random.Range(-2f, 2f), 5f);
+                GameObject spawnedLoot = Instantiate(dropLoot, lootPos.position, Quaternion.identity);
+                spawnedLoot.GetComponent<Rigidbody2D>().AddForce(explodeForce, ForceMode2D.Impulse);
+            }
+        }
+
         Destroy(this.gameObject);
     }
 
