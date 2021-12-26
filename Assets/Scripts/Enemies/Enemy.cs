@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
         {
             for (int i = 0; i < dropAmount; i++)
             {
-                Vector2 explodeForce = new Vector2(Random.Range(-2f, 2f), 5f);
+                Vector2 explodeForce = new Vector2(Random.Range(-5f, 5f), Random.Range(5f, 10f));
                 GameObject spawnedLoot = Instantiate(dropLoot, lootPos.position, Quaternion.identity);
                 spawnedLoot.GetComponent<Rigidbody2D>().AddForce(explodeForce, ForceMode2D.Impulse);
             }

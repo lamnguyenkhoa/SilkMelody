@@ -9,7 +9,7 @@ public class Loot : MonoBehaviour
     public LootEnum lootType;
     public int value;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         Player player = collision.transform.GetComponent<Player>();
         if (player)
