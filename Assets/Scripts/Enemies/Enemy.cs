@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Other")]
     public Material flashMat;
-    private SpriteRenderer sprite;
+    public SpriteRenderer sprite;
     private Material originalMat;
     private Rigidbody2D rb;
     private Coroutine spriteFlashCoroutine;
@@ -29,7 +29,6 @@ public class Enemy : MonoBehaviour
     {
         currentHp = maxHp;
         rb = GetComponent<Rigidbody2D>();
-        sprite = GetComponent<SpriteRenderer>();
         originalMat = sprite.material;
     }
 
