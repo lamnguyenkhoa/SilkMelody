@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public float horInput;
     public PlayerStatSO playerStat;
     public bool inAttack;
+    public bool isHurt;
     public bool disableControl = false;
     public bool inIFrame = false;
 
@@ -34,36 +35,36 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (disableControl) return;
-        if (inAttack) return;
-
-        verInput = Input.GetAxis("Vertical");
-        horInput = Input.GetAxis("Horizontal");
-
-        // Move left
-        if (horInput < 0)
+        if (!disableControl && !inAttack)
         {
-            Flip(true);
-        }
-        // Move right
-        else if (horInput > 0)
-        {
-            Flip(false);
-        }
-        rb.velocity = new Vector2(horInput * playerStat.moveSpeed, rb.velocity.y);
+            verInput = Input.GetAxis("Vertical");
+            horInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
-        {
-            // If on ground
-            if (Mathf.Abs(rb.velocity.y) < 0.01f)
+            // Move left
+            if (horInput < 0)
             {
-                Jump();
+                Flip(true);
             }
-        }
+            // Move right
+            else if (horInput > 0)
+            {
+                Flip(false);
+            }
+            rb.velocity = new Vector2(horInput * playerStat.moveSpeed, rb.velocity.y);
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Attack();
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
+            {
+                // If on ground
+                if (Mathf.Abs(rb.velocity.y) < 0.01f)
+                {
+                    Jump();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                Attack();
+            }
         }
 
         AnimationControl();
@@ -74,7 +75,11 @@ public class Player : MonoBehaviour
 
     private void AnimationControl()
     {
-        if (rb.velocity.y > 0.1f)
+        if (isHurt)
+        {
+            state = State.hurt;
+        }
+        else if (rb.velocity.y > 0.1f)
         {
             state = State.jumping;
         }
@@ -189,10 +194,12 @@ public class Player : MonoBehaviour
 
     private IEnumerator Stunned()
     {
+        isHurt = true;
         disableControl = true;
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(playerStat.stunTime);
         disableControl = false;
+        isHurt = false;
     }
 
     private IEnumerator DamagedFreezeTime(int damageAmount)
