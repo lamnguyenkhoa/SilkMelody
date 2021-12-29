@@ -11573,7 +11573,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.776483, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -14708,6 +14708,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5268734040163008458, guid: ba19acb34ed04654a9855dd604a9ffac, type: 3}
+      propertyPath: dashForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5268734040163008459, guid: ba19acb34ed04654a9855dd604a9ffac, type: 3}
+      propertyPath: m_LinearDrag
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5268734040163008468, guid: ba19acb34ed04654a9855dd604a9ffac, type: 3}
       propertyPath: m_Name
       value: Tenroh

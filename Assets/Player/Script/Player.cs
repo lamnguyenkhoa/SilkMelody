@@ -13,15 +13,21 @@ public class Player : MonoBehaviour
     public PlayerStatSO playerStat;
     public bool inAttack;
     public bool isHurt;
+    public bool isDashing;
+    public bool isFacingLeft;
+    private float originalGravityScale;
+
     public bool disableControl = false;
     public bool inIFrame = false;
+
+    public float dashForce = 15f;
 
     private Transform slashPos;
     public PlayerSlash slashPrefab;
 
     // FSM
     private enum State
-    { idle, running, jumping, falling, hurt }
+    { idle, running, jumping, falling, hurt, dashing }
     [SerializeField] private State state = State.idle;
 
     private void Start()
@@ -31,11 +37,12 @@ public class Player : MonoBehaviour
         slashPos = transform.Find("SlashSpawnPos");
         sprite = GetComponent<SpriteRenderer>();
         soundEffect = GetComponent<PlayerSoundEffect>();
+        originalGravityScale = rb.gravityScale;
     }
 
     private void Update()
     {
-        if (!disableControl && !inAttack)
+        if (!disableControl && !inAttack && !isDashing)
         {
             verInput = Input.GetAxis("Vertical");
             horInput = Input.GetAxis("Horizontal");
@@ -43,12 +50,14 @@ public class Player : MonoBehaviour
             // Move left
             if (horInput < 0)
             {
-                Flip(true);
+                isFacingLeft = true;
+                Flip();
             }
             // Move right
             else if (horInput > 0)
             {
-                Flip(false);
+                isFacingLeft = false;
+                Flip();
             }
             rb.velocity = new Vector2(horInput * playerStat.moveSpeed, rb.velocity.y);
 
@@ -65,6 +74,11 @@ public class Player : MonoBehaviour
             {
                 Attack();
             }
+
+            if (Input.GetKeyDown(KeyCode.Z) && !isDashing)
+            {
+                StartCoroutine(Dash());
+            }
         }
 
         AnimationControl();
@@ -78,6 +92,10 @@ public class Player : MonoBehaviour
         if (isHurt)
         {
             state = State.hurt;
+        }
+        else if (isDashing)
+        {
+            state = State.dashing;
         }
         else if (rb.velocity.y > 0.1f)
         {
@@ -107,6 +125,9 @@ public class Player : MonoBehaviour
         soundEffect.PlayDamagedSound();
         playerStat.currentHp -= amount;
         playerStat.currentHp = Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
+        rb.gravityScale = originalGravityScale;
+        isDashing = false;
+        inAttack = false;
         StartCoroutine(DamagedFreezeTime(amount));
         StartCoroutine(IFrame());
         StartCoroutine(Stunned());
@@ -149,9 +170,9 @@ public class Player : MonoBehaviour
     }
 
     // Flip the character sprite horizontally
-    private void Flip(bool facingLeft)
+    private void Flip()
     {
-        if (facingLeft)
+        if (isFacingLeft)
         {
             if (transform.localScale.x != -1)
             {
@@ -167,6 +188,21 @@ public class Player : MonoBehaviour
                 //SwitchDirectionDust();
             }
         }
+    }
+
+    private IEnumerator Dash()
+    {
+        isDashing = true;
+        rb.gravityScale = 0f;
+        rb.velocity = new Vector2(rb.velocity.x, 0f);
+        if (isFacingLeft)
+            rb.AddForce(new Vector2(-dashForce, 0f), ForceMode2D.Impulse);
+        else
+            rb.AddForce(new Vector2(dashForce, 0f), ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(0.4f);
+        isDashing = false;
+        rb.gravityScale = originalGravityScale;
     }
 
     private IEnumerator IFrame()
