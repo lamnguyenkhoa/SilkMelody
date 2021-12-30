@@ -25,12 +25,14 @@ public class RbPathfindAI : MonoBehaviour
 
     private Seeker seeker;
     private Rigidbody2D rb;
+    private Enemy stat;
 
     // Start is called before the first frame update
     private void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
+        stat = GetComponent<Enemy>();
 
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
@@ -38,6 +40,9 @@ public class RbPathfindAI : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
+        if (stat.isDead)
+            this.enabled = false;
+
         if (path == null)
             return;
 
@@ -64,11 +69,11 @@ public class RbPathfindAI : MonoBehaviour
         // Flip sprite based on target position
         if (force.x >= 0.01f) // right
         {
-            spriteHolder.localScale = new Vector3(-1, 1, 1);
+            spriteHolder.localScale = new Vector2(-1, spriteHolder.localScale.y);
         }
         else if (force.x <= -0.01f) // left
         {
-            spriteHolder.localScale = new Vector3(1, 1, 1);
+            spriteHolder.localScale = new Vector2(1, spriteHolder.localScale.y);
         }
     }
 

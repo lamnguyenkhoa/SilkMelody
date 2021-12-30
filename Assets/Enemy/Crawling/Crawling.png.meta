@@ -106,12 +106,12 @@ TextureImporter:
       name: Enemy1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 128
-        height: 128
+        x: 27
+        y: 5
+        width: 74
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -127,12 +127,12 @@ TextureImporter:
       name: Enemy1_1
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
-        width: 128
-        height: 128
+        x: 155
+        y: 4
+        width: 75
+        height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -148,12 +148,12 @@ TextureImporter:
       name: Enemy1_2
       rect:
         serializedVersion: 2
-        x: 256
-        y: 0
-        width: 128
-        height: 128
+        x: 284
+        y: 5
+        width: 71
+        height: 36
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -169,12 +169,12 @@ TextureImporter:
       name: Enemy1_3
       rect:
         serializedVersion: 2
-        x: 384
-        y: 0
-        width: 128
-        height: 128
+        x: 411
+        y: 4
+        width: 75
+        height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

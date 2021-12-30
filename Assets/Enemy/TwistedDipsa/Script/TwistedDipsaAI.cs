@@ -11,13 +11,18 @@ public class TwistedDipsaAI : MonoBehaviour
     public Transform shootPos;
     public Transform player;
     public float spreadAngle = 15f;
+    private Enemy stat;
 
     private void Start()
     {
+        stat = GetComponent<Enemy>();
     }
 
     private void Update()
     {
+        if (stat.isDead)
+            this.enabled = false;
+
         attackTimer += Time.deltaTime;
         if (attackTimer >= timeBetweenAttack)
         {

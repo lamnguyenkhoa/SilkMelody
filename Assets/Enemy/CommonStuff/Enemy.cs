@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     public bool knockbackAble = true;
     public bool isInvulnerable = false;
     public bool shouldStopMoving = false;
+    public bool isDead;
 
     [Header("Loot")]
     public GameObject dropLoot;
@@ -51,6 +52,18 @@ public class Enemy : MonoBehaviour
 
     private void Death()
     {
+        // Change collision and sprite
+        Color deathColor = sprite.color;
+        deathColor.r = 0.3f; deathColor.b = 0.3f; deathColor.g = 0.3f;
+        sprite.color = deathColor;
+        sprite.transform.localScale = new Vector3(sprite.transform.localScale.x, -1, sprite.transform.localScale.z);
+        transform.gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+        sprite.transform.GetComponent<Animator>().speed = 0f;
+        rb.gravityScale = 1;
+        rb.freezeRotation = false;
+        isDead = true;
+
+        // Loot
         if (dropLoot)
         {
             for (int i = 0; i < dropAmount; i++)
@@ -60,8 +73,6 @@ public class Enemy : MonoBehaviour
                 spawnedLoot.GetComponent<Rigidbody2D>().AddForce(explodeForce, ForceMode2D.Impulse);
             }
         }
-
-        Destroy(this.gameObject);
     }
 
     private void Knockback(Vector3 knockbackForce)
