@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: -1297004119
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 5830694933855508796, guid: ee6176dea17a9ee4d878539f4ff586de, type: 3}
+  m_Sprite: {fileID: 1723005811108047852, guid: ee6176dea17a9ee4d878539f4ff586de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -127,7 +127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1996612499}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.773, y: -0.57, z: 0}
+  m_LocalPosition: {x: -0.773, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3948018697234521842}
@@ -204,7 +204,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.017541409, y: -0.61267877}
+  m_Offset: {x: -0.013144255, y: 0.016530395}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -215,7 +215,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1930957, y: 0.6343117}
+  m_Size: {x: 1.1317244, y: 0.6584108}
   m_EdgeRadius: 0
 --- !u!114 &3948018697234521843
 MonoBehaviour:
@@ -234,6 +234,7 @@ MonoBehaviour:
   knockbackAble: 1
   isInvulnerable: 0
   shouldStopMoving: 0
+  isDead: 0
   dropLoot: {fileID: 2142000902567130090, guid: 56dbe5fb90cf17147948a203d3e34035, type: 3}
   dropAmount: 3
   lootPos: {fileID: 6250826856611061362}
@@ -283,7 +284,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8341824146641315095}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.52, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3948018697234521842}

@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     public bool isDashing;
     public bool isFacingLeft;
     private float originalGravityScale;
+    private float airTime;
+    private bool isGrounded;
 
     public bool disableControl = false;
     public bool inIFrame = false;
@@ -24,6 +26,7 @@ public class Player : MonoBehaviour
 
     private Transform slashPos;
     public PlayerSlash slashPrefab;
+    public ParticleSystem dustPE;
 
     // FSM
     private enum State
@@ -42,6 +45,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        isGrounded = Mathf.Abs(rb.velocity.y) < 0.01f;
         if (!disableControl && !inAttack && !isDashing)
         {
             verInput = Input.GetAxis("Vertical");
@@ -64,10 +68,8 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
             {
                 // If on ground
-                if (Mathf.Abs(rb.velocity.y) < 0.01f)
-                {
+                if (isGrounded)
                     Jump();
-                }
             }
 
             if (Input.GetKeyDown(KeyCode.C))
@@ -85,6 +87,18 @@ public class Player : MonoBehaviour
 
         // Prevent bug
         Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
+
+        // Landing dust
+        if (!isGrounded)
+        {
+            airTime += Time.deltaTime;
+        }
+        else
+        {
+            if (airTime > 0.2f)
+                dustPE.Play();
+            airTime = 0f;
+        }
     }
 
     private void AnimationControl()
@@ -166,7 +180,7 @@ public class Player : MonoBehaviour
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
-        // Play some dust particle when jump
+        dustPE.Play();
     }
 
     // Flip the character sprite horizontally
@@ -177,7 +191,8 @@ public class Player : MonoBehaviour
             if (transform.localScale.x != -1)
             {
                 transform.localScale = new Vector2(-1, 1);
-                //SwitchDirectionDust();
+                if (isGrounded)
+                    dustPE.Play();
             }
         }
         else
@@ -185,7 +200,8 @@ public class Player : MonoBehaviour
             if (transform.localScale.x != 1)
             {
                 transform.localScale = new Vector2(1, 1);
-                //SwitchDirectionDust();
+                if (isGrounded)
+                    dustPE.Play();
             }
         }
     }
