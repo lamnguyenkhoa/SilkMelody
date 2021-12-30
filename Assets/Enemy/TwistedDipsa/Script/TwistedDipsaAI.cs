@@ -14,6 +14,8 @@ public class TwistedDipsaAI : MonoBehaviour
     private Enemy stat;
     private bool alerted;
     private RbPathfindAI pathfindAI;
+    public float detectionRadius = 4f;
+    public LayerMask detectionMask;
 
     private void Start()
     {
@@ -43,6 +45,10 @@ public class TwistedDipsaAI : MonoBehaviour
             attackTimer = 0f;
             if (pathfindAI.enabled)
                 pathfindAI.enabled = false;
+            if (Physics2D.OverlapCircle(transform.position, detectionRadius, detectionMask))
+            {
+                alerted = true;
+            }
         }
     }
 
@@ -74,12 +80,8 @@ public class TwistedDipsaAI : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnDrawGizmosSelected()
     {
-        Player player = collision.transform.GetComponent<Player>();
-        if (player)
-        {
-            alerted = true;
-        }
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }

@@ -148,7 +148,6 @@ GameObject:
   - component: {fileID: 232690038}
   - component: {fileID: 5304113296983591680}
   - component: {fileID: 5304113296983591681}
-  - component: {fileID: 4858974259395411179}
   m_Layer: 8
   m_Name: TwistedDipsa
   m_TagString: Untagged
@@ -255,6 +254,10 @@ MonoBehaviour:
   shootPos: {fileID: 1913022051}
   player: {fileID: 0}
   spreadAngle: 30
+  detectionRadius: 4
+  detectionMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &5304113296983591680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,19 +303,3 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!58 &4858974259395411179
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5304113295416871650}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 4

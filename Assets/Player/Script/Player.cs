@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     public bool disableControl = false;
     public bool inIFrame = false;
 
+    private float attackTimer;
+    public float attackCooldown = 0.3f;
+
     public float dashForce = 15f;
 
     private Transform slashPos;
@@ -46,6 +49,10 @@ public class Player : MonoBehaviour
     private void Update()
     {
         isGrounded = Mathf.Abs(rb.velocity.y) < 0.01f;
+
+        if (!inAttack)
+            attackTimer += Time.deltaTime;
+
         if (!disableControl && !inAttack && !isDashing)
         {
             verInput = Input.GetAxis("Vertical");
@@ -72,9 +79,10 @@ public class Player : MonoBehaviour
                     Jump();
             }
 
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.C) && attackTimer > attackCooldown)
             {
                 Attack();
+                attackTimer = 0f;
             }
 
             if (Input.GetKeyDown(KeyCode.Z) && !isDashing)

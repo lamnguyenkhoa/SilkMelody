@@ -6027,6 +6027,7 @@ MonoBehaviour:
   isFacingLeft: 0
   disableControl: 0
   inIFrame: 0
+  attackCooldown: 0.15
   dashForce: 10
   slashPrefab: {fileID: 1553535645527644202, guid: 70413a68e7556fd41896fc28428e7a60, type: 3}
   dustPE: {fileID: 1660418597}
