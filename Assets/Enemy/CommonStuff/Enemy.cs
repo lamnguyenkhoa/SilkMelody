@@ -6,12 +6,13 @@ public class Enemy : MonoBehaviour
 {
     [Header("Stat")]
     public float maxHp;
-    private float currentHp;
+    [SerializeField] private float currentHp;
     public int damage;
     public bool knockbackAble = true;
     public bool isInvulnerable = false;
     public bool shouldStopMoving = false;
     public bool isDead;
+    public float iFrame = 0.1f;
 
     [Header("Loot")]
     public GameObject dropLoot;
@@ -41,6 +42,7 @@ public class Enemy : MonoBehaviour
         }
         if (!isInvulnerable)
         {
+            StartCoroutine(InvincibleFrame());
             if (spriteFlashCoroutine != null)
                 StopCoroutine(spriteFlashCoroutine);
             spriteFlashCoroutine = StartCoroutine(SpriteFlash());
@@ -60,6 +62,7 @@ public class Enemy : MonoBehaviour
         transform.gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
         sprite.transform.GetComponent<Animator>().speed = 0f;
         rb.gravityScale = 1;
+        rb.drag = 1;
         rb.freezeRotation = false;
         isDead = true;
 
@@ -73,6 +76,8 @@ public class Enemy : MonoBehaviour
                 spawnedLoot.GetComponent<Rigidbody2D>().AddForce(explodeForce, ForceMode2D.Impulse);
             }
         }
+
+        this.enabled = false;
     }
 
     private void Knockback(Vector3 knockbackForce)
@@ -96,5 +101,12 @@ public class Enemy : MonoBehaviour
         sprite.material = flashMat;
         yield return new WaitForSeconds(0.15f);
         sprite.material = originalMat;
+    }
+
+    private IEnumerator InvincibleFrame()
+    {
+        isInvulnerable = true;
+        yield return new WaitForSeconds(iFrame);
+        isInvulnerable = false;
     }
 }

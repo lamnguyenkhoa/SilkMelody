@@ -12,10 +12,13 @@ public class TwistedDipsaAI : MonoBehaviour
     public Transform player;
     public float spreadAngle = 15f;
     private Enemy stat;
+    private bool alerted;
+    private RbPathfindAI pathfindAI;
 
     private void Start()
     {
         stat = GetComponent<Enemy>();
+        pathfindAI = GetComponent<RbPathfindAI>();
     }
 
     private void Update()
@@ -23,11 +26,23 @@ public class TwistedDipsaAI : MonoBehaviour
         if (stat.isDead)
             this.enabled = false;
 
-        attackTimer += Time.deltaTime;
-        if (attackTimer >= timeBetweenAttack)
+        if (alerted)
         {
-            Attack();
+            if (!pathfindAI.enabled)
+                pathfindAI.enabled = true;
+
+            attackTimer += Time.deltaTime;
+            if (attackTimer >= timeBetweenAttack)
+            {
+                Attack();
+                attackTimer = 0f;
+            }
+        }
+        else
+        {
             attackTimer = 0f;
+            if (pathfindAI.enabled)
+                pathfindAI.enabled = false;
         }
     }
 
@@ -56,6 +71,15 @@ public class TwistedDipsaAI : MonoBehaviour
             tmp = bulletPrefabs[random];
             bulletPrefabs[random] = bulletPrefabs[i];
             bulletPrefabs[i] = tmp;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Player player = collision.transform.GetComponent<Player>();
+        if (player)
+        {
+            alerted = true;
         }
     }
 }
