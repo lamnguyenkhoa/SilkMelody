@@ -89,7 +89,7 @@ public class Enemy : MonoBehaviour
         stopMovingCoroutine = StartCoroutine(StopMoving());
     }
 
-    private IEnumerator StopMoving()
+    public IEnumerator StopMoving()
     {
         shouldStopMoving = true;
         yield return new WaitForSeconds(0.25f);

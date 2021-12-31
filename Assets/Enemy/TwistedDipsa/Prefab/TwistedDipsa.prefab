@@ -254,7 +254,7 @@ MonoBehaviour:
   shootPos: {fileID: 1913022051}
   player: {fileID: 0}
   spreadAngle: 30
-  detectionRadius: 4
+  detectionRadius: 6
   detectionMask:
     serializedVersion: 2
     m_Bits: 128

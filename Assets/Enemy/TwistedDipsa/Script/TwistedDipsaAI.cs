@@ -33,11 +33,19 @@ public class TwistedDipsaAI : MonoBehaviour
             if (!pathfindAI.enabled)
                 pathfindAI.enabled = true;
 
+            if (Vector2.Distance(transform.position, player.position) <= detectionRadius)
+                stat.shouldStopMoving = true;
+            else
+                stat.shouldStopMoving = false;
+
             attackTimer += Time.deltaTime;
             if (attackTimer >= timeBetweenAttack)
             {
-                Attack();
-                attackTimer = 0f;
+                if (Vector2.Distance(transform.position, player.position) <= detectionRadius)
+                {
+                    Attack();
+                    attackTimer = 0f;
+                }
             }
         }
         else
@@ -54,6 +62,7 @@ public class TwistedDipsaAI : MonoBehaviour
 
     private void Attack()
     {
+        StartCoroutine(stat.StopMoving());
         ShuffleBulletArray();
         Vector2 playerDirection = (player.position - transform.position).normalized;
         Vector2 spreadDirection1 = Quaternion.Euler(0, 0, spreadAngle) * playerDirection;
