@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public bool isHurt;
     public bool isDashing;
     public bool isFacingLeft;
+    public bool isJumping;
     private float originalGravityScale;
     private float airTime;
     private bool isGrounded;
@@ -23,13 +24,15 @@ public class Player : MonoBehaviour
     public bool inIFrame = false;
 
     private float attackTimer;
-    public float attackCooldown = 0.3f;
-
-    public float dashForce = 15f;
 
     private Transform slashPos;
     public PlayerSlash slashPrefab;
     public ParticleSystem dustPE;
+
+    private bool pressedJump;
+    private bool releasedJump;
+    public float jumpTimer;
+    public float maxJumpTime = 0.5f;
 
     // FSM
     private enum State
@@ -72,14 +75,32 @@ public class Player : MonoBehaviour
             }
             rb.velocity = new Vector2(horInput * playerStat.moveSpeed, rb.velocity.y);
 
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.X) && isGrounded)
             {
-                // If on ground
-                if (isGrounded)
-                    Jump();
+                pressedJump = true;
+                jumpTimer = maxJumpTime;
+                isJumping = true;
+                rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
+                dustPE.Play();
+            }
+            if (Input.GetKey(KeyCode.X) && isJumping)
+            {
+                if (jumpTimer > 0)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
+                    jumpTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    isJumping = false;
+                }
+            }
+            if (Input.GetKeyUp(KeyCode.X))
+            {
+                isJumping = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.C) && attackTimer > attackCooldown)
+            if (Input.GetKeyDown(KeyCode.C) && attackTimer > playerStat.attackCooldown)
             {
                 Attack();
                 attackTimer = 0f;
@@ -167,6 +188,11 @@ public class Player : MonoBehaviour
         inAttack = true;
     }
 
+    public void EndAttackAnim()
+    {
+        inAttack = false;
+    }
+
     public void AttackDealDamage()
     {
         PlayerSlash slash = Instantiate(slashPrefab, slashPos);
@@ -174,17 +200,6 @@ public class Player : MonoBehaviour
         slash.transform.localPosition = Vector3.zero;
         slash.damage = playerStat.damage;
         slash.knockbackPower = playerStat.enemyKnockbackPower;
-    }
-
-    public void EndAttackAnim()
-    {
-        inAttack = false;
-    }
-
-    private void Jump()
-    {
-        rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
-        dustPE.Play();
     }
 
     // Flip the character sprite horizontally
@@ -216,9 +231,9 @@ public class Player : MonoBehaviour
         rb.gravityScale = 0f;
         rb.velocity = new Vector2(rb.velocity.x, 0f);
         if (isFacingLeft)
-            rb.AddForce(new Vector2(-dashForce, 0f), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(-playerStat.dashForce, 0f), ForceMode2D.Impulse);
         else
-            rb.AddForce(new Vector2(dashForce, 0f), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(playerStat.dashForce, 0f), ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(0.4f);
         isDashing = false;

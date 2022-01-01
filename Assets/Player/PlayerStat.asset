@@ -16,9 +16,11 @@ MonoBehaviour:
   currentHp: 5
   damage: 1
   moveSpeed: 7
-  jumpForce: 15
+  jumpForce: 8
+  dashForce: 10
   enemyKnockbackPower: 5
   selfKnockbackPower: 1
+  attackCooldown: 0.15
   copperShard: 0
   scaleShard: 0
   stunTime: 0.3
