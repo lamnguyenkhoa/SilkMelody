@@ -4,122 +4,80 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region Variables
+
+    /* Components */
     private Rigidbody2D rb;
-    private Animator anim;
+    public Animator anim;
     private PlayerSoundEffect soundEffect;
-    private SpriteRenderer sprite;
-    public float verInput;
-    public float horInput;
+    public SpriteRenderer sprite;
+    public PlayerSlash slashPrefab;
+    private Transform slashPos;
+    public ParticleSystem dustPE;
+    public Transform groundCheck;
+    public Collider2D hurtBox;
     public PlayerStatSO playerStat;
+
+    /* Movement */
+    private float verInput;
+    private float horInput;
+    public int dashCount;
+    public float jumpTimer;
+    public float maxJumpTime = 0.5f;
+    private float originalGravityScale;
+    private float airTime;
+    public bool isGrounded;
+    public LayerMask groundLayer;
+    private Vector3 groundBox;
+
+    /* Combat */
+    public bool disableControl = false;
+    public bool inIFrame = false;
+    private float attackTimer;
+
     public bool inAttack;
     public bool isHurt;
     public bool isDashing;
     public bool isFacingLeft;
     public bool isJumping;
-    private float originalGravityScale;
-    private float airTime;
-    public bool isGrounded;
-    public int dashCount;
-    public LayerMask groundLayer;
 
-    public bool disableControl = false;
-    public bool inIFrame = false;
-
-    private float attackTimer;
-
-    private Transform slashPos;
-    public PlayerSlash slashPrefab;
-    public ParticleSystem dustPE;
-    public Transform groundCheck;
-    public Collider2D hurtBox;
-    private Vector3 groundBox;
-
-    public float jumpTimer;
-    public float maxJumpTime = 0.5f;
-
-    // FSM
+    /* Finite State Machine */
     private enum State
     { idle, running, jumping, falling, hurt, dashing }
     [SerializeField] private State state = State.idle;
 
+    #endregion Variables
+
+    #region Unity Callbacks
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
         slashPos = transform.Find("SlashSpawnPos");
-        sprite = GetComponent<SpriteRenderer>();
         soundEffect = GetComponent<PlayerSoundEffect>();
         originalGravityScale = rb.gravityScale;
         dashCount = playerStat.maxDashCount;
         groundBox = hurtBox.bounds.size;
+        groundBox.x -= 0.05f;
         groundBox.y = 0.1f;
     }
 
     private void Update()
     {
-        //isGrounded = Mathf.Abs(rb.velocity.y) < 0.01f;
-        if (Physics2D.OverlapBox(groundCheck.position, groundBox, 0f, groundLayer))
-            isGrounded = true;
-        else
-            isGrounded = false;
+        CheckGrounded();
 
         if (!inAttack)
             attackTimer += Time.deltaTime;
 
         if (!disableControl && !isDashing)
         {
-            verInput = Input.GetAxis("Vertical");
-            horInput = Input.GetAxis("Horizontal");
+            HandleMovement();
 
-            // Move left
-            if (horInput < 0 && !inAttack)
-            {
-                isFacingLeft = true;
-                Flip();
-            }
-            // Move right
-            else if (horInput > 0 && !inAttack)
-            {
-                isFacingLeft = false;
-                Flip();
-            }
-            rb.velocity = new Vector2(horInput * playerStat.moveSpeed, rb.velocity.y);
+            HandleJump();
 
-            if (Input.GetKeyDown(KeyCode.X) && isGrounded)
-            {
-                jumpTimer = maxJumpTime;
-                isJumping = true;
-                rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
-                dustPE.Play();
-            }
-            if (Input.GetKey(KeyCode.X) && isJumping)
-            {
-                if (jumpTimer > 0)
-                {
-                    rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
-                    jumpTimer -= Time.deltaTime;
-                }
-                else
-                {
-                    isJumping = false;
-                }
-            }
-            if (Input.GetKeyUp(KeyCode.X))
-            {
-                isJumping = false;
-            }
+            HandleAttack();
 
-            if (Input.GetKeyDown(KeyCode.C) && attackTimer > playerStat.attackCooldown)
-            {
-                Attack();
-                attackTimer = 0f;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Z) && !isDashing && dashCount > 0)
-            {
-                dashCount--;
-                StartCoroutine(Dash());
-            }
+            HandleDash();
         }
 
         AnimationControl();
@@ -127,7 +85,103 @@ public class Player : MonoBehaviour
         // Prevent bug
         Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
 
-        // Landing dust
+        LandingDust();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Enemy enemy = collision.transform.GetComponent<Enemy>();
+        if (enemy)
+        {
+            Vector2 knockbackDir = (Vector2)(transform.position - enemy.transform.position).normalized;
+            Damaged(enemy.damage, knockbackDir);
+        }
+    }
+
+    #endregion Unity Callbacks
+
+    #region Main Functions
+
+    private void CheckGrounded()
+    {
+        if (Physics2D.OverlapBox(groundCheck.position, groundBox, 0f, groundLayer))
+            isGrounded = true;
+        else
+            isGrounded = false;
+    }
+
+    private void HandleMovement()
+    {
+        verInput = Input.GetAxis("Vertical");
+        horInput = Input.GetAxis("Horizontal");
+
+        // Move left
+        if (horInput < 0 && !inAttack)
+        {
+            isFacingLeft = true;
+            Flip();
+        }
+        // Move right
+        else if (horInput > 0 && !inAttack)
+        {
+            isFacingLeft = false;
+            Flip();
+        }
+        rb.velocity = new Vector2(horInput * playerStat.moveSpeed, rb.velocity.y);
+    }
+
+    private void HandleJump()
+    {
+        if (Input.GetKeyDown(KeyCode.X) && isGrounded)
+        {
+            jumpTimer = maxJumpTime;
+            isJumping = true;
+            rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
+            dustPE.Play();
+        }
+        if (Input.GetKey(KeyCode.X) && isJumping)
+        {
+            if (jumpTimer > 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
+                jumpTimer -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.X))
+        {
+            isJumping = false;
+        }
+    }
+
+    private void HandleDash()
+    {
+        if (Input.GetKeyDown(KeyCode.Z) && !isDashing && dashCount > 0)
+        {
+            dashCount--;
+            StartCoroutine(Dash());
+        }
+    }
+
+    private void HandleAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.C) && attackTimer > playerStat.attackCooldown)
+        {
+            anim.SetTrigger("attack");
+            soundEffect.PlayAttackSound();
+            attackTimer = 0f;
+        }
+    }
+
+    /// <summary>
+    /// Create dust particle when player land on the ground after falling
+    /// from a sufficient height.
+    /// </summary>
+    private void LandingDust()
+    {
         if (!isGrounded)
         {
             airTime += Time.deltaTime;
@@ -188,32 +242,10 @@ public class Player : MonoBehaviour
         rb.AddForce(knockbackDir * 5f + Vector3.up * 5f, ForceMode2D.Impulse);
     }
 
-    private void Attack()
-    {
-        anim.SetTrigger("attack");
-        soundEffect.PlayAttackSound();
-    }
+    #endregion Main Functions
 
-    public void BeginAttackAnim()
-    {
-        inAttack = true;
-    }
+    #region Sub Functions
 
-    public void EndAttackAnim()
-    {
-        inAttack = false;
-    }
-
-    public void AttackDealDamage()
-    {
-        PlayerSlash slash = Instantiate(slashPrefab, slashPos);
-        slash.player = this.transform;
-        slash.transform.localPosition = Vector3.zero;
-        slash.damage = playerStat.damage;
-        slash.knockbackPower = playerStat.enemyKnockbackPower;
-    }
-
-    // Flip the character sprite horizontally
     private void Flip()
     {
         if (isFacingLeft)
@@ -235,6 +267,33 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    #endregion Sub Functions
+
+    #region Animation Events
+
+    public void BeginAttackAnim()
+    {
+        inAttack = true;
+    }
+
+    public void EndAttackAnim()
+    {
+        inAttack = false;
+    }
+
+    public void AttackDealDamage()
+    {
+        PlayerSlash slash = Instantiate(slashPrefab, slashPos);
+        slash.player = this.transform;
+        slash.transform.localPosition = Vector3.zero;
+        slash.damage = playerStat.damage;
+        slash.knockbackPower = playerStat.enemyKnockbackPower;
+    }
+
+    #endregion Animation Events
+
+    #region Coroutines
 
     private IEnumerator Dash()
     {
@@ -291,18 +350,14 @@ public class Player : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Enemy enemy = collision.transform.GetComponent<Enemy>();
-        if (enemy)
-        {
-            Vector2 knockbackDir = (Vector2)(transform.position - enemy.transform.position).normalized;
-            Damaged(enemy.damage, knockbackDir);
-        }
-    }
+    #endregion Coroutines
+
+    #region Misc
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireCube(groundCheck.position, groundBox);
     }
+
+    #endregion Misc
 }
