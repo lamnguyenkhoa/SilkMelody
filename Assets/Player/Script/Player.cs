@@ -18,7 +18,9 @@ public class Player : MonoBehaviour
     public bool isJumping;
     private float originalGravityScale;
     private float airTime;
-    private bool isGrounded;
+    public bool isGrounded;
+    public int dashCount;
+    public LayerMask groundLayer;
 
     public bool disableControl = false;
     public bool inIFrame = false;
@@ -28,9 +30,10 @@ public class Player : MonoBehaviour
     private Transform slashPos;
     public PlayerSlash slashPrefab;
     public ParticleSystem dustPE;
+    public Transform groundCheck;
+    public Collider2D hurtBox;
+    private Vector3 groundBox;
 
-    private bool pressedJump;
-    private bool releasedJump;
     public float jumpTimer;
     public float maxJumpTime = 0.5f;
 
@@ -47,11 +50,18 @@ public class Player : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         soundEffect = GetComponent<PlayerSoundEffect>();
         originalGravityScale = rb.gravityScale;
+        dashCount = playerStat.maxDashCount;
+        groundBox = hurtBox.bounds.size;
+        groundBox.y = 0.1f;
     }
 
     private void Update()
     {
-        isGrounded = Mathf.Abs(rb.velocity.y) < 0.01f;
+        //isGrounded = Mathf.Abs(rb.velocity.y) < 0.01f;
+        if (Physics2D.OverlapBox(groundCheck.position, groundBox, 0f, groundLayer))
+            isGrounded = true;
+        else
+            isGrounded = false;
 
         if (!inAttack)
             attackTimer += Time.deltaTime;
@@ -77,7 +87,6 @@ public class Player : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.X) && isGrounded)
             {
-                pressedJump = true;
                 jumpTimer = maxJumpTime;
                 isJumping = true;
                 rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
@@ -106,8 +115,9 @@ public class Player : MonoBehaviour
                 attackTimer = 0f;
             }
 
-            if (Input.GetKeyDown(KeyCode.Z) && !isDashing)
+            if (Input.GetKeyDown(KeyCode.Z) && !isDashing && dashCount > 0)
             {
+                dashCount--;
                 StartCoroutine(Dash());
             }
         }
@@ -127,6 +137,7 @@ public class Player : MonoBehaviour
             if (airTime > 0.2f)
                 dustPE.Play();
             airTime = 0f;
+            dashCount = playerStat.maxDashCount;
         }
     }
 
@@ -229,13 +240,13 @@ public class Player : MonoBehaviour
     {
         isDashing = true;
         rb.gravityScale = 0f;
-        rb.velocity = new Vector2(rb.velocity.x, 0f);
+        rb.velocity = Vector2.zero;
         if (isFacingLeft)
             rb.AddForce(new Vector2(-playerStat.dashForce, 0f), ForceMode2D.Impulse);
         else
             rb.AddForce(new Vector2(playerStat.dashForce, 0f), ForceMode2D.Impulse);
 
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(playerStat.dashTime);
         isDashing = false;
         rb.gravityScale = originalGravityScale;
     }
@@ -288,5 +299,10 @@ public class Player : MonoBehaviour
             Vector2 knockbackDir = (Vector2)(transform.position - enemy.transform.position).normalized;
             Damaged(enemy.damage, knockbackDir);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireCube(groundCheck.position, groundBox);
     }
 }

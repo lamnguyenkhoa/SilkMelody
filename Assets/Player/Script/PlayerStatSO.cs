@@ -11,7 +11,9 @@ public class PlayerStatSO : ScriptableObject
     public float damage = 1f;
     public float moveSpeed = 7f;
     public float jumpForce = 15f;
-    public float dashForce = 10f;
+    public float dashForce = 15f;
+    public int maxDashCount = 1;
+    public float dashTime = 0.35f;
     public float enemyKnockbackPower = 2f;
     public float selfKnockbackPower = 1f;
     public float attackCooldown = 0.15f;
