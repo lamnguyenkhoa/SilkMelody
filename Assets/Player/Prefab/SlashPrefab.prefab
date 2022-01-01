@@ -718,7 +718,8 @@ MonoBehaviour:
   player: {fileID: 0}
   sparkLight: {fileID: 1786011910}
   damage: 1
-  fadeSpeedAccel: 20
+  knockbackPower: 1
+  fadeSpeedAccel: 100
   hitEnemySound: {fileID: 1478593772}
   activeTime: 0.1
 --- !u!82 &1478593772

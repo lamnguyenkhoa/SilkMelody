@@ -53,19 +53,19 @@ public class Player : MonoBehaviour
         if (!inAttack)
             attackTimer += Time.deltaTime;
 
-        if (!disableControl && !inAttack && !isDashing)
+        if (!disableControl && !isDashing)
         {
             verInput = Input.GetAxis("Vertical");
             horInput = Input.GetAxis("Horizontal");
 
             // Move left
-            if (horInput < 0)
+            if (horInput < 0 && !inAttack)
             {
                 isFacingLeft = true;
                 Flip();
             }
             // Move right
-            else if (horInput > 0)
+            else if (horInput > 0 && !inAttack)
             {
                 isFacingLeft = false;
                 Flip();
@@ -165,8 +165,6 @@ public class Player : MonoBehaviour
     public void BeginAttackAnim()
     {
         inAttack = true;
-        rb.velocity = Vector2.zero;
-        rb.gravityScale = 0f;
     }
 
     public void AttackDealDamage()
@@ -176,13 +174,11 @@ public class Player : MonoBehaviour
         slash.transform.localPosition = Vector3.zero;
         slash.damage = playerStat.damage;
         slash.knockbackPower = playerStat.enemyKnockbackPower;
-        slash.transform.parent = null;
     }
 
     public void EndAttackAnim()
     {
         inAttack = false;
-        rb.gravityScale = 3f;
     }
 
     private void Jump()
