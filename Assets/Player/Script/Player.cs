@@ -40,6 +40,10 @@ public class Player : MonoBehaviour
     public bool inIFrame = false;
     private float attackTimer;
 
+    [Header("Status Effects")]
+    [SerializeField] private bool isParalyzed;
+    [SerializeField] private bool isSlowed;
+
     [Header("DebugWatch")]
     [SerializeField] private bool inAttack;
     [SerializeField] private bool isHurt;
@@ -48,10 +52,12 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isJumping;
     [SerializeField] private bool isLedgeGrabbing;
 
-    [Header("FSM")]
+    [Header("Misc")]
     [SerializeField] private State state = State.idle;
     private enum State
     { idle, running, jumping, falling, hurt, dashing, ledgeGrabbing }
+    public enum StatusEffect
+    { paralyzed, slowed };
 
     #endregion Variables
 
@@ -76,7 +82,7 @@ public class Player : MonoBehaviour
         if (!inAttack)
             attackTimer += Time.deltaTime;
 
-        if (!disableControl && !isDashing)
+        if (!disableControl && !isDashing && !isParalyzed)
         {
             HandleMovement();
 
@@ -136,7 +142,12 @@ public class Player : MonoBehaviour
             isFacingLeft = false;
             Flip();
         }
-        rb.velocity = new Vector2(horInput * playerStat.moveSpeed, rb.velocity.y);
+        float speedModifier;
+        if (!isSlowed)
+            speedModifier = 1;
+        else
+            speedModifier = 0.5f;
+        rb.velocity = new Vector2(horInput * playerStat.moveSpeed * speedModifier, rb.velocity.y);
     }
 
     private void HandleJump()
@@ -190,6 +201,9 @@ public class Player : MonoBehaviour
 
     private void HandleLedgeGrab()
     {
+        if (isDashing)
+            return;
+
         greenBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (greenOffset.x * transform.localScale.x), transform.position.y + greenOffset.y),
             new Vector2(greenSize.x, greenSize.y), 0f, groundMask);
         redBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (redOffset.x * transform.localScale.x), transform.position.y + redOffset.y),
@@ -204,6 +218,7 @@ public class Player : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
             rb.gravityScale = 0f;
+            dashCount = playerStat.maxDashCount;
         }
         else
         {
@@ -307,6 +322,20 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void InflictedStatusEffect(StatusEffect status)
+    {
+        switch (status)
+        {
+            case StatusEffect.paralyzed:
+                StartCoroutine(GotParalyzed());
+                break;
+
+            case StatusEffect.slowed:
+                StartCoroutine(GotSlowed());
+                break;
+        }
+    }
+
     #endregion Sub Functions
 
     #region Animation Events
@@ -375,11 +404,27 @@ public class Player : MonoBehaviour
     private IEnumerator Stunned()
     {
         isHurt = true;
+        isParalyzed = false;
         disableControl = true;
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(playerStat.stunTime);
         disableControl = false;
         isHurt = false;
+    }
+
+    private IEnumerator GotParalyzed()
+    {
+        rb.velocity = Vector2.zero;
+        isParalyzed = true;
+        yield return new WaitForSeconds(1f);
+        isParalyzed = false;
+    }
+
+    private IEnumerator GotSlowed()
+    {
+        isSlowed = true;
+        yield return new WaitForSeconds(2f);
+        isSlowed = false;
     }
 
     private IEnumerator DamagedFreezeTime(int damageAmount)

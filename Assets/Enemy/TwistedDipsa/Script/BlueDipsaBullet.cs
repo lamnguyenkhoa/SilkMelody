@@ -18,7 +18,7 @@ public class BlueDipsaBullet : MonoBehaviour
         {
             // Effect here
             player.Damaged(damage, (player.transform.position - transform.position).normalized);
-            Debug.Log("Player hit by blue dipsa bullet! Drain mana now!");
+            Debug.Log("Player hit by blue dipsa bullet! Drained mana!");
         }
         PlayDestroyEffect();
         Destroy(this.gameObject);

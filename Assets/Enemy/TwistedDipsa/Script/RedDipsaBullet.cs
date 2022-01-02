@@ -18,6 +18,7 @@ public class RedDipsaBullet : MonoBehaviour
         {
             // Effect here
             player.Damaged(damage, (player.transform.position - transform.position).normalized);
+            player.InflictedStatusEffect(Player.StatusEffect.slowed);
             Debug.Log("Player hit by red dipsa bullet! Slow now!");
         }
         PlayDestroyEffect();

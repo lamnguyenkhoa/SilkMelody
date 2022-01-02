@@ -18,6 +18,7 @@ public class YellowDipsaBullet : MonoBehaviour
         {
             // Effect here
             player.Damaged(damage, (player.transform.position - transform.position).normalized);
+            player.InflictedStatusEffect(Player.StatusEffect.paralyzed);
             Debug.Log("Player hit by yellow dipsa bullet! Stun now!");
         }
         PlayDestroyEffect();
