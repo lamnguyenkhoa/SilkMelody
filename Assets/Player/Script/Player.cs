@@ -6,9 +6,9 @@ public class Player : MonoBehaviour
 {
     #region Variables
 
-    /* Components */
-    private Rigidbody2D rb;
+    [Header("Components")]
     public Animator anim;
+    private Rigidbody2D rb;
     private PlayerSoundEffect soundEffect;
     public SpriteRenderer sprite;
     public PlayerSlash slashPrefab;
@@ -18,33 +18,40 @@ public class Player : MonoBehaviour
     public Collider2D hurtBox;
     public PlayerStatSO playerStat;
 
-    /* Movement */
+    [Header("Movement")]
+    [SerializeField] private int dashCount;
     private float verInput;
     private float horInput;
-    public int dashCount;
-    public float jumpTimer;
+    private float jumpTimer;
     public float maxJumpTime = 0.5f;
     private float originalGravityScale;
     private float airTime;
-    public bool isGrounded;
-    public LayerMask groundLayer;
+    [SerializeField] private bool isGrounded;
+    public LayerMask groundMask;
     private Vector3 groundBox;
 
-    /* Combat */
+    [Header("LedgeGrab")]
+    public bool canLedgeGrab = true;
+    [SerializeField] private Vector2 redOffset, redSize, greenOffset, greenSize;
+    private bool redBox, greenBox;
+
+    [Header("Combat")]
     public bool disableControl = false;
     public bool inIFrame = false;
     private float attackTimer;
 
-    public bool inAttack;
-    public bool isHurt;
-    public bool isDashing;
-    public bool isFacingLeft;
-    public bool isJumping;
+    [Header("DebugWatch")]
+    [SerializeField] private bool inAttack;
+    [SerializeField] private bool isHurt;
+    [SerializeField] private bool isDashing;
+    [SerializeField] private bool isFacingLeft;
+    [SerializeField] private bool isJumping;
+    [SerializeField] private bool isLedgeGrabbing;
 
-    /* Finite State Machine */
-    private enum State
-    { idle, running, jumping, falling, hurt, dashing }
+    [Header("FSM")]
     [SerializeField] private State state = State.idle;
+    private enum State
+    { idle, running, jumping, falling, hurt, dashing, ledgeGrabbing }
 
     #endregion Variables
 
@@ -78,6 +85,8 @@ public class Player : MonoBehaviour
             HandleAttack();
 
             HandleDash();
+
+            HandleLedgeGrab();
         }
 
         AnimationControl();
@@ -104,7 +113,7 @@ public class Player : MonoBehaviour
 
     private void CheckGrounded()
     {
-        if (Physics2D.OverlapBox(groundCheck.position, groundBox, 0f, groundLayer))
+        if (Physics2D.OverlapBox(groundCheck.position, groundBox, 0f, groundMask))
             isGrounded = true;
         else
             isGrounded = false;
@@ -132,12 +141,15 @@ public class Player : MonoBehaviour
 
     private void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.X) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.X))
         {
-            jumpTimer = maxJumpTime;
-            isJumping = true;
-            rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
-            dustPE.Play();
+            if (isGrounded || isLedgeGrabbing)
+            {
+                jumpTimer = maxJumpTime;
+                isJumping = true;
+                rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
+                dustPE.Play();
+            }
         }
         if (Input.GetKey(KeyCode.X) && isJumping)
         {
@@ -173,6 +185,29 @@ public class Player : MonoBehaviour
             anim.SetTrigger("attack");
             soundEffect.PlayAttackSound();
             attackTimer = 0f;
+        }
+    }
+
+    private void HandleLedgeGrab()
+    {
+        greenBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (greenOffset.x * transform.localScale.x), transform.position.y + greenOffset.y),
+            new Vector2(greenSize.x, greenSize.y), 0f, groundMask);
+        redBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (redOffset.x * transform.localScale.x), transform.position.y + redOffset.y),
+            new Vector2(redSize.x, redSize.y), 0f, groundMask);
+
+        if (greenBox && !redBox && !isJumping && !isGrounded)
+            isLedgeGrabbing = true;
+        else
+            isLedgeGrabbing = false;
+
+        if (isLedgeGrabbing)
+        {
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = 0f;
+        }
+        else
+        {
+            rb.gravityScale = originalGravityScale;
         }
     }
 
@@ -216,6 +251,10 @@ public class Player : MonoBehaviour
         else if (Mathf.Abs(rb.velocity.x) > 0.1f)
         {
             state = State.running;
+        }
+        else if (isLedgeGrabbing)
+        {
+            state = State.ledgeGrabbing;
         }
         else
         {
@@ -357,6 +396,12 @@ public class Player : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireCube(groundCheck.position, groundBox);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(new Vector2(transform.position.x + (greenOffset.x * transform.localScale.x), transform.position.y + greenOffset.y),
+            new Vector2(greenSize.x, greenSize.y));
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(new Vector2(transform.position.x + (redOffset.x * transform.localScale.x), transform.position.y + redOffset.y),
+            new Vector2(redSize.x, redSize.y));
     }
 
     #endregion Misc

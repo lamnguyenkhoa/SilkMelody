@@ -6101,12 +6101,16 @@ MonoBehaviour:
   hurtBox: {fileID: 5268734040163008456}
   playerStat: {fileID: 11400000, guid: efb225c053021f54da0c927e53a7548d, type: 2}
   dashCount: 0
-  jumpTimer: 0
   maxJumpTime: 0.4
   isGrounded: 0
-  groundLayer:
+  groundMask:
     serializedVersion: 2
     m_Bits: 64
+  canLedgeGrab: 1
+  redOffset: {x: 0.5, y: 0.5}
+  redSize: {x: 0.2, y: 0.1}
+  greenOffset: {x: 0.5, y: 0}
+  greenSize: {x: 0.2, y: 0.1}
   disableControl: 0
   inIFrame: 0
   inAttack: 0
@@ -6114,6 +6118,7 @@ MonoBehaviour:
   isDashing: 0
   isFacingLeft: 0
   isJumping: 0
+  isLedgeGrabbing: 0
   state: 0
 --- !u!114 &1179739879
 MonoBehaviour:
