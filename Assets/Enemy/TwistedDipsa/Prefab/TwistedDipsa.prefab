@@ -255,7 +255,7 @@ MonoBehaviour:
   player: {fileID: 0}
   spreadAngle: 30
   detectionRadius: 6
-  detectionMask:
+  playerMask:
     serializedVersion: 2
     m_Bits: 128
 --- !u!114 &5304113296983591680

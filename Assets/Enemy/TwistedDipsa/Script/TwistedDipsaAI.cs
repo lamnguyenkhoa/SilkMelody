@@ -15,7 +15,7 @@ public class TwistedDipsaAI : MonoBehaviour
     private bool alerted;
     private RbPathfindAI pathfindAI;
     public float detectionRadius = 4f;
-    public LayerMask detectionMask;
+    public LayerMask playerMask;
 
     private void Start()
     {
@@ -53,7 +53,7 @@ public class TwistedDipsaAI : MonoBehaviour
             attackTimer = 0f;
             if (pathfindAI.enabled)
                 pathfindAI.enabled = false;
-            if (Physics2D.OverlapCircle(transform.position, detectionRadius, detectionMask))
+            if (Physics2D.OverlapCircle(transform.position, detectionRadius, playerMask))
             {
                 alerted = true;
             }
