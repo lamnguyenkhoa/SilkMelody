@@ -183,6 +183,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z) && !isDashing && dashCount > 0)
         {
             dashCount--;
+            dustPE.Play();
             StartCoroutine(Dash());
         }
     }
