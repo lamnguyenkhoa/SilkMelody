@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     private PlayerSoundEffect soundEffect;
     public SpriteRenderer sprite;
     public PlayerSlash slashPrefab;
-    private Transform slashPos;
     public ParticleSystem dustPE;
     public Transform groundCheck;
     public Collider2D hurtBox;
@@ -66,7 +65,6 @@ public class Player : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        slashPos = transform.Find("SlashSpawnPos");
         soundEffect = GetComponent<PlayerSoundEffect>();
         originalGravityScale = rb.gravityScale;
         dashCount = playerStat.maxDashCount;
@@ -193,7 +191,17 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C) && attackTimer > playerStat.attackCooldown)
         {
-            anim.SetTrigger("attack");
+            if (verInput >= 0.1f)
+            {
+                anim.SetTrigger("attackUp");
+                AttackDealDamage(true);
+            }
+            else
+            {
+                anim.SetTrigger("attack");
+                AttackDealDamage(false);
+            }
+
             soundEffect.PlayAttackSound();
             attackTimer = 0f;
         }
@@ -336,6 +344,32 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void AttackDealDamage(bool isUpAttack)
+    {
+        PlayerSlash slash = Instantiate(slashPrefab);
+        slash.transform.position = transform.position;
+        if (isUpAttack)
+        {
+            slash.transform.position = transform.position + Vector3.up * 0.5f;
+            slash.transform.rotation = Quaternion.Euler(0, 0, 90);
+            if (isFacingLeft)
+                slash.transform.localScale = new Vector3(1, -1, 1);
+        }
+        else
+        {
+            if (isFacingLeft)
+            {
+                slash.transform.position += Vector3.right * -0.5f;
+                slash.transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else
+                slash.transform.position += Vector3.right * 0.5f;
+        }
+        slash.player = this.transform;
+        slash.damage = playerStat.damage;
+        slash.knockbackPower = playerStat.enemyKnockbackPower;
+    }
+
     #endregion Sub Functions
 
     #region Animation Events
@@ -348,15 +382,6 @@ public class Player : MonoBehaviour
     public void EndAttackAnim()
     {
         inAttack = false;
-    }
-
-    public void AttackDealDamage()
-    {
-        PlayerSlash slash = Instantiate(slashPrefab, slashPos);
-        slash.player = this.transform;
-        slash.transform.localPosition = Vector3.zero;
-        slash.damage = playerStat.damage;
-        slash.knockbackPower = playerStat.enemyKnockbackPower;
     }
 
     #endregion Animation Events

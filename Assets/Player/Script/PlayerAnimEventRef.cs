@@ -20,9 +20,4 @@ public class PlayerAnimEventRef : MonoBehaviour
     {
         player.EndAttackAnim();
     }
-
-    public void AttackDealDamage()
-    {
-        player.AttackDealDamage();
-    }
 }
