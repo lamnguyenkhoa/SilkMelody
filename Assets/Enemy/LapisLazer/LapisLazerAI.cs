@@ -31,7 +31,11 @@ public class LapisLazerAI : MonoBehaviour
     private void Update()
     {
         if (stat.isDead)
+        {
+            StopAllCoroutines();
+            lineRenderer.positionCount = 0;
             this.enabled = false;
+        }
 
         if (alerted)
         {
