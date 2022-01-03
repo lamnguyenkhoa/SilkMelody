@@ -24,7 +24,7 @@ public class MaskUpgrade : MonoBehaviour
         {
             player.playerStat.maxHp += 1;
             player.playerStat.currentHp = player.playerStat.maxHp;
+            Destroy(this.gameObject);
         }
-        Destroy(this.gameObject);
     }
 }

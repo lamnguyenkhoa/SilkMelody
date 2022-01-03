@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private int dashCount;
-    private float verInput;
-    private float horInput;
+    [SerializeField] private float verInput;
+    [SerializeField] private float horInput;
     private float jumpTimer;
     public float maxJumpTime = 0.5f;
     private float originalGravityScale;
@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
-        verInput = Input.GetAxis("Vertical");
+        verInput = Input.GetAxisRaw("Vertical");
         horInput = Input.GetAxis("Horizontal");
 
         // Move left
@@ -189,7 +189,7 @@ public class Player : MonoBehaviour
 
     private void HandleAttack()
     {
-        if (Input.GetKeyDown(KeyCode.C) && attackTimer > playerStat.attackCooldown)
+        if (Input.GetKeyDown(KeyCode.C) && attackTimer > playerStat.attackCooldown && !inAttack)
         {
             if (verInput >= 0.1f)
             {
@@ -255,7 +255,7 @@ public class Player : MonoBehaviour
 
     private void AnimationControl()
     {
-        if (isHurt)
+        if (isHurt || isParalyzed)
         {
             state = State.hurt;
         }

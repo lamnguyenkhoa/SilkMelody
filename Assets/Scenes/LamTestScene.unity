@@ -14233,7 +14233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2932327656873188948, guid: dc32454e3fa72e14da3ca8e20d63c769, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 124
       objectReference: {fileID: 0}
     - target: {fileID: 2932327656873188948, guid: dc32454e3fa72e14da3ca8e20d63c769, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -14438,6 +14438,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 542770639}
+    - target: {fileID: 232690038, guid: acbbd6cb12873b94aaae7699462c9df0, type: 3}
+      propertyPath: detectionRadius
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5304113295416871649, guid: acbbd6cb12873b94aaae7699462c9df0, type: 3}
       propertyPath: m_RootOrder
       value: 6
