@@ -9,7 +9,7 @@ public class TwistedDipsaAI : MonoBehaviour
     private float attackTimer = 0f;
     public GameObject[] bulletPrefabs;
     public Transform shootPos;
-    public Transform player;
+    private Transform player;
     public float spreadAngle = 15f;
     private Enemy stat;
     private bool alerted;
@@ -21,6 +21,7 @@ public class TwistedDipsaAI : MonoBehaviour
     {
         stat = GetComponent<Enemy>();
         pathfindAI = GetComponent<RbPathfindAI>();
+        player = GameObject.Find("Tenroh").transform;
     }
 
     private void Update()

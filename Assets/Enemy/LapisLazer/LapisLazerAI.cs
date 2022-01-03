@@ -16,7 +16,7 @@ public class LapisLazerAI : MonoBehaviour
     public LayerMask shootTargetMask;
 
     private Enemy stat;
-    public Transform player;
+    private Transform player;
     public LineRenderer lineRenderer;
     [SerializeField] private bool isShooting;
     [SerializeField] private float beamAimWidth = 0.05f;
@@ -25,6 +25,7 @@ public class LapisLazerAI : MonoBehaviour
     private void Start()
     {
         stat = GetComponent<Enemy>();
+        player = GameObject.Find("Tenroh").transform;
     }
 
     private void Update()

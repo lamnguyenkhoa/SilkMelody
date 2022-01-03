@@ -14049,10 +14049,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LapisLazer
       objectReference: {fileID: 0}
-    - target: {fileID: 164570768434446780, guid: e3f6a0f808bd178429ad082c17fe6e5e, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 542770639}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3f6a0f808bd178429ad082c17fe6e5e, type: 3}
 --- !u!1001 &1304323075660008480
@@ -14233,7 +14229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2932327656873188948, guid: dc32454e3fa72e14da3ca8e20d63c769, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 124
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2932327656873188948, guid: dc32454e3fa72e14da3ca8e20d63c769, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -14434,14 +14430,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 232690038, guid: acbbd6cb12873b94aaae7699462c9df0, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 542770639}
-    - target: {fileID: 232690038, guid: acbbd6cb12873b94aaae7699462c9df0, type: 3}
-      propertyPath: detectionRadius
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 5304113295416871649, guid: acbbd6cb12873b94aaae7699462c9df0, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -14490,9 +14478,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: TwistedDipsa
       objectReference: {fileID: 0}
-    - target: {fileID: 5304113296983591680, guid: acbbd6cb12873b94aaae7699462c9df0, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 542770639}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acbbd6cb12873b94aaae7699462c9df0, type: 3}

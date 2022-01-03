@@ -252,9 +252,8 @@ MonoBehaviour:
   - {fileID: 4797233803275751679, guid: fd10ae317ad66b142bc1bc95b9bba51c, type: 3}
   - {fileID: 4797233803275751679, guid: c385c5965fca53d489e7d11235e55402, type: 3}
   shootPos: {fileID: 1913022051}
-  player: {fileID: 0}
   spreadAngle: 30
-  detectionRadius: 6
+  detectionRadius: 10
   playerMask:
     serializedVersion: 2
     m_Bits: 128
@@ -270,7 +269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4a8a8696e44ae4aad7064bdf14cf22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   spriteHolder: {fileID: 1303455323}
   speed: 250
   nextWaypointDistance: 0.5

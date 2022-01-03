@@ -13,7 +13,7 @@ using Pathfinding;
 /// </summary>
 public class RbPathfindAI : MonoBehaviour
 {
-    public Transform target;
+    private Transform target;
     public Transform spriteHolder;
 
     public float speed = 200f;
@@ -33,6 +33,7 @@ public class RbPathfindAI : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         stat = GetComponent<Enemy>();
+        target = GameObject.Find("Tenroh").transform;
 
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
