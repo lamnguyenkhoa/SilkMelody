@@ -8,6 +8,13 @@ public class Loot : MonoBehaviour
     { copperShard, scaleShard };
     public LootEnum lootType;
     public int value;
+    public float destroyTime = 0f; // Set to 0f if you dont want them to be destroy after some time
+
+    private void Start()
+    {
+        if (destroyTime > 0)
+            Destroy(this.gameObject, destroyTime);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
