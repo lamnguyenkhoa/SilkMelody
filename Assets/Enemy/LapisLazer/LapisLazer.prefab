@@ -813,6 +813,7 @@ MonoBehaviour:
   shootTargetMask:
     serializedVersion: 2
     m_Bits: 192
+  pistilLight: {fileID: 164570767082217970}
   lineRenderer: {fileID: 164570766868774693}
   isShooting: 0
   beamAimWidth: 0.05

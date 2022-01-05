@@ -14,6 +14,7 @@ public class LapisLazerAI : MonoBehaviour
     public LayerMask playerMask;
     public LayerMask groundMask;
     public LayerMask shootTargetMask;
+    public GameObject pistilLight;
 
     private Enemy stat;
     private Transform player;
@@ -33,6 +34,7 @@ public class LapisLazerAI : MonoBehaviour
         if (stat.isDead)
         {
             StopAllCoroutines();
+            pistilLight.SetActive(false);
             lineRenderer.positionCount = 0;
             this.enabled = false;
         }
