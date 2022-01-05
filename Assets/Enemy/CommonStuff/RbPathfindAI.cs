@@ -15,6 +15,7 @@ public class RbPathfindAI : MonoBehaviour
 {
     private Transform target;
     public Transform spriteHolder;
+    public bool canFly = true;
 
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
@@ -26,6 +27,8 @@ public class RbPathfindAI : MonoBehaviour
     private Seeker seeker;
     private Rigidbody2D rb;
     private Enemy stat;
+
+    public Vector2 direction;
 
     // Start is called before the first frame update
     private void Start()
@@ -42,7 +45,10 @@ public class RbPathfindAI : MonoBehaviour
     private void FixedUpdate()
     {
         if (stat.isDead)
+        {
+            seeker.enabled = false;
             this.enabled = false;
+        }
 
         if (path == null)
             return;
@@ -57,8 +63,11 @@ public class RbPathfindAI : MonoBehaviour
             reachedEndOfPath = false;
         }
 
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+        direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
         Vector2 force = direction * speed * Time.fixedDeltaTime;
+        if (!canFly)
+            force.y = 1f;
+
         if (!stat.shouldStopMoving)
             rb.AddForce(force);
 

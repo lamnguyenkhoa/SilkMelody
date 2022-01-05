@@ -31,6 +31,11 @@ public class CrawlingAI : MonoBehaviour
         if (stat.isDead)
             this.enabled = false;
 
+        Patrol();
+    }
+
+    private void Patrol()
+    {
         // Check if end of platform or hit wall (exclude player's layer)
         RaycastHit2D groundInfo = Physics2D.Raycast(checkObstaclePos.position, Vector2.down, 1f, ~notWallMask);
         if (groundInfo.collider)

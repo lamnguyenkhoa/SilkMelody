@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     [Header("Other")]
     public Material flashMat;
     public SpriteRenderer sprite;
+    private Animator anim;
     private Material originalMat;
     private Rigidbody2D rb;
     private Coroutine spriteFlashCoroutine;
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
         currentHp = maxHp;
         rb = GetComponent<Rigidbody2D>();
         originalMat = sprite.material;
+        anim = sprite.transform.GetComponent<Animator>();
     }
 
     public void Damaged(float amount, Vector3 knockbackForce)
@@ -60,7 +62,11 @@ public class Enemy : MonoBehaviour
         sprite.color = deathColor;
         sprite.transform.localScale = new Vector3(sprite.transform.localScale.x, -1, sprite.transform.localScale.z);
         transform.gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
-        sprite.transform.GetComponent<Animator>().speed = 0f;
+        if (anim)
+        {
+            anim.Play("Idle"); // Should be replaced with death sprite when asset available
+            anim.speed = 0f;
+        }
         rb.gravityScale = 1;
         rb.drag = 1;
         rb.freezeRotation = false;

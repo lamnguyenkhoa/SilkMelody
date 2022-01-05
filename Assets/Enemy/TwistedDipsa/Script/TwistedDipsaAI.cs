@@ -14,7 +14,7 @@ public class TwistedDipsaAI : MonoBehaviour
     private Enemy stat;
     private bool alerted;
     private RbPathfindAI pathfindAI;
-    public float detectionRadius = 4f;
+    public float detectionRadius;
     public LayerMask playerMask;
 
     private void Start()
