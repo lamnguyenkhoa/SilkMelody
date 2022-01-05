@@ -82,8 +82,9 @@ public class LapisLazerAI : MonoBehaviour
         lineRenderer.startWidth = beamDamageWidth;
         lineRenderer.endWidth = beamDamageWidth;
         RaycastHit2D hitCast = Physics2D.Raycast(transform.position, playerDirection, 100f, shootTargetMask);
-        if (hitCast.collider.gameObject.GetComponent<Player>())
-            player.GetComponent<Player>().Damaged(stat.damage, playerDirection);
+        if (hitCast) // Hit something
+            if (hitCast.collider.gameObject.GetComponent<Player>()) // That something is a player
+                player.GetComponent<Player>().Damaged(stat.damage, playerDirection);
         yield return new WaitForSeconds(damageDuration);
 
         lineRenderer.positionCount = 0;
