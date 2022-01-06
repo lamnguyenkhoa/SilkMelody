@@ -6048,7 +6048,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 2
   m_AngularDrag: 1
-  m_GravityScale: 3
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -6100,6 +6100,8 @@ MonoBehaviour:
   hurtBox: {fileID: 5268734040163008456}
   playerStat: {fileID: 11400000, guid: efb225c053021f54da0c927e53a7548d, type: 2}
   dashCount: 0
+  verInput: 0
+  horInput: 0
   maxJumpTime: 0.4
   isGrounded: 0
   groundMask:
