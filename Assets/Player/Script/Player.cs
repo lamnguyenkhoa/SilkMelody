@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isGrounded;
     public LayerMask groundMask;
     private Vector3 groundBox;
+    private float coyoteAirTimer;
+    private float coyoteTime = 0.2f;
 
     [Header("LedgeGrab")]
     public bool canLedgeGrab = true;
@@ -91,6 +93,8 @@ public class Player : MonoBehaviour
             HandleDash();
 
             HandleLedgeGrab();
+
+            HandleCoyoteTime();
         }
 
         AnimationControl();
@@ -152,7 +156,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (isGrounded || isLedgeGrabbing)
+            if (isGrounded || isLedgeGrabbing || coyoteAirTimer <= coyoteTime)
             {
                 jumpTimer = maxJumpTime;
                 isJumping = true;
@@ -232,6 +236,18 @@ public class Player : MonoBehaviour
         else
         {
             rb.gravityScale = originalGravityScale;
+        }
+    }
+
+    private void HandleCoyoteTime()
+    {
+        if (!isGrounded && !isLedgeGrabbing)
+        {
+            coyoteAirTimer += Time.deltaTime;
+        }
+        else
+        {
+            coyoteAirTimer = 0f;
         }
     }
 
