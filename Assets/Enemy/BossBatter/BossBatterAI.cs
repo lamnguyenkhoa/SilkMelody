@@ -20,25 +20,34 @@ using UnityEngine;
 
 public class BossBatterAI : MonoBehaviour
 {
+    [Header("Components")]
+    public EnemySlash slashPrefab;
     private Player player;
     private Animator anim;
     private Transform spriteHolder;
     private Enemy stat;
     private Rigidbody2D rb;
-    public EnemySlash slashPrefab;
 
-    private bool inAttack;
+    [Header("Moveset control")]
     public float timeBetweenAttack;
+    [SerializeField] private bool inAttack;
     private float attackTimer;
-    private bool isFacingLeft;
+    [SerializeField] private bool isFacingLeft;
+    public enum Moveset
+    { whiteBall, redBall, attack, charge, jumpSlam, summon }
+    public Moveset selectedMove;
 
+    [Header("Normal attack")]
     public float dashForce;
     public float runSpeed;
     public float meleeRange;
 
-    public enum Moveset
-    { whiteBall, redBall, attack, charge, jumpSlam, summon }
-    public Moveset selectedMove;
+    [Header("Charge")]
+    public float chargePrepTime;
+    public float chargeAccel;
+    public float maxChargeSpeed;
+    public LayerMask wallMask;
+    public Transform wallChecker;
 
     private void Start()
     {
@@ -78,6 +87,7 @@ public class BossBatterAI : MonoBehaviour
                         break;
 
                     case Moveset.charge:
+                        Charge();
                         break;
 
                     case Moveset.jumpSlam:
@@ -96,6 +106,7 @@ public class BossBatterAI : MonoBehaviour
     private void Charge()
     {
         attackTimer = 0f;
+        StartCoroutine(ChargeController());
     }
 
     private void FaceTowardPlayer()
@@ -118,6 +129,9 @@ public class BossBatterAI : MonoBehaviour
         selectedMove = (Moveset)Random.Range(0, nMove);
     }
 
+    /// <summary>
+    /// Deprecated.
+    /// </summary>
     public void BeginNormalAttack()
     {
         inAttack = true;
@@ -168,5 +182,60 @@ public class BossBatterAI : MonoBehaviour
         anim.SetTrigger("attack");
         anim.ResetTrigger("run");
         yield return null;
+    }
+
+    private IEnumerator ChargeController()
+    {
+        inAttack = true;
+        anim.SetInteger("chargeState", 1);
+        // Prepare to charge
+        float prepChargeTimer = 0f;
+        while (prepChargeTimer < chargePrepTime)
+        {
+            prepChargeTimer += Time.deltaTime;
+            FaceTowardPlayer();
+            yield return null;
+        }
+
+        // Charge toward the opposite wall
+        anim.SetInteger("chargeState", 2);
+        bool collideWall = false;
+        float chargeTimer = 0f;
+        float chargeSpeed = 0.1f;
+        if (isFacingLeft)
+            wallChecker.localPosition = new Vector3(-1.2f, 0f);
+        else
+            wallChecker.localPosition = new Vector3(1.2f, 0f);
+
+        while (!collideWall && chargeTimer < 5f)
+        {
+            chargeTimer += Time.deltaTime; // This for prevent bug that Batter stuck in charge
+            chargeSpeed += chargeAccel;
+            chargeSpeed = Mathf.Clamp(chargeSpeed, 0.1f, maxChargeSpeed);
+            if (isFacingLeft)
+                rb.velocity = new Vector2(-chargeSpeed, 0f);
+            else
+                rb.velocity = new Vector2(chargeSpeed, 0f);
+
+            if (Physics2D.OverlapCircle(wallChecker.position, 1f, wallMask))
+                collideWall = true;
+
+            yield return null;
+        }
+
+        // Recovery time
+        rb.velocity = Vector2.zero;
+        yield return new WaitForSeconds(0.5f);
+        anim.SetInteger("chargeState", 0);
+        yield return new WaitForSeconds(0.5f);
+
+        // Finish
+        inAttack = false;
+        yield return null;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(wallChecker.position, 1f);
     }
 }
