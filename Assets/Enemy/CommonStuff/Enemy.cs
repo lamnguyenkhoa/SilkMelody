@@ -14,10 +14,14 @@ public class Enemy : MonoBehaviour
     public bool isDead;
     public float iFrame = 0.1f;
 
-    [Header("Loot")]
+    [Header("OnDeath")]
     public GameObject dropLoot;
     public int dropAmount;
     public Transform lootPos;
+    public bool willBeDestroyed;
+    private Color fadeColor;
+    private float fadeSpeed = 2f;
+    public GameObject[] objectsToDisable;
 
     [Header("Other")]
     public Material flashMat;
@@ -34,6 +38,24 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         originalMat = sprite.material;
         anim = sprite.transform.GetComponent<Animator>();
+        fadeColor = sprite.color;
+    }
+
+    private void Update()
+    {
+        if (isDead && willBeDestroyed)
+        {
+            // Fade the sprite
+            if (fadeColor.a > 0)
+            {
+                fadeColor.a -= fadeSpeed * Time.deltaTime;
+                sprite.color = fadeColor;
+            }
+            else
+            {
+                Destroy(this.gameObject, 0.5f);
+            }
+        }
     }
 
     public void Damaged(float amount, Vector3 knockbackForce)
@@ -83,7 +105,11 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        this.enabled = false;
+        if (!willBeDestroyed)
+            this.enabled = false;
+
+        foreach (GameObject gameObject in objectsToDisable)
+            gameObject.SetActive(false);
     }
 
     private void Knockback(Vector3 knockbackForce)
