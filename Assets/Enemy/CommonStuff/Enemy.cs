@@ -76,9 +76,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Death()
+    public void Death()
     {
         // Change collision and sprite
+        GetComponent<Collider2D>().enabled = false;
         Color deathColor = sprite.color;
         deathColor.r = 0.3f; deathColor.b = 0.3f; deathColor.g = 0.3f;
         sprite.color = deathColor;
@@ -86,8 +87,8 @@ public class Enemy : MonoBehaviour
         transform.gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
         if (anim)
         {
-            anim.Play("Idle"); // Should be replaced with death sprite when asset available
             anim.speed = 0f;
+            anim.Play("Idle"); // Should be replaced with death sprite when asset available
         }
         rb.gravityScale = 1;
         rb.drag = 1;

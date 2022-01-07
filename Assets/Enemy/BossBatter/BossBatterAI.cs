@@ -25,7 +25,7 @@ public class BossBatterAI : MonoBehaviour
     private Player player;
     private Animator anim;
     private Transform spriteHolder;
-    private Enemy stat;
+    [HideInInspector] public Enemy stat;
     private Rigidbody2D rb;
 
     [Header("Moveset control")]
@@ -48,6 +48,10 @@ public class BossBatterAI : MonoBehaviour
     public float maxChargeSpeed;
     public LayerMask wallMask;
     public Transform wallChecker;
+    public int numBoulderSpawn;
+    public GameObject boulderPrefab;
+    public Transform boulderSpawnZoneLeft;
+    public Transform boulderSpawnZoneRight;
 
     [Header("Summon")]
     public BatterPetAI petPrefab;
@@ -183,6 +187,17 @@ public class BossBatterAI : MonoBehaviour
         }
     }
 
+    private void SpawnBoulder()
+    {
+        for (int i = 0; i < numBoulderSpawn; i++)
+        {
+            float randomX = Random.Range(boulderSpawnZoneLeft.position.x, boulderSpawnZoneRight.position.x);
+            float randomY = Random.Range(boulderSpawnZoneLeft.position.y, boulderSpawnZoneRight.position.y);
+
+            Instantiate(boulderPrefab, new Vector2(randomX, randomY), Quaternion.identity);
+        }
+    }
+
     private IEnumerator RunAndAttack()
     {
         inAttack = true;
@@ -239,6 +254,7 @@ public class BossBatterAI : MonoBehaviour
             {
                 collideWall = true;
                 CinemachineShake.instance.ShakeCamera(5f, 0.5f);
+                SpawnBoulder();
             }
 
             yield return null;

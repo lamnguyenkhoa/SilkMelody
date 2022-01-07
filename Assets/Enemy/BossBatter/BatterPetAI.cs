@@ -33,6 +33,9 @@ public class BatterPetAI : MonoBehaviour
 
     private void Update()
     {
+        if (owner.stat.isDead)
+            stat.Death();
+
         if (stat.isDead)
         {
             StopAllCoroutines();

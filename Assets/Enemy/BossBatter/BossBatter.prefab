@@ -205,7 +205,7 @@ MonoBehaviour:
   dropLoot: {fileID: 2142000902567130090, guid: 0584a8f1290a7b4478c2420ad8ac3a66, type: 3}
   dropAmount: 5
   lootPos: {fileID: 5929603884186253507}
-  willBeDestroyed: 0
+  willBeDestroyed: 1
   objectsToDisable: []
   flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
   sprite: {fileID: 5929603882930801755}
@@ -222,6 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slashPrefab: {fileID: 1440048459, guid: a620af7570ec52e4a9b28a4dd9b18cc0, type: 3}
+  stat: {fileID: 0}
   timeBetweenAttack: 1
   inAttack: 0
   isFacingLeft: 0
@@ -236,6 +237,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   wallChecker: {fileID: 1849943300}
+  numBoulderSpawn: 4
+  boulderPrefab: {fileID: 1187002854272609845, guid: a3e82b1cff168214d99d03508d1fb0f1, type: 3}
+  boulderSpawnZoneLeft: {fileID: 0}
+  boulderSpawnZoneRight: {fileID: 0}
   petPrefab: {fileID: 6046852267933630532, guid: d2617fdef9c65314ebf538cc4a3608ca, type: 3}
   spawnSpots:
   - {fileID: 0}
