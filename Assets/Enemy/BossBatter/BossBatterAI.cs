@@ -218,7 +218,10 @@ public class BossBatterAI : MonoBehaviour
                 rb.velocity = new Vector2(chargeSpeed, 0f);
 
             if (Physics2D.OverlapCircle(wallChecker.position, 1f, wallMask))
+            {
                 collideWall = true;
+                CinemachineShake.instance.ShakeCamera(5f, 0.5f);
+            }
 
             yield return null;
         }
