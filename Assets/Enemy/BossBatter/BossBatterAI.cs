@@ -58,6 +58,14 @@ public class BossBatterAI : MonoBehaviour
     public Transform[] spawnSpots; // length of this array is max number of pet
     public int currentPetCounter;
 
+    [Header("JumpSlam")]
+    public Shockwave shockwavePrefab;
+    public float shockwaveSpeed;
+    public float jumpForce;
+    public float slamForce;
+    private float originalGravityScale;
+    public Transform groundChecker; // can use wallMask to check too
+
     private void Start()
     {
         stat = GetComponent<Enemy>();
@@ -65,6 +73,7 @@ public class BossBatterAI : MonoBehaviour
         spriteHolder = transform.Find("Sprite");
         anim = spriteHolder.GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        originalGravityScale = rb.gravityScale;
     }
 
     private void Update()
@@ -104,6 +113,7 @@ public class BossBatterAI : MonoBehaviour
                         break;
 
                     case Moveset.jumpSlam:
+                        JumpSlam();
                         break;
                 }
             }
@@ -129,6 +139,12 @@ public class BossBatterAI : MonoBehaviour
             attackTimer = 0f;
             StartCoroutine(SummonPet());
         }
+    }
+
+    private void JumpSlam()
+    {
+        attackTimer = 0f;
+        StartCoroutine(JumpSlamController());
     }
 
     private void FaceTowardPlayer()
@@ -297,8 +313,50 @@ public class BossBatterAI : MonoBehaviour
         inAttack = false;
     }
 
-    private void OnDrawGizmosSelected()
+    private IEnumerator JumpSlamController()
     {
-        Gizmos.DrawWireSphere(wallChecker.position, 1f);
+        inAttack = true;
+
+        // Jump
+        rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        anim.SetInteger("slamState", 1);
+        // Wait until he stop moving up
+        while (rb.velocity.y > 0.1f)
+        {
+            yield return null;
+        }
+
+        // Hover
+        rb.gravityScale = 0f;
+        rb.velocity = Vector2.zero;
+        bool isGrounded = false;
+        anim.SetInteger("slamState", 2);
+        yield return new WaitForSeconds(0.25f);
+
+        // Fall
+        rb.gravityScale = originalGravityScale;
+        rb.AddForce(new Vector2(0, -slamForce), ForceMode2D.Impulse);
+        // Wait until near the ground
+        while (!isGrounded)
+        {
+            isGrounded = Physics2D.OverlapCircle(groundChecker.position, 0.5f, wallMask);
+            yield return null;
+        }
+
+        // Slam
+        anim.SetInteger("slamState", 3);
+        CinemachineShake.instance.ShakeCamera(5f, 0.5f);
+        // Create shockwave (default sprite direction is right)
+        Shockwave shockwaveRight = Instantiate(shockwavePrefab, transform.position + new Vector3(1f, 0f), Quaternion.identity);
+        shockwaveRight.kinematicVelocity = new Vector2(shockwaveSpeed, 0f);
+        Shockwave shockwaveLeft = Instantiate(shockwavePrefab, transform.position - new Vector3(1f, 0f), Quaternion.identity);
+        shockwaveLeft.transform.localScale = new Vector3(-1, 1, 1);
+        shockwaveLeft.kinematicVelocity = new Vector2(-shockwaveSpeed, 0f);
+        yield return new WaitForSeconds(1f);
+
+        // Recovery time
+        anim.SetInteger("slamState", 0);
+        inAttack = false;
+        yield return new WaitForSeconds(0.5f);
     }
 }
