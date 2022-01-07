@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e4e13184e82654384a1af04ed07e33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 1
+  maxHp: 2
   currentHp: 0
   damage: 1
   knockbackAble: 0
@@ -172,6 +172,7 @@ MonoBehaviour:
   shootTargetMask:
     serializedVersion: 2
     m_Bits: 192
+  owner: {fileID: 0}
   lineRenderer: {fileID: 6046852268877429258}
   isShooting: 0
   beamAimWidth: 0.05

@@ -49,6 +49,11 @@ public class BossBatterAI : MonoBehaviour
     public LayerMask wallMask;
     public Transform wallChecker;
 
+    [Header("Summon")]
+    public BatterPetAI petPrefab;
+    public Transform[] spawnSpots; // length of this array is max number of pet
+    public int currentPetCounter;
+
     private void Start()
     {
         stat = GetComponent<Enemy>();
@@ -90,6 +95,10 @@ public class BossBatterAI : MonoBehaviour
                         Charge();
                         break;
 
+                    case Moveset.summon:
+                        Summon();
+                        break;
+
                     case Moveset.jumpSlam:
                         break;
                 }
@@ -107,6 +116,15 @@ public class BossBatterAI : MonoBehaviour
     {
         attackTimer = 0f;
         StartCoroutine(ChargeController());
+    }
+
+    private void Summon()
+    {
+        if (currentPetCounter < spawnSpots.Length)
+        {
+            attackTimer = 0f;
+            StartCoroutine(SummonPet());
+        }
     }
 
     private void FaceTowardPlayer()
@@ -235,6 +253,32 @@ public class BossBatterAI : MonoBehaviour
         // Finish
         inAttack = false;
         yield return null;
+    }
+
+    private IEnumerator SummonPet()
+    {
+        inAttack = true;
+
+        anim.SetBool("summoning", true);
+        yield return new WaitForSeconds(0.75f);
+
+        // Spawn a pet in the first empty slot
+        foreach (Transform spawnSpot in spawnSpots)
+        {
+            if (spawnSpot.childCount == 0)
+            {
+                BatterPetAI newPet = Instantiate(petPrefab, spawnSpot, false);
+                newPet.transform.localPosition = Vector3.zero;
+                newPet.owner = this;
+                currentPetCounter++;
+                break;
+            }
+        }
+
+        // Recovery time
+        anim.SetBool("summoning", false);
+        yield return new WaitForSeconds(0.25f);
+        inAttack = false;
     }
 
     private void OnDrawGizmosSelected()

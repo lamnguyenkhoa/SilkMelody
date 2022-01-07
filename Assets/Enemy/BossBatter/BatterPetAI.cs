@@ -15,6 +15,7 @@ public class BatterPetAI : MonoBehaviour
     public LayerMask playerMask;
     public LayerMask groundMask;
     public LayerMask shootTargetMask;
+    public BossBatterAI owner;
 
     private Enemy stat;
     private Transform player;
@@ -27,6 +28,7 @@ public class BatterPetAI : MonoBehaviour
     {
         stat = GetComponent<Enemy>();
         player = GameObject.Find("Tenroh").transform;
+        attackTimer = attackTimer * 0.75f; // fast first time attack
     }
 
     private void Update()
@@ -36,12 +38,14 @@ public class BatterPetAI : MonoBehaviour
             StopAllCoroutines();
             lineRenderer.positionCount = 0;
             this.enabled = false;
+            owner.currentPetCounter--;
         }
 
-        LookAtPlayer();
-
         if (!isShooting)
+        {
+            LookAtPlayer();
             attackTimer += Time.deltaTime;
+        }
         if (attackTimer >= attackCooldown)
         {
             if (!isShooting)
