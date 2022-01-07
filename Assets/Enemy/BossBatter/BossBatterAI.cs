@@ -33,6 +33,7 @@ public class BossBatterAI : MonoBehaviour
     [SerializeField] private bool inAttack;
     private float attackTimer;
     [SerializeField] private bool isFacingLeft;
+    public float speedOverdrive = 1f;
     public enum Moveset
     { whiteBall, redBall, attack, charge, jumpSlam, summon }
     public Moveset selectedMove;
@@ -74,6 +75,16 @@ public class BossBatterAI : MonoBehaviour
         anim = spriteHolder.GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         originalGravityScale = rb.gravityScale;
+
+        // Speed overdrive
+        maxChargeSpeed *= speedOverdrive;
+        shockwaveSpeed *= speedOverdrive;
+        maxChargeSpeed *= speedOverdrive;
+        chargeAccel *= speedOverdrive;
+        chargePrepTime /= speedOverdrive;
+        dashForce *= speedOverdrive;
+        runSpeed *= speedOverdrive;
+        anim.speed = speedOverdrive;
     }
 
     private void Update()
@@ -91,7 +102,7 @@ public class BossBatterAI : MonoBehaviour
 
             if (attackTimer < timeBetweenAttack)
             {
-                attackTimer += Time.deltaTime;
+                attackTimer += Time.deltaTime * speedOverdrive;
             }
             else
             {
@@ -241,7 +252,7 @@ public class BossBatterAI : MonoBehaviour
         float prepChargeTimer = 0f;
         while (prepChargeTimer < chargePrepTime)
         {
-            prepChargeTimer += Time.deltaTime;
+            prepChargeTimer += Time.deltaTime * speedOverdrive;
             FaceTowardPlayer();
             yield return null;
         }
@@ -258,7 +269,7 @@ public class BossBatterAI : MonoBehaviour
 
         while (!collideWall && chargeTimer < 5f)
         {
-            chargeTimer += Time.deltaTime; // This for prevent bug that Batter stuck in charge
+            chargeTimer += Time.deltaTime * speedOverdrive; // This for prevent bug that Batter stuck in charge
             chargeSpeed += chargeAccel;
             chargeSpeed = Mathf.Clamp(chargeSpeed, 0.1f, maxChargeSpeed);
             if (isFacingLeft)
@@ -278,9 +289,9 @@ public class BossBatterAI : MonoBehaviour
 
         // Recovery time
         rb.velocity = Vector2.zero;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f / speedOverdrive);
         anim.SetInteger("chargeState", 0);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f / speedOverdrive);
 
         // Finish
         inAttack = false;
@@ -292,7 +303,7 @@ public class BossBatterAI : MonoBehaviour
         inAttack = true;
 
         anim.SetBool("summoning", true);
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(0.75f / speedOverdrive);
 
         // Spawn a pet in the first empty slot
         foreach (Transform spawnSpot in spawnSpots)
@@ -309,7 +320,7 @@ public class BossBatterAI : MonoBehaviour
 
         // Recovery time
         anim.SetBool("summoning", false);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.25f / speedOverdrive);
         inAttack = false;
     }
 
@@ -331,7 +342,7 @@ public class BossBatterAI : MonoBehaviour
         rb.velocity = Vector2.zero;
         bool isGrounded = false;
         anim.SetInteger("slamState", 2);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.25f / speedOverdrive);
 
         // Fall
         rb.gravityScale = originalGravityScale;
@@ -352,11 +363,11 @@ public class BossBatterAI : MonoBehaviour
         Shockwave shockwaveLeft = Instantiate(shockwavePrefab, transform.position - new Vector3(1f, 0f), Quaternion.identity);
         shockwaveLeft.transform.localScale = new Vector3(-1, 1, 1);
         shockwaveLeft.kinematicVelocity = new Vector2(-shockwaveSpeed, 0f);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f / speedOverdrive);
 
         // Recovery time
         anim.SetInteger("slamState", 0);
         inAttack = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f / speedOverdrive);
     }
 }

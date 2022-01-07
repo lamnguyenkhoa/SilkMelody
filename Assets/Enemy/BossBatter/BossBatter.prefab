@@ -254,9 +254,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slashPrefab: {fileID: 1440048459, guid: a620af7570ec52e4a9b28a4dd9b18cc0, type: 3}
   stat: {fileID: 0}
-  timeBetweenAttack: 1
+  timeBetweenAttack: 0.25
   inAttack: 0
   isFacingLeft: 0
+  speedOverdrive: 1
   selectedMove: 0
   dashForce: 80
   runSpeed: 10
