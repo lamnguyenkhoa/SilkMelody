@@ -6,10 +6,9 @@ using UnityEngine;
  * Moveset:
  * - Thow and hit a white ball, ranged attack
  * - Thow and hit a big red ball, ranged explosive attack, 2 dmg
- * - Normal attack
- * - Normal attack with a dash
+ * - Normal attack, if player out range then he has a dash
  * - Charge toward player
- * - Jump and slam the ground, create shockwall and falling rock (2 dmg slam)
+ * - Jump and slam the ground, create shockwall and falling rock (2 dmg if slammed)
  * - Summon pet to attack, pet shoot laser beam
  * - Below 25% hp, move faster
  * Behaviour:
@@ -26,6 +25,7 @@ public class BossBatterAI : MonoBehaviour
     private Transform spriteHolder;
     private Enemy stat;
     private Rigidbody2D rb;
+    public EnemySlash slashPrefab;
 
     private bool inAttack;
     public float timeBetweenAttack;
@@ -33,9 +33,11 @@ public class BossBatterAI : MonoBehaviour
     private bool isFacingLeft;
 
     public float dashForce;
+    public float runSpeed;
+    public float meleeRange;
 
     public enum Moveset
-    { whiteBall, redBall, attack, attackDash, charge, jumpSlam, summon }
+    { whiteBall, redBall, attack, charge, jumpSlam, summon }
     public Moveset selectedMove;
 
     private void Start()
@@ -75,10 +77,6 @@ public class BossBatterAI : MonoBehaviour
                         NormalAttack();
                         break;
 
-                    case Moveset.attackDash:
-                        DashAttack();
-                        break;
-
                     case Moveset.charge:
                         break;
 
@@ -92,17 +90,12 @@ public class BossBatterAI : MonoBehaviour
     private void NormalAttack()
     {
         attackTimer = 0f;
-        anim.SetTrigger("attack");
+        StartCoroutine(RunAndAttack());
     }
 
-    private void DashAttack()
+    private void Charge()
     {
         attackTimer = 0f;
-        anim.SetTrigger("attack");
-        if (isFacingLeft)
-            rb.AddForce(new Vector2(-dashForce, 10f), ForceMode2D.Impulse);
-        else
-            rb.AddForce(new Vector2(dashForce, 10f), ForceMode2D.Impulse);
     }
 
     private void FaceTowardPlayer()
@@ -137,5 +130,43 @@ public class BossBatterAI : MonoBehaviour
 
     public void AttackDealDamage()
     {
+        // Dash if player in front of batterbut still out of melee range
+        float targetPosX = player.transform.position.x;
+        if (isFacingLeft && (transform.position.x - targetPosX > meleeRange))
+            rb.AddForce(new Vector2(-dashForce, 10f), ForceMode2D.Impulse);
+        else if (!isFacingLeft && (targetPosX - transform.position.x > meleeRange))
+            rb.AddForce(new Vector2(dashForce, 10f), ForceMode2D.Impulse);
+
+        // Actual damage deal
+        EnemySlash slash = Instantiate(slashPrefab, transform, false);
+        slash.transform.localPosition = Vector3.zero;
+        if (isFacingLeft)
+        {
+            slash.transform.localPosition += Vector3.right * -1f;
+        }
+        else
+        {
+            slash.transform.localPosition += Vector3.right * 1f;
+            slash.transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
+
+    private IEnumerator RunAndAttack()
+    {
+        inAttack = true;
+
+        anim.SetTrigger("run");
+        while (Mathf.Abs(player.transform.position.x - transform.position.x) > meleeRange)
+        {
+            if (isFacingLeft)
+                rb.velocity = new Vector2(-runSpeed, 0f);
+            else
+                rb.velocity = new Vector2(runSpeed, 0f);
+            yield return null;
+        }
+
+        anim.SetTrigger("attack");
+        anim.ResetTrigger("run");
+        yield return null;
     }
 }
