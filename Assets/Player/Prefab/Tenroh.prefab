@@ -6102,7 +6102,7 @@ MonoBehaviour:
   dashCount: 0
   verInput: 0
   horInput: 0
-  maxJumpTime: 0.4
+  maxJumpTime: 0.3
   isGrounded: 0
   groundMask:
     serializedVersion: 2

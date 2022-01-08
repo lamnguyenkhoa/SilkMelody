@@ -11,6 +11,7 @@ public class BatterBall : MonoBehaviour
     private void Start()
     {
         stat = GetComponent<Enemy>();
+        bounceCounter = 0;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

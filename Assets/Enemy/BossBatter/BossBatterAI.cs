@@ -103,6 +103,8 @@ public class BossBatterAI : MonoBehaviour
             this.enabled = false;
         }
 
+        summonTimer += Time.deltaTime * speedOverdrive;
+
         if (!inAttack)
         {
             FaceTowardPlayer();
@@ -110,7 +112,6 @@ public class BossBatterAI : MonoBehaviour
             if (attackTimer < timeBetweenAttack)
             {
                 attackTimer += Time.deltaTime * speedOverdrive;
-                summonTimer += Time.deltaTime * speedOverdrive;
             }
             else
             {

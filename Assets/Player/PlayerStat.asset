@@ -16,7 +16,7 @@ MonoBehaviour:
   currentHp: 5
   damage: 1
   moveSpeed: 7
-  jumpForce: 10
+  jumpForce: 12
   dashForce: 15
   maxDashCount: 1
   dashTime: 0.35
