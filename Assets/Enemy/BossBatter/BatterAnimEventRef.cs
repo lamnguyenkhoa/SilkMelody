@@ -13,7 +13,7 @@ public class BatterAnimEventRef : MonoBehaviour
 
     public void BeginAttack()
     {
-        batter.BeginNormalAttack();
+        batter.BeginAttack();
     }
 
     public void AttackDealDamage()
@@ -23,6 +23,11 @@ public class BatterAnimEventRef : MonoBehaviour
 
     public void EndAttack()
     {
-        batter.EndNormalAttack();
+        batter.EndAttack();
+    }
+
+    public void CreateBall()
+    {
+        batter.CreateBall();
     }
 }

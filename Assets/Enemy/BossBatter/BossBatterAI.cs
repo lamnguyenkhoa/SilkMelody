@@ -58,6 +58,8 @@ public class BossBatterAI : MonoBehaviour
     public BatterPetAI petPrefab;
     public Transform[] spawnSpots; // length of this array is max number of pet
     public int currentPetCounter;
+    public float timeBetweenSummon;
+    private float summonTimer;
 
     [Header("JumpSlam")]
     public Shockwave shockwavePrefab;
@@ -66,6 +68,11 @@ public class BossBatterAI : MonoBehaviour
     public float slamForce;
     private float originalGravityScale;
     public Transform groundChecker; // can use wallMask to check too
+
+    [Header("ThrowBall")]
+    public BatterBall ballPrefab;
+    public float hitForce;
+    public float throwMinRange; // should larger than meleeRange
 
     private void Start()
     {
@@ -103,6 +110,7 @@ public class BossBatterAI : MonoBehaviour
             if (attackTimer < timeBetweenAttack)
             {
                 attackTimer += Time.deltaTime * speedOverdrive;
+                summonTimer += Time.deltaTime * speedOverdrive;
             }
             else
             {
@@ -126,6 +134,10 @@ public class BossBatterAI : MonoBehaviour
                     case Moveset.jumpSlam:
                         JumpSlam();
                         break;
+
+                    case Moveset.whiteBall:
+                        ThrowBall();
+                        break;
                 }
             }
         }
@@ -145,10 +157,14 @@ public class BossBatterAI : MonoBehaviour
 
     private void Summon()
     {
-        if (currentPetCounter < spawnSpots.Length)
+        if (summonTimer >= timeBetweenSummon)
         {
-            attackTimer = 0f;
-            StartCoroutine(SummonPet());
+            if (currentPetCounter < spawnSpots.Length)
+            {
+                attackTimer = 0f;
+                summonTimer = 0f;
+                StartCoroutine(SummonPet());
+            }
         }
     }
 
@@ -156,6 +172,15 @@ public class BossBatterAI : MonoBehaviour
     {
         attackTimer = 0f;
         StartCoroutine(JumpSlamController());
+    }
+
+    private void ThrowBall()
+    {
+        if (Vector3.Distance(player.transform.position, transform.position) > throwMinRange)
+        {
+            attackTimer = 0f;
+            anim.SetTrigger("throw");
+        }
     }
 
     private void FaceTowardPlayer()
@@ -178,17 +203,28 @@ public class BossBatterAI : MonoBehaviour
         selectedMove = (Moveset)Random.Range(0, nMove);
     }
 
-    /// <summary>
-    /// Deprecated.
-    /// </summary>
-    public void BeginNormalAttack()
+    public void BeginAttack()
     {
         inAttack = true;
     }
 
-    public void EndNormalAttack()
+    public void EndAttack()
     {
         inAttack = false;
+    }
+
+    public void CreateBall()
+    {
+        Vector3 spawnBallPos = new Vector3(-2, 0.3f, 0f);
+        if (!isFacingLeft)
+            spawnBallPos.x = 2f;
+
+        spawnBallPos = transform.position + spawnBallPos;
+
+        anim.ResetTrigger("throw"); // failsafe to prevent bug
+        BatterBall newBall = Instantiate(ballPrefab, spawnBallPos, Quaternion.identity);
+        Vector2 ballDirection = (player.transform.position - spawnBallPos).normalized;
+        newBall.GetComponent<Rigidbody2D>().AddForce(ballDirection * hitForce, ForceMode2D.Impulse);
     }
 
     public void AttackDealDamage()

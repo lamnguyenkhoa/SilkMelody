@@ -134,7 +134,7 @@ SpriteRenderer:
   m_SortingLayerID: -1297004119
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6708303420470481881, guid: f3e32de3ce5eb6f4da41ef3dbfb249c1, type: 3}
+  m_Sprite: {fileID: -2589524165963352429, guid: 94332545da8e8544bb2759451ba37a64, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -233,6 +233,7 @@ MonoBehaviour:
   shouldStopMoving: 0
   isDead: 0
   iFrame: 0.1
+  noContactDamage: 0
   dropLoot: {fileID: 2142000902567130090, guid: 0584a8f1290a7b4478c2420ad8ac3a66, type: 3}
   dropAmount: 5
   lootPos: {fileID: 5929603884186253507}
@@ -279,11 +280,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentPetCounter: 0
+  timeBetweenSummon: 10
   shockwavePrefab: {fileID: 4085509167583987173, guid: bfe3e372cbb8df44bb676be0e66c85fe, type: 3}
   shockwaveSpeed: 15
   jumpForce: 300
   slamForce: 300
   groundChecker: {fileID: 730476668}
+  ballPrefab: {fileID: 7533675733517669823, guid: 4188402a2cda4394eabf95f93739c77b, type: 3}
+  hitForce: 40
+  throwMinRange: 8
 --- !u!50 &5929603884186253533
 Rigidbody2D:
   serializedVersion: 4
