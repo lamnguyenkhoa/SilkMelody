@@ -28,6 +28,6 @@ public class BatterAnimEventRef : MonoBehaviour
 
     public void CreateBall()
     {
-        batter.CreateBall();
+        batter.CreateBallAndHit();
     }
 }

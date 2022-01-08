@@ -13,9 +13,6 @@ using UnityEngine;
  * - Below 25% hp, move faster
  * Behaviour:
  * - Since I'm noob, most of his move will be selected randomly after he finished the previous one
- * - If player keep ledge grabbing, he will use ball attack
- * - Can only summon max 2 pet (pet can be killed in 1 hit)
- * - Can not use jump slam twice in a row
  */
 
 public class BossBatterAI : MonoBehaviour
@@ -42,6 +39,7 @@ public class BossBatterAI : MonoBehaviour
     public float dashForce;
     public float runSpeed;
     public float meleeRange;
+    public AudioSource attackSound;
 
     [Header("Charge")]
     public float chargePrepTime;
@@ -53,6 +51,7 @@ public class BossBatterAI : MonoBehaviour
     public GameObject boulderPrefab;
     public Transform boulderSpawnZoneLeft;
     public Transform boulderSpawnZoneRight;
+    public AudioSource wallCrashSound;
 
     [Header("Summon")]
     public BatterPetAI petPrefab;
@@ -60,6 +59,7 @@ public class BossBatterAI : MonoBehaviour
     public int currentPetCounter;
     public float timeBetweenSummon;
     private float summonTimer;
+    public AudioSource summonSound;
 
     [Header("JumpSlam")]
     public Shockwave shockwavePrefab;
@@ -68,11 +68,13 @@ public class BossBatterAI : MonoBehaviour
     public float slamForce;
     private float originalGravityScale;
     public Transform groundChecker; // can use wallMask to check too
+    public AudioSource groundCrashSound;
 
     [Header("ThrowBall")]
     public BatterBall ballPrefab;
     public float hitForce;
     public float throwMinRange; // should larger than meleeRange
+    public AudioSource ballHitSound;
 
     private void Start()
     {
@@ -214,7 +216,7 @@ public class BossBatterAI : MonoBehaviour
         inAttack = false;
     }
 
-    public void CreateBall()
+    public void CreateBallAndHit()
     {
         Vector3 spawnBallPos = new Vector3(-2, 0.3f, 0f);
         if (!isFacingLeft)
@@ -226,6 +228,7 @@ public class BossBatterAI : MonoBehaviour
         BatterBall newBall = Instantiate(ballPrefab, spawnBallPos, Quaternion.identity);
         Vector2 ballDirection = (player.transform.position - spawnBallPos).normalized;
         newBall.GetComponent<Rigidbody2D>().AddForce(ballDirection * hitForce, ForceMode2D.Impulse);
+        ballHitSound.Play();
     }
 
     public void AttackDealDamage()
@@ -249,6 +252,7 @@ public class BossBatterAI : MonoBehaviour
             slash.transform.localPosition += Vector3.right * 1f;
             slash.transform.localScale = new Vector3(-1, 1, 1);
         }
+        attackSound.Play();
     }
 
     private void SpawnBoulder()
@@ -318,6 +322,7 @@ public class BossBatterAI : MonoBehaviour
             {
                 collideWall = true;
                 CinemachineShake.instance.ShakeCamera(5f, 0.5f);
+                wallCrashSound.Play();
                 SpawnBoulder();
             }
 
@@ -340,6 +345,7 @@ public class BossBatterAI : MonoBehaviour
         inAttack = true;
 
         anim.SetBool("summoning", true);
+        summonSound.Play();
         yield return new WaitForSeconds(0.75f / speedOverdrive);
 
         // Spawn a pet in the first empty slot
@@ -394,6 +400,7 @@ public class BossBatterAI : MonoBehaviour
         // Slam
         anim.SetInteger("slamState", 3);
         CinemachineShake.instance.ShakeCamera(5f, 0.5f);
+        groundCrashSound.Play();
         // Create shockwave (default sprite direction is right)
         Shockwave shockwaveRight = Instantiate(shockwavePrefab, transform.position + new Vector3(1f, 0f), Quaternion.identity);
         shockwaveRight.kinematicVelocity = new Vector2(shockwaveSpeed, 0f);
