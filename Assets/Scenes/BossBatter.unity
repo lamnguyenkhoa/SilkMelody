@@ -3996,14 +3996,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5268734040163008458, guid: ba19acb34ed04654a9855dd604a9ffac, type: 3}
-      propertyPath: maxJumpTime
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5268734040163008459, guid: ba19acb34ed04654a9855dd604a9ffac, type: 3}
-      propertyPath: m_GravityScale
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 5268734040163008468, guid: ba19acb34ed04654a9855dd604a9ffac, type: 3}
       propertyPath: m_Name
       value: Tenroh
@@ -4014,11 +4006,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5268734040163008470, guid: ba19acb34ed04654a9855dd604a9ffac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -25.8
+      value: -26.67
       objectReference: {fileID: 0}
     - target: {fileID: 5268734040163008470, guid: ba19acb34ed04654a9855dd604a9ffac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.6
+      value: -7.3
       objectReference: {fileID: 0}
     - target: {fileID: 5268734040163008470, guid: ba19acb34ed04654a9855dd604a9ffac, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8050,11 +8042,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3692723966465173294, guid: 94993fd74720db040a610934d3541efd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -25.8
+      value: -26.67
       objectReference: {fileID: 0}
     - target: {fileID: 3692723966465173294, guid: 94993fd74720db040a610934d3541efd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.6
+      value: -7.3
       objectReference: {fileID: 0}
     - target: {fileID: 3692723966465173294, guid: 94993fd74720db040a610934d3541efd, type: 3}
       propertyPath: m_LocalPosition.z

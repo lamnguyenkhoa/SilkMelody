@@ -287,7 +287,7 @@ MonoBehaviour:
   slamForce: 300
   groundChecker: {fileID: 730476668}
   ballPrefab: {fileID: 7533675733517669823, guid: 4188402a2cda4394eabf95f93739c77b, type: 3}
-  hitForce: 40
+  hitForce: 35
   throwMinRange: 8
 --- !u!50 &5929603884186253533
 Rigidbody2D:
