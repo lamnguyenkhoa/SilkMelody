@@ -110,8 +110,11 @@ public class Player : MonoBehaviour
         Enemy enemy = collision.transform.GetComponent<Enemy>();
         if (enemy)
         {
-            Vector2 knockbackDir = (Vector2)(transform.position - enemy.transform.position).normalized;
-            Damaged(enemy.damage, knockbackDir);
+            if (!enemy.noContactDamage)
+            {
+                Vector2 knockbackDir = (Vector2)(transform.position - enemy.transform.position).normalized;
+                Damaged(enemy.damage, knockbackDir);
+            }
         }
     }
 

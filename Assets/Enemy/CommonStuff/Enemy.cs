@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public bool shouldStopMoving = false;
     public bool isDead;
     public float iFrame = 0.1f;
+    public bool noContactDamage;
 
     [Header("OnDeath")]
     public GameObject dropLoot;

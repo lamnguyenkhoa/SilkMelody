@@ -140,6 +140,7 @@ MonoBehaviour:
   shouldStopMoving: 0
   isDead: 0
   iFrame: 0.1
+  noContactDamage: 1
   dropLoot: {fileID: 0}
   dropAmount: 0
   lootPos: {fileID: 6046852267933630528}
@@ -208,7 +209,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.015838146, y: -0.06722736}
