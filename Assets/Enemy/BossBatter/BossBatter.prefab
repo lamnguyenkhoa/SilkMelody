@@ -936,8 +936,8 @@ MonoBehaviour:
   meleeRange: 4
   attackSound: {fileID: 704422832}
   chargePrepTime: 1
-  chargeAccel: 0.3
-  maxChargeSpeed: 70
+  chargeAccel: 50
+  maxChargeSpeed: 75
   wallMask:
     serializedVersion: 2
     m_Bits: 64

@@ -311,7 +311,7 @@ public class BossBatterAI : MonoBehaviour
         while (!collideWall && chargeTimer < 5f)
         {
             chargeTimer += Time.deltaTime * speedOverdrive; // This for prevent bug that Batter stuck in charge
-            chargeSpeed += chargeAccel;
+            chargeSpeed += chargeAccel * Time.deltaTime;
             chargeSpeed = Mathf.Clamp(chargeSpeed, 0.1f, maxChargeSpeed);
             if (isFacingLeft)
                 rb.velocity = new Vector2(-chargeSpeed, 0f);
