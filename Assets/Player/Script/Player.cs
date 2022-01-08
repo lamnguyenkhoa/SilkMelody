@@ -179,9 +179,10 @@ public class Player : MonoBehaviour
                 isJumping = false;
             }
         }
-        if (Input.GetKeyUp(KeyCode.X))
+        if (Input.GetKeyUp(KeyCode.X) && isJumping)
         {
             isJumping = false;
+            rb.velocity = new Vector2(rb.velocity.x, 0f);
         }
     }
 
