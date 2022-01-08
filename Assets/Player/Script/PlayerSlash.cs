@@ -39,6 +39,7 @@ public class PlayerSlash : MonoBehaviour
         if (fadeColor.a > 0)
         {
             fadeColor.a -= fadeSpeed * Time.deltaTime;
+            fadeColor.a = Mathf.Clamp(fadeColor.a, 0, 1);
             sprite.color = fadeColor;
             fadeSpeed += fadeSpeedAccel * Time.deltaTime;
             sparkLight.intensity = lightOriginalIntensitiy * fadeColor.a;
