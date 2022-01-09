@@ -4,7 +4,7 @@ using UnityEngine;
 
 /** Boss design:
  * Moveset:
- * - Thow and hit a white ball, ranged attack
+ * - Thow and hit a white ball, ranged attack, can be deflected back to Batter
  * - Thow and hit a big red ball, ranged explosive attack, 2 dmg
  * - Normal attack, if player out range then he has a dash
  * - Charge toward player

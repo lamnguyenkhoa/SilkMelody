@@ -11047,9 +11047,12 @@ MonoBehaviour:
   shouldStopMoving: 0
   isDead: 0
   iFrame: 0.1
+  noContactDamage: 0
   dropLoot: {fileID: 2142000902567130090, guid: 56dbe5fb90cf17147948a203d3e34035, type: 3}
   dropAmount: 5
   lootPos: {fileID: 269576495}
+  willBeDestroyed: 0
+  objectsToDisable: []
   flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
   sprite: {fileID: 1555894403}
 --- !u!50 &269576492
@@ -11280,7 +11283,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7775229, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

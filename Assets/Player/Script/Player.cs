@@ -456,6 +456,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(playerStat.stunTime);
         disableControl = false;
         isHurt = false;
+        inAttack = false;
     }
 
     private IEnumerator GotParalyzed()
