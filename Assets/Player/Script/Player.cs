@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private PlayerSoundEffect soundEffect;
     public SpriteRenderer sprite;
     public PlayerSlash slashPrefab;
+    public PlayerDashSlash dashSlashPrefab;
     public ParticleSystem dustPE;
     public Transform groundCheck;
     public Collider2D hurtBox;
@@ -40,6 +41,8 @@ public class Player : MonoBehaviour
     public bool disableControl = false;
     public bool inIFrame = false;
     private float attackTimer;
+    public Transform dashSlashPos;
+    public Vector2 dashRecoil;
 
     [Header("Status Effects")]
     [SerializeField] private bool isParalyzed;
@@ -55,6 +58,7 @@ public class Player : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] private State state = State.idle;
+    private Coroutine dashCoroutine;
     private enum State
     { idle, running, jumping, falling, hurt, dashing, ledgeGrabbing }
     public enum StatusEffect
@@ -95,6 +99,8 @@ public class Player : MonoBehaviour
             HandleLedgeGrab();
 
             HandleCoyoteTime();
+
+            HandleDashAttack();
         }
 
         AnimationControl();
@@ -192,7 +198,28 @@ public class Player : MonoBehaviour
         {
             dashCount--;
             dustPE.Play();
-            StartCoroutine(Dash());
+            if (dashCoroutine != null)
+                StopCoroutine(dashCoroutine);
+            dashCoroutine = StartCoroutine(Dash(false));
+        }
+    }
+
+    private void HandleDashAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.V) && !isDashing && !inAttack && dashCount > 0)
+        {
+            dashCount--;
+            dustPE.Play();
+            if (dashCoroutine != null)
+                StopCoroutine(dashCoroutine);
+            dashCoroutine = StartCoroutine(Dash(true));
+
+            // Attack
+            anim.SetBool("dashAttack", true);
+            PlayerDashSlash dashSlash = Instantiate(dashSlashPrefab, dashSlashPos, false);
+            dashSlash.transform.localPosition = Vector3.zero;
+            dashSlash.disappearTime = playerStat.dashTime;
+            dashSlash.player = this;
         }
     }
 
@@ -319,6 +346,7 @@ public class Player : MonoBehaviour
         rb.gravityScale = originalGravityScale;
         isDashing = false;
         inAttack = false;
+        anim.SetBool("dashAttack", false);
         StartCoroutine(DamagedFreezeTime(amount));
         StartCoroutine(IFrame());
         StartCoroutine(Stunned());
@@ -391,6 +419,18 @@ public class Player : MonoBehaviour
         slash.knockbackPower = playerStat.enemyKnockbackPower;
     }
 
+    public void AttackRecoil()
+    {
+        if (dashCoroutine != null)
+            StopCoroutine(dashCoroutine);
+        isDashing = false;
+        rb.gravityScale = originalGravityScale;
+        inAttack = false;
+        anim.SetBool("dashAttack", false);
+        rb.velocity = Vector2.zero;
+        rb.AddForce(dashRecoil, ForceMode2D.Impulse);
+    }
+
     #endregion Sub Functions
 
     #region Animation Events
@@ -409,9 +449,12 @@ public class Player : MonoBehaviour
 
     #region Coroutines
 
-    private IEnumerator Dash()
+    private IEnumerator Dash(bool alsoAttack)
     {
         isDashing = true;
+        if (alsoAttack)
+            inAttack = true;
+
         rb.gravityScale = 0f;
         rb.velocity = Vector2.zero;
         if (isFacingLeft)
@@ -422,6 +465,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(playerStat.dashTime);
         isDashing = false;
         rb.gravityScale = originalGravityScale;
+        if (alsoAttack)
+        {
+            inAttack = false;
+            anim.SetBool("dashAttack", false);
+        }
     }
 
     private IEnumerator IFrame()
