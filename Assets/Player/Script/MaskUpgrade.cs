@@ -6,6 +6,7 @@ public class MaskUpgrade : MonoBehaviour
 {
     public float floatingAmout;
     private Vector3 originalPosition;
+    private bool used;
 
     private void Start()
     {
@@ -20,8 +21,9 @@ public class MaskUpgrade : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Player player = collision.GetComponent<Player>();
-        if (player)
+        if (player && !used)
         {
+            used = true;
             player.playerStat.maxHp += 1;
             player.playerStat.currentHp = player.playerStat.maxHp;
             Destroy(this.gameObject);
