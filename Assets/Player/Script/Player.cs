@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public SpriteRenderer sprite;
     public PlayerSlash slashPrefab;
     public PlayerDashSlash dashSlashPrefab;
+    public PlayerDashSlash pogoSlashPrefab;
     public ParticleSystem dustPE;
     public Transform groundCheck;
     public Collider2D hurtBox;
@@ -42,6 +43,7 @@ public class Player : MonoBehaviour
     public bool inIFrame = false;
     private float attackTimer;
     public Transform dashSlashPos;
+    public Transform pogoSlashPos;
     public Vector2 dashRecoil;
 
     [Header("Status Effects")]
@@ -198,9 +200,15 @@ public class Player : MonoBehaviour
         {
             dashCount--;
             dustPE.Play();
+            Vector2 dashDirection;
+            if (isFacingLeft)
+                dashDirection = new Vector2(-1f, 0f);
+            else
+                dashDirection = new Vector2(1f, 0f);
+
             if (dashCoroutine != null)
                 StopCoroutine(dashCoroutine);
-            dashCoroutine = StartCoroutine(Dash(false));
+            dashCoroutine = StartCoroutine(Dash(false, dashDirection));
         }
     }
 
@@ -210,11 +218,18 @@ public class Player : MonoBehaviour
         {
             dashCount--;
             dustPE.Play();
+            Vector2 dashDirection;
+            if (isFacingLeft)
+                dashDirection = new Vector2(-1f, 0f);
+            else
+                dashDirection = new Vector2(1f, 0f);
+
             if (dashCoroutine != null)
                 StopCoroutine(dashCoroutine);
-            dashCoroutine = StartCoroutine(Dash(true));
+            dashCoroutine = StartCoroutine(Dash(true, dashDirection));
 
             // Attack
+            soundEffect.PlayAttackSound();
             anim.SetBool("dashAttack", true);
             PlayerDashSlash dashSlash = Instantiate(dashSlashPrefab, dashSlashPos, false);
             dashSlash.transform.localPosition = Vector3.zero;
@@ -223,15 +238,43 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void PogoAttack()
+    {
+        dustPE.Play();
+        Vector2 dashDirection;
+        if (isFacingLeft)
+            dashDirection = new Vector2(-1f, -1f);
+        else
+            dashDirection = new Vector2(1f, -1f);
+
+        if (dashCoroutine != null)
+            StopCoroutine(dashCoroutine);
+        dashCoroutine = StartCoroutine(Dash(true, dashDirection));
+
+        // Attack
+        anim.SetBool("pogoAttack", true);
+        PlayerDashSlash pogoSlash = Instantiate(pogoSlashPrefab, pogoSlashPos, false);
+        pogoSlash.transform.localPosition = Vector3.zero;
+        pogoSlash.disappearTime = playerStat.dashTime;
+        pogoSlash.player = this;
+    }
+
     private void HandleAttack()
     {
         if (Input.GetKeyDown(KeyCode.C) && attackTimer > playerStat.attackCooldown && !inAttack)
         {
+            // Up attack
             if (verInput >= 0.1f)
             {
                 anim.SetTrigger("attackUp");
                 AttackDealDamage(true);
             }
+            // Down attack
+            else if (verInput <= -0.1f)
+            {
+                PogoAttack();
+            }
+            // Normal attack
             else
             {
                 anim.SetTrigger("attack");
@@ -347,6 +390,7 @@ public class Player : MonoBehaviour
         isDashing = false;
         inAttack = false;
         anim.SetBool("dashAttack", false);
+        anim.SetBool("pogoAttack", false);
         StartCoroutine(DamagedFreezeTime(amount));
         StartCoroutine(IFrame());
         StartCoroutine(Stunned());
@@ -427,8 +471,21 @@ public class Player : MonoBehaviour
         rb.gravityScale = originalGravityScale;
         inAttack = false;
         anim.SetBool("dashAttack", false);
+        anim.SetBool("pogoAttack", false);
         rb.velocity = Vector2.zero;
         rb.AddForce(dashRecoil, ForceMode2D.Impulse);
+    }
+
+    public void DashAttackTouchGround()
+    {
+        if (dashCoroutine != null)
+            StopCoroutine(dashCoroutine);
+        isDashing = false;
+        rb.gravityScale = originalGravityScale;
+        inAttack = false;
+        anim.SetBool("dashAttack", false);
+        anim.SetBool("pogoAttack", false);
+        rb.velocity = Vector2.zero;
     }
 
     #endregion Sub Functions
@@ -449,7 +506,7 @@ public class Player : MonoBehaviour
 
     #region Coroutines
 
-    private IEnumerator Dash(bool alsoAttack)
+    private IEnumerator Dash(bool alsoAttack, Vector2 dashDirection)
     {
         isDashing = true;
         if (alsoAttack)
@@ -457,10 +514,7 @@ public class Player : MonoBehaviour
 
         rb.gravityScale = 0f;
         rb.velocity = Vector2.zero;
-        if (isFacingLeft)
-            rb.AddForce(new Vector2(-playerStat.dashForce, 0f), ForceMode2D.Impulse);
-        else
-            rb.AddForce(new Vector2(playerStat.dashForce, 0f), ForceMode2D.Impulse);
+        rb.AddForce(dashDirection * playerStat.dashForce, ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(playerStat.dashTime);
         isDashing = false;
@@ -469,6 +523,7 @@ public class Player : MonoBehaviour
         {
             inAttack = false;
             anim.SetBool("dashAttack", false);
+            anim.SetBool("pogoAttack", false);
         }
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerStat
   m_EditorClassIdentifier: 
   maxHp: 5
-  currentHp: 3
+  currentHp: 5
   damage: 1
   moveSpeed: 7
   jumpForce: 12
@@ -24,6 +24,6 @@ MonoBehaviour:
   selfKnockbackPower: 1
   attackCooldown: 0.15
   copperShard: 0
-  scaleShard: 5
+  scaleShard: 0
   stunTime: 0.3
   iFrameTime: 2

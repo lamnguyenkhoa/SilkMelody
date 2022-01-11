@@ -16,6 +16,7 @@ public class PlayerDashSlash : MonoBehaviour
     private float lightOriginalIntensitiy;
     [SerializeField] private AudioSource hitEnemySound;
     private bool playedImpact = false;
+    private Collider2D attackCollider;
 
     public float disappearTime;
     private float timer;
@@ -25,6 +26,7 @@ public class PlayerDashSlash : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         fadeColor = sprite.color;
         lightOriginalIntensitiy = sparkLight.intensity;
+        attackCollider = transform.GetComponent<Collider2D>();
     }
 
     private void Update()
@@ -32,6 +34,9 @@ public class PlayerDashSlash : MonoBehaviour
         timer += Time.deltaTime;
         if (playedImpact || timer >= disappearTime)
         {
+            if (attackCollider.enabled)
+                attackCollider.enabled = false;
+
             // Fade the sprite
             if (fadeColor.a > 0)
             {
@@ -70,12 +75,19 @@ public class PlayerDashSlash : MonoBehaviour
                 PlayHitEnemySound();
                 playedImpact = true;
                 player.AttackRecoil();
-                transform.GetComponent<BoxCollider2D>().enabled = false;
             }
             // Push enemy backward slightly
             Vector2 knockbackForce = (Vector2)(enemy.transform.position - player.transform.position).normalized * knockbackPower;
             enemy.Damaged(damage, knockbackForce);
             // Play hit/damaged effect on enemy (if there are multiple enemies within attack)
+        }
+        else
+        {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                player.DashAttackTouchGround();
+                playedImpact = true;
+            }
         }
     }
 }

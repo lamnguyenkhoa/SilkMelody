@@ -748,6 +748,36 @@ MonoBehaviour:
   - {x: 0.4157348, y: -0.27778515, z: 0}
   - {x: 0.46193978, y: -0.19134171, z: 0}
   - {x: 0.49039266, y: -0.09754512, z: 0}
+--- !u!1 &984005631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 984005632}
+  m_Layer: 7
+  m_Name: DashAttackPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &984005632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984005631}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.837, y: -0.326, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5268734040163008470}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1390681647
 GameObject:
   m_ObjectHideFlags: 0
@@ -5992,6 +6022,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1761244479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1761244480}
+  m_Layer: 7
+  m_Name: PogoAttackPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1761244480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761244479}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.27, y: -0.47, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5268734040163008470}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5268734040163008468
 GameObject:
   m_ObjectHideFlags: 0
@@ -6030,6 +6090,8 @@ Transform:
   - {fileID: 1660418595}
   - {fileID: 54146327}
   - {fileID: 1390681648}
+  - {fileID: 984005632}
+  - {fileID: 1761244480}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6095,6 +6157,8 @@ MonoBehaviour:
   anim: {fileID: 1390681649}
   sprite: {fileID: 1390681650}
   slashPrefab: {fileID: 1553535645527644202, guid: 70413a68e7556fd41896fc28428e7a60, type: 3}
+  dashSlashPrefab: {fileID: 5763335981127475356, guid: f01a3c29fd06a134faf708926afd9b94, type: 3}
+  pogoSlashPrefab: {fileID: 3815167315807970867, guid: 5523338ab0a33504da4eaaf1e6014152, type: 3}
   dustPE: {fileID: 1660418597}
   groundCheck: {fileID: 54146327}
   hurtBox: {fileID: 5268734040163008456}
@@ -6114,6 +6178,9 @@ MonoBehaviour:
   greenSize: {x: 0.2, y: 0.1}
   disableControl: 0
   inIFrame: 0
+  dashSlashPos: {fileID: 984005632}
+  pogoSlashPos: {fileID: 1761244480}
+  dashRecoil: {x: 0, y: 25}
   isParalyzed: 0
   isSlowed: 0
   inAttack: 0
