@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChangeLevelTrigger : MonoBehaviour
 {
     public string levelName;
+    public string spawnPosName;
     private bool activated;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -14,7 +15,7 @@ public class ChangeLevelTrigger : MonoBehaviour
             Player player = collision.gameObject.GetComponent<Player>();
             if (player)
             {
-                LevelLoader.instance.LoadLevel(levelName);
+                LevelLoader.instance.LoadLevel(levelName, spawnPosName);
             }
         }
     }
