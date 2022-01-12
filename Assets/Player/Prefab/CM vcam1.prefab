@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3692723966465173297}
   - component: {fileID: 3692723966465173295}
   - component: {fileID: 3692723966465173292}
+  - component: {fileID: -4686544102738711353}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -99,6 +100,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522f8ae4ea0f871428b2caca29d2d451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4686544102738711353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3692723966465173296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4786b480c1e878341bbe03622ee3b040, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetName: Tenroh
 --- !u!1 &3692723966592326893
 GameObject:
   m_ObjectHideFlags: 0

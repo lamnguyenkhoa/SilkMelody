@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class LevelLoader : MonoBehaviour
 {
@@ -34,19 +35,6 @@ public class LevelLoader : MonoBehaviour
 
     private void UpdatePlayerPosition(Scene scene, LoadSceneMode mode)
     {
-        StartCoroutine(DitMeUnityGayVL());
-    }
-
-    public void LoadLevel(string sceneName, string spawnPosName)
-    {
-        this.spawnPosName = spawnPosName;
-        StartCoroutine(LoadingScreen(sceneName));
-    }
-
-    private IEnumerator DitMeUnityGayVL()
-    {
-        // If we dont wait for 0.1f, player will be reset to scene original position
-        yield return new WaitForSeconds(0.1f);
         if (spawnPosName != "")
         {
             Transform player = GameObject.Find("Tenroh").transform;
@@ -56,11 +44,17 @@ public class LevelLoader : MonoBehaviour
         }
     }
 
+    public void LoadLevel(string sceneName, string spawnPosName)
+    {
+        this.spawnPosName = spawnPosName;
+        StartCoroutine(LoadingScreen(sceneName));
+    }
+
     private IEnumerator LoadingScreen(string sceneName)
     {
-        anim.SetBool("changeScene", true);
+        //anim.SetBool("changeScene", true);
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(sceneName);
-        anim.SetBool("changeScene", false);
+        //anim.SetBool("changeScene", false);
     }
 }

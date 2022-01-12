@@ -66,9 +66,22 @@ public class Player : MonoBehaviour
     public enum StatusEffect
     { paralyzed, slowed };
 
+    public static Player instance;
+
     #endregion Variables
 
     #region Unity Callbacks
+
+    private void Awake()
+    {
+        if (!instance)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+            Destroy(this.gameObject);
+    }
 
     private void Start()
     {
