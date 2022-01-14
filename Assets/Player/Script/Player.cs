@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
     [Header("Components")]
     public Animator anim;
-    [HideInInspector] public Rigidbody2D rb;
+    public Rigidbody2D rb;
     private PlayerSoundEffect soundEffect;
     public SpriteRenderer sprite;
     public PlayerSlash slashPrefab;
@@ -39,7 +39,14 @@ public class Player : MonoBehaviour
     private bool redBox, greenBox;
 
     [Header("Combat")]
-    public bool disableControl = false;
+    public int disableControlCounter = 0;
+    /**
+     * Using integer instead of bool allow us to easy keep tracking of how many effect are
+    * disabling the player control. For example, player get stunned and paralyzed meaning
+    * the counter = 2. If one effect come off first, the counter is 1 so they still
+    * cant move. If we use bool the player will be able to move after 1 effect wear off.
+    */
+
     public bool inIFrame = false;
     private float attackTimer;
     public Transform dashSlashPos;
@@ -57,11 +64,13 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isFacingLeft;
     [SerializeField] private bool isJumping;
     [SerializeField] private bool isLedgeGrabbing;
+    [SerializeField] private bool isDead;
 
     [Header("Misc")]
     [SerializeField] private State state = State.idle;
     public bool resting;
     private Coroutine dashCoroutine;
+
     private enum State
     { idle, running, jumping, falling, hurt, dashing, ledgeGrabbing }
     public enum StatusEffect
@@ -102,7 +111,7 @@ public class Player : MonoBehaviour
         if (!inAttack)
             attackTimer += Time.deltaTime;
 
-        if (!resting && !disableControl && !isDashing && !isParalyzed)
+        if (!resting && disableControlCounter == 0 && !isDashing && !isParalyzed)
         {
             HandleMovement();
 
@@ -360,7 +369,7 @@ public class Player : MonoBehaviour
 
     private void AnimationControl()
     {
-        if (isHurt || isParalyzed)
+        if (isDead || isHurt || isParalyzed)
         {
             state = State.hurt;
         }
@@ -405,10 +414,17 @@ public class Player : MonoBehaviour
         inAttack = false;
         anim.SetBool("dashAttack", false);
         anim.SetBool("pogoAttack", false);
-        StartCoroutine(DamagedFreezeTime(amount));
-        StartCoroutine(IFrame());
-        StartCoroutine(Stunned());
-        rb.AddForce(knockbackDir * 5f + Vector3.up * 5f, ForceMode2D.Impulse);
+        if (playerStat.currentHp <= 0)
+        {
+            StartCoroutine(Death());
+        }
+        else
+        {
+            StartCoroutine(DamagedFreezeTime(amount));
+            StartCoroutine(IFrame());
+            StartCoroutine(Stunned());
+            rb.AddForce(knockbackDir * 5f + Vector3.up * 5f, ForceMode2D.Impulse);
+        }
     }
 
     #endregion Main Functions
@@ -504,7 +520,12 @@ public class Player : MonoBehaviour
 
     public void RestChairRecovery()
     {
+        StopAllCoroutines();
         playerStat.currentHp = playerStat.maxHp;
+        isDashing = false;
+        inAttack = false;
+        anim.SetBool("dashAttack", false);
+        anim.SetBool("pogoAttack", false);
     }
 
     #endregion Sub Functions
@@ -573,10 +594,10 @@ public class Player : MonoBehaviour
     {
         isHurt = true;
         isParalyzed = false;
-        disableControl = true;
+        disableControlCounter += 1;
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(playerStat.stunTime);
-        disableControl = false;
+        disableControlCounter -= 1;
         isHurt = false;
         inAttack = false;
     }
@@ -601,6 +622,19 @@ public class Player : MonoBehaviour
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(0.35f * damageAmount);
         Time.timeScale = 1f;
+    }
+
+    private IEnumerator Death()
+    {
+        isDead = true;
+        disableControlCounter += 1;
+        rb.gravityScale = 0f;
+        rb.velocity = Vector2.zero;
+        LevelLoader.instance.Respawn();
+        yield return new WaitForSeconds(LevelLoader.instance.transitionTime);
+        isDead = false;
+        playerStat.currentHp = playerStat.maxHp;
+        disableControlCounter -= 1;
     }
 
     #endregion Coroutines

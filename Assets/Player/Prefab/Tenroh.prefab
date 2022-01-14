@@ -6155,6 +6155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1390681649}
+  rb: {fileID: 5268734040163008459}
   sprite: {fileID: 1390681650}
   slashPrefab: {fileID: 1553535645527644202, guid: 70413a68e7556fd41896fc28428e7a60, type: 3}
   dashSlashPrefab: {fileID: 5763335981127475356, guid: f01a3c29fd06a134faf708926afd9b94, type: 3}
@@ -6167,6 +6168,7 @@ MonoBehaviour:
   verInput: 0
   horInput: 0
   maxJumpTime: 0.3
+  originalGravityScale: 0
   isGrounded: 0
   groundMask:
     serializedVersion: 2
@@ -6176,7 +6178,7 @@ MonoBehaviour:
   redSize: {x: 0.2, y: 0.1}
   greenOffset: {x: 0.5, y: 0}
   greenSize: {x: 0.2, y: 0.1}
-  disableControl: 0
+  disableControlCounter: 0
   inIFrame: 0
   dashSlashPos: {fileID: 984005632}
   pogoSlashPos: {fileID: 1761244480}
@@ -6189,7 +6191,9 @@ MonoBehaviour:
   isFacingLeft: 0
   isJumping: 0
   isLedgeGrabbing: 0
+  isDead: 0
   state: 0
+  resting: 0
 --- !u!114 &1179739879
 MonoBehaviour:
   m_ObjectHideFlags: 0

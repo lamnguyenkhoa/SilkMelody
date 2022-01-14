@@ -6,9 +6,10 @@ using UnityEngine;
 public class RestChair : MonoBehaviour
 {
     public Transform sittingPos;
-    private bool playerInRange;
-    private bool playerSitting;
-    private Player player;
+    [SerializeField] private bool playerInRange;
+    [SerializeField] private bool playerSitting;
+    [SerializeField] private Player player;
+    public GameObject interactText;
 
     private void Update()
     {
@@ -27,7 +28,6 @@ public class RestChair : MonoBehaviour
     {
         playerSitting = false;
         player.resting = false;
-        player.transform.parent = null;
         player.rb.gravityScale = player.originalGravityScale;
 
         // Turn off invulnerable
@@ -36,17 +36,19 @@ public class RestChair : MonoBehaviour
         int EnemyAttackLayerId = LayerMask.NameToLayer("EnemyAttack");
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyLayerId, false);
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyAttackLayerId, false);
+
+        interactText.SetActive(true);
     }
 
-    private void SitOnChair()
+    public void SitOnChair()
     {
         playerSitting = true;
         player.resting = true;
         player.RestChairRecovery();
         player.rb.velocity = Vector2.zero;
         player.rb.gravityScale = 0f;
-        player.transform.parent = sittingPos;
-        player.transform.localPosition = Vector2.zero;
+        player.transform.position = sittingPos.position;
+        LevelLoader.instance.UpdateSpawnPoint(this.gameObject.name);
 
         // Invulnerable to enemy
         int playerLayerId = LayerMask.NameToLayer("Player");
@@ -54,6 +56,13 @@ public class RestChair : MonoBehaviour
         int EnemyAttackLayerId = LayerMask.NameToLayer("EnemyAttack");
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyLayerId, true);
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyAttackLayerId, true);
+
+        interactText.SetActive(false);
+    }
+
+    public void RespawnAssignToChair(Player player)
+    {
+        this.player = player;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -62,6 +71,8 @@ public class RestChair : MonoBehaviour
         if (player)
         {
             playerInRange = true;
+            if (!playerSitting)
+                interactText.SetActive(true);
         }
     }
 
@@ -71,6 +82,7 @@ public class RestChair : MonoBehaviour
         if (player)
         {
             playerInRange = false;
+            interactText.SetActive(false);
         }
     }
 }
