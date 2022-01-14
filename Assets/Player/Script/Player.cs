@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
     [Header("Components")]
     public Animator anim;
-    private Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
     private PlayerSoundEffect soundEffect;
     public SpriteRenderer sprite;
     public PlayerSlash slashPrefab;
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float horInput;
     private float jumpTimer;
     public float maxJumpTime = 0.5f;
-    private float originalGravityScale;
+    [HideInInspector] public float originalGravityScale;
     private float airTime;
     [SerializeField] private bool isGrounded;
     public LayerMask groundMask;
@@ -60,6 +60,7 @@ public class Player : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] private State state = State.idle;
+    public bool resting;
     private Coroutine dashCoroutine;
     private enum State
     { idle, running, jumping, falling, hurt, dashing, ledgeGrabbing }
@@ -101,7 +102,7 @@ public class Player : MonoBehaviour
         if (!inAttack)
             attackTimer += Time.deltaTime;
 
-        if (!disableControl && !isDashing && !isParalyzed)
+        if (!resting && !disableControl && !isDashing && !isParalyzed)
         {
             HandleMovement();
 
@@ -499,6 +500,11 @@ public class Player : MonoBehaviour
         anim.SetBool("dashAttack", false);
         anim.SetBool("pogoAttack", false);
         rb.velocity = Vector2.zero;
+    }
+
+    public void RestChairRecovery()
+    {
+        playerStat.currentHp = playerStat.maxHp;
     }
 
     #endregion Sub Functions

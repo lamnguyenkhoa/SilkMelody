@@ -112,6 +112,8 @@ public class Enemy : MonoBehaviour
 
         foreach (GameObject gameObject in objectsToDisable)
             gameObject.SetActive(false);
+
+        Destroy(this.gameObject, 10f);
     }
 
     private void Knockback(Vector3 knockbackForce)
