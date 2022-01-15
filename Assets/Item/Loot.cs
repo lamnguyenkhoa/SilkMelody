@@ -9,6 +9,8 @@ public class Loot : MonoBehaviour
     public LootEnum lootType;
     public int value;
     public float destroyTime = 0f; // Set to 0f if you dont want them to be destroy after some time
+    public AudioSource lootSound;
+    private bool pickedUp;
 
     private void Start()
     {
@@ -19,7 +21,7 @@ public class Loot : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Player player = collision.transform.GetComponent<Player>();
-        if (player)
+        if (player && !pickedUp)
         {
             switch (lootType)
             {
@@ -35,7 +37,11 @@ public class Loot : MonoBehaviour
                     Debug.Log("Unexpected default case");
                     break;
             }
-            Destroy(this.gameObject);
+            pickedUp = true;
+            this.transform.GetComponent<SpriteRenderer>().enabled = false;
+            this.transform.GetComponent<Collider2D>().enabled = false;
+            lootSound.Play();
+            Destroy(this.gameObject, 1f);
         }
     }
 }
