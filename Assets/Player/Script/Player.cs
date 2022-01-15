@@ -293,7 +293,7 @@ public class Player : MonoBehaviour
                 AttackDealDamage(true);
             }
             // Down attack
-            else if (verInput <= -0.1f)
+            else if (verInput <= -0.1f && !isGrounded)
             {
                 PogoAttack();
             }
@@ -493,7 +493,7 @@ public class Player : MonoBehaviour
         slash.knockbackPower = playerStat.enemyKnockbackPower;
     }
 
-    public void AttackRecoil()
+    public void AttackRecoil(bool resetDash)
     {
         if (dashCoroutine != null)
             StopCoroutine(dashCoroutine);
@@ -504,6 +504,8 @@ public class Player : MonoBehaviour
         anim.SetBool("pogoAttack", false);
         rb.velocity = Vector2.zero;
         rb.AddForce(dashRecoil, ForceMode2D.Impulse);
+        if (resetDash)
+            dashCount = playerStat.maxDashCount;
     }
 
     public void DashAttackTouchGround()

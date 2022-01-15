@@ -53,6 +53,7 @@ MonoBehaviour:
   knockbackPower: 1
   fadeSpeedAccel: 100
   hitEnemySound: {fileID: 8651522031463297099}
+  canResetDash: 1
   disappearTime: 0
 --- !u!212 &9019847198069056334
 SpriteRenderer:

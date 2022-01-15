@@ -17,6 +17,7 @@ public class PlayerDashSlash : MonoBehaviour
     [SerializeField] private AudioSource hitEnemySound;
     private bool playedImpact = false;
     private Collider2D attackCollider;
+    [SerializeField] private bool canResetDash;
 
     public float disappearTime;
     private float timer;
@@ -74,7 +75,7 @@ public class PlayerDashSlash : MonoBehaviour
                 sparkLight.enabled = true;
                 PlayHitEnemySound();
                 playedImpact = true;
-                player.AttackRecoil();
+                player.AttackRecoil(canResetDash);
             }
             // Push enemy backward slightly
             Vector2 knockbackForce = (Vector2)(enemy.transform.position - player.transform.position).normalized * knockbackPower;
