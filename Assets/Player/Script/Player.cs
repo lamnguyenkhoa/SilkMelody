@@ -144,7 +144,7 @@ public class Player : MonoBehaviour
             if (!enemy.noContactDamage)
             {
                 Vector2 knockbackDir = (Vector2)(transform.position - enemy.transform.position).normalized;
-                Damaged(enemy.damage, knockbackDir);
+                Damaged(1, knockbackDir);
             }
         }
     }
