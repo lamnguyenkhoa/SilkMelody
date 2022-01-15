@@ -19,12 +19,16 @@ public class LevelLoader : MonoBehaviour
     private Vector2 backupRespawnPos;
     private bool doRespawn;
 
+    [Header("Other")]
+    private Player player;
+
     private void Awake()
     {
         if (!instance)
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
+            player = GameObject.Find("Tenroh").GetComponent<Player>();
             SpawnPointInit();
         }
         else
@@ -48,8 +52,7 @@ public class LevelLoader : MonoBehaviour
         if (respawnScene == "")
         {
             respawnScene = SceneManager.GetActiveScene().name;
-            Transform player = GameObject.Find("Tenroh").transform;
-            backupRespawnPos = player.position;
+            backupRespawnPos = player.transform.position;
         }
     }
 
@@ -60,15 +63,14 @@ public class LevelLoader : MonoBehaviour
         {
             if (respawnChairName == "")
             {
-                Transform player = GameObject.Find("Tenroh").transform;
-                player.position = backupRespawnPos;
+                player.transform.position = backupRespawnPos;
                 doRespawn = false;
+                player.rb.gravityScale = player.originalGravityScale;
             }
             else
             {
-                Transform player = GameObject.Find("Tenroh").transform;
                 RestChair chair = GameObject.Find(respawnChairName).GetComponent<RestChair>();
-                player.position = chair.transform.position;
+                player.transform.position = chair.transform.position;
                 chair.RespawnAssignToChair(player.GetComponent<Player>());
                 chair.SitOnChair();
                 doRespawn = false;
@@ -77,11 +79,14 @@ public class LevelLoader : MonoBehaviour
         // Update position because of change scene
         else if (spawnPosName != "")
         {
-            Transform player = GameObject.Find("Tenroh").transform;
             Transform target = GameObject.Find(spawnPosName).transform;
-            player.position = target.position;
+            player.transform.position = target.position;
             spawnPosName = "";
+            player.rb.gravityScale = player.originalGravityScale;
         }
+        player.disableControlCounter -= 1;
+        if (player.disableControlCounter < 0)
+            player.disableControlCounter = 0;
     }
 
     public void UpdateSpawnPoint(string restChairName)
@@ -99,6 +104,8 @@ public class LevelLoader : MonoBehaviour
     public void LoadLevel(string sceneName, string spawnPosName)
     {
         this.spawnPosName = spawnPosName;
+        player.disableControlCounter += 1;
+        player.rb.gravityScale = 0f;
         StartCoroutine(LoadingScreen(sceneName));
     }
 

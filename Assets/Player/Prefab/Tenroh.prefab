@@ -6206,6 +6206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b94734f2ead414c80e79b050716d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  footstepFrequency: 0
   attack: {fileID: 1638716622}
   damaged: {fileID: 1750897383}
 --- !u!61 &5268734040696338971

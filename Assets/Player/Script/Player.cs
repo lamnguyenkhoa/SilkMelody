@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     public float maxJumpTime = 0.5f;
     [HideInInspector] public float originalGravityScale;
     private float airTime;
-    [SerializeField] private bool isGrounded;
+    public bool isGrounded;
     public LayerMask groundMask;
     private Vector3 groundBox;
     private float coyoteAirTimer;
@@ -121,7 +121,8 @@ public class Player : MonoBehaviour
 
             HandleDash();
 
-            HandleLedgeGrab();
+            if (canLedgeGrab)
+                HandleLedgeGrab();
 
             HandleCoyoteTime();
 

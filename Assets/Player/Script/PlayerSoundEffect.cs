@@ -4,8 +4,33 @@ using UnityEngine;
 
 public class PlayerSoundEffect : MonoBehaviour
 {
+    [Header("Footstep")]
+    public float footstepFrequency;
+    private float footstepTimer;
+
+    [Header("Other")]
     [SerializeField] private AudioSource attack;
     [SerializeField] private AudioSource damaged;
+    private Player player;
+
+    private void Start()
+    {
+        player = GetComponent<Player>();
+    }
+
+    private void Update()
+    {
+        HandleFootstepSound();
+    }
+
+    private void HandleFootstepSound()
+    {
+        footstepTimer += Time.deltaTime;
+        if (footstepTimer >= footstepFrequency && player.isGrounded)
+        {
+            footstepTimer = 0f;
+        }
+    }
 
     public void PlayAttackSound()
     {

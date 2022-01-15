@@ -16,6 +16,7 @@ public class ChangeLevelTrigger : MonoBehaviour
             if (player)
             {
                 LevelLoader.instance.LoadLevel(levelName, spawnPosName);
+                activated = true;
             }
         }
     }
