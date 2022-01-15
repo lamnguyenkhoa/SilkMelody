@@ -127,6 +127,8 @@ public class Player : MonoBehaviour
             HandleCoyoteTime();
 
             HandleDashAttack();
+
+            HandleHeal();
         }
 
         AnimationControl();
@@ -428,6 +430,17 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void HandleHeal()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && playerStat.currentSilk >= 8 && !inAttack)
+        {
+            playerStat.currentSilk -= 8;
+            playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, 8);
+            playerStat.currentHp += playerStat.silkHeal;
+            playerStat.currentHp = Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
+        }
+    }
+
     #endregion Main Functions
 
     #region Sub Functions
@@ -490,7 +503,6 @@ public class Player : MonoBehaviour
                 slash.transform.position += Vector3.right * 0.5f;
         }
         slash.player = this.transform;
-        slash.damage = playerStat.damage;
         slash.knockbackPower = playerStat.enemyKnockbackPower;
     }
 

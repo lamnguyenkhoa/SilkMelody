@@ -8,6 +8,8 @@ public class PlayerStatSO : ScriptableObject
     [Header("Stat")]
     public int maxHp = 5;
     public int currentHp = 5;
+    public int currentSilk = 0;
+    public int silkHeal = 3;
     public float damage = 1f;
     public float moveSpeed = 7f;
     public float jumpForce = 15f;

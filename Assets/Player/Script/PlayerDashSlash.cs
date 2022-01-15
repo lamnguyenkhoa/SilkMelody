@@ -7,7 +7,7 @@ public class PlayerDashSlash : MonoBehaviour
 {
     [HideInInspector] public Player player;
     public Light2D sparkLight;
-    public float damage = 1f;
+    public PlayerStatSO playerStat;
     public float knockbackPower = 1f;
     private SpriteRenderer sprite;
     private Color fadeColor;
@@ -79,7 +79,9 @@ public class PlayerDashSlash : MonoBehaviour
             }
             // Push enemy backward slightly
             Vector2 knockbackForce = (Vector2)(enemy.transform.position - player.transform.position).normalized * knockbackPower;
-            enemy.Damaged(damage, knockbackForce);
+            enemy.Damaged(playerStat.damage, knockbackForce);
+            playerStat.currentSilk += 1;
+            playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, 8);
             // Play hit/damaged effect on enemy (if there are multiple enemies within attack)
         }
         else
