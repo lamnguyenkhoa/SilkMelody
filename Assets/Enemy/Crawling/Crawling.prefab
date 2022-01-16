@@ -230,14 +230,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 3
+  currentHp: 0
   damage: 1
   knockbackAble: 1
   isInvulnerable: 0
   shouldStopMoving: 0
   isDead: 0
+  iFrame: 0.1
+  noContactDamage: 0
   dropLoot: {fileID: 2142000902567130090, guid: 56dbe5fb90cf17147948a203d3e34035, type: 3}
   dropAmount: 3
   lootPos: {fileID: 6250826856611061362}
+  willBeDestroyed: 0
+  objectsToDisable: []
   flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
   sprite: {fileID: 126525052}
 --- !u!114 &361175349
@@ -259,7 +264,8 @@ MonoBehaviour:
   nearFall: 0
   notWallMask:
     serializedVersion: 2
-    m_Bits: 3968
+    m_Bits: 3969
+  stabilized: 0
 --- !u!1 &8341824146641315095
 GameObject:
   m_ObjectHideFlags: 0

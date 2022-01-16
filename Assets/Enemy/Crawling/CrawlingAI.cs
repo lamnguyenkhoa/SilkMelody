@@ -10,10 +10,10 @@ public class CrawlingAI : MonoBehaviour
     public bool isMovingRight = false;
     public float speed = 1f;
     private Vector2 moveVelocity;
-    public bool nearWall = false;
-    public bool nearFall = false;
+    [SerializeField] private bool nearWall = false;
+    [SerializeField] private bool nearFall = false;
     public LayerMask notWallMask;
-    private bool stabilized;
+    [SerializeField] private bool stabilized;
 
     private void Start()
     {
@@ -43,7 +43,8 @@ public class CrawlingAI : MonoBehaviour
         else
             nearFall = true;
 
-        if (Physics2D.OverlapCircle(checkObstaclePos.position, 0.1f, ~notWallMask))
+        Collider2D tmp = Physics2D.OverlapCircle(checkObstaclePos.position, 0.1f, ~notWallMask);
+        if (tmp)
             nearWall = true;
         else
             nearWall = false;
