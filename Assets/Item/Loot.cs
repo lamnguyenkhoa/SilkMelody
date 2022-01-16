@@ -11,11 +11,22 @@ public class Loot : MonoBehaviour
     public float destroyTime = 0f; // Set to 0f if you dont want them to be destroy after some time
     public AudioSource lootSound;
     private bool pickedUp;
+    public float animSpeed = 1;
+    public Transform spriteHolder;
+    private float randomTmp;
 
     private void Start()
     {
         if (destroyTime > 0)
             Destroy(this.gameObject, destroyTime);
+        randomTmp = Random.Range(90, 270);
+    }
+
+    private void Update()
+    {
+        // Spinning animation
+        float tmp = Mathf.Sin(randomTmp + Time.time * animSpeed);
+        spriteHolder.localScale = new Vector3(tmp, 1, 1);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -38,7 +49,7 @@ public class Loot : MonoBehaviour
                     break;
             }
             pickedUp = true;
-            this.transform.GetComponent<SpriteRenderer>().enabled = false;
+            spriteHolder.gameObject.SetActive(false);
             this.transform.GetComponent<Collider2D>().enabled = false;
             lootSound.Play();
             Destroy(this.gameObject, 1f);
