@@ -76,7 +76,7 @@ public class PlayerSlash : MonoBehaviour
             Vector2 knockbackForce = (Vector2)(enemy.transform.position - player.position).normalized * knockbackPower;
             enemy.Damaged(playerStat.damage, knockbackForce);
             playerStat.currentSilk += 1;
-            playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, 8);
+            playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
             // Play hit/damaged effect on enemy (if there are multiple enemies within attack)
         }
     }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,30 +6,60 @@ using UnityEngine.UI;
 public class SilkBarUI : MonoBehaviour
 {
     public PlayerStatSO playerStat;
-    private Image silkBarImage;
-    public Sprite[] silkBarSprites; // There should be 9
+    public Sprite silkIcon;
+    public Sprite emptyIcon;
+    private List<Image> silkList = new List<Image>();
+    public Image silkPrefab;
 
-    private void Start()
+    private void Awake()
     {
-        InitSilkBar();
+        InitNumberOfSilk();
     }
 
     private void Update()
     {
-        UpdateSilkBar();
+        UpdateSilkUI();
     }
 
-    private void InitSilkBar()
+    public void UpdateSilkUI()
     {
-        silkBarImage = GetComponent<Image>();
-        if (silkBarSprites.Length != 9)
-            Debug.Log("ERROR SILKBAR SPRITES != 0");
+        // Update according to max silk
+        if (playerStat.maxSilk != silkList.Count)
+            InitNumberOfSilk();
+
+        // Update according to current silk
+        for (int i = 0; i < silkList.Count; i++)
+        {
+            if (i < playerStat.currentSilk)
+                silkList[i].sprite = silkIcon;
+            else
+                silkList[i].sprite = emptyIcon;
+        }
     }
 
-    private void UpdateSilkBar()
+    public void InitNumberOfSilk()
     {
-        int nSilk = playerStat.currentSilk;
-        nSilk = Mathf.Clamp(nSilk, 0, 8);
-        silkBarImage.sprite = silkBarSprites[nSilk];
+        // Delete all silks first
+        foreach (Transform child in transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        silkList.Clear();
+
+        // Added left side silk bar
+        for (int i = 0; i < playerStat.maxSilk; i++)
+        {
+            Image newSilk = Instantiate(silkPrefab, transform, false);
+            silkList.Add(newSilk);
+        }
+    }
+
+    public void IncreaseNumberOfSilk()
+    {
+        while (silkList.Count < playerStat.maxSilk)
+        {
+            Image newSilk = Instantiate(silkPrefab, transform, false);
+            silkList.Add(newSilk);
+        }
     }
 }

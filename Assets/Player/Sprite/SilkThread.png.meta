@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 87173a7527e7d6b4398ea37f5da731ed
+guid: 532a774ba9747ae4d9d8d53510929735
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4800309397100551939
-    second: SilkBar_0
-  - first:
-      213: 856623673779206291
-    second: SilkBar_1
-  - first:
-      213: 2004633482978572921
-    second: SilkBar_2
+      213: 7536467005022279474
+    second: SilkThread_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -100,31 +94,10 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SilkBar_0
+      name: SilkThread_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 14
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 30fd52aa6ff1e9240800000000000000
-      internalID: 4800309397100551939
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SilkBar_1
-      rect:
-        serializedVersion: 2
-        x: 45
+        x: 13
         y: 0
         width: 6
         height: 32
@@ -135,29 +108,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 398bcc551b653eb00800000000000000
-      internalID: 856623673779206291
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SilkBar_2
-      rect:
-        serializedVersion: 2
-        x: 82
-        y: 0
-        width: 14
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 97abac12883e1db10800000000000000
-      internalID: 2004633482978572921
+      spriteID: 2371ec7afc8e69860800000000000000
+      internalID: 7536467005022279474
       vertices: []
       indices: 
       edges: []

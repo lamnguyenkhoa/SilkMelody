@@ -426,7 +426,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && playerStat.currentSilk >= 8 && !inAttack)
         {
             playerStat.currentSilk -= 8;
-            playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, 8);
+            playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
             anim.SetTrigger("heal");
         }
     }
