@@ -6082,7 +6082,7 @@ Transform:
   m_GameObject: {fileID: 5268734040163008468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.4, y: -0.16, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 194033816}
   - {fileID: 42923274}
@@ -6183,6 +6183,7 @@ MonoBehaviour:
   dashSlashPos: {fileID: 984005632}
   pogoSlashPos: {fileID: 1761244480}
   dashRecoil: {x: 0, y: 25}
+  silkBindVFXPrefab: {fileID: 260770743590998977, guid: 15e214d5127be094ba46e6124d64e7cf, type: 3}
   isParalyzed: 0
   isSlowed: 0
   inAttack: 0
@@ -6192,8 +6193,10 @@ MonoBehaviour:
   isJumping: 0
   isLedgeGrabbing: 0
   isDead: 0
+  inHeal: 0
   state: 0
   resting: 0
+  flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
 --- !u!114 &1179739879
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 5
   currentHp: 5
-  currentSilk: 0
+  currentSilk: 8
   silkHeal: 3
   damage: 1
   moveSpeed: 7
@@ -25,7 +25,7 @@ MonoBehaviour:
   enemyKnockbackPower: 5
   selfKnockbackPower: 1
   attackCooldown: 0.15
-  copperShard: 8
+  copperShard: 0
   scaleShard: 0
   stunTime: 0.3
-  iFrameTime: 2
+  iFrameTime: 1

@@ -20,4 +20,19 @@ public class PlayerAnimEventRef : MonoBehaviour
     {
         player.EndAttackAnim();
     }
+
+    public void BeginHeal()
+    {
+        player.BeginHeal();
+    }
+
+    public void ActualHeal()
+    {
+        player.ActualHeal();
+    }
+
+    public void EndHeal()
+    {
+        player.EndHeal();
+    }
 }

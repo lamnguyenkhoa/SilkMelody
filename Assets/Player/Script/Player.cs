@@ -41,9 +41,9 @@ public class Player : MonoBehaviour
     [Header("Combat")]
     public int disableControlCounter = 0;
     /**
-     * Using integer instead of bool allow us to easy keep tracking of how many effect are
-    * disabling the player control. For example, player get stunned and paralyzed meaning
-    * the counter = 2. If one effect come off first, the counter is 1 so they still
+     * Using integer instead of bool allow us to easy keep tracking of how many NON-INTERRUPTABLE
+    * effects are disabling the player control. For example, player get stunned and paralyzed
+    * meaning the counter = 2. If one effect come off first, the counter is 1 so they still
     * cant move. If we use bool the player will be able to move after 1 effect wear off.
     */
 
@@ -52,6 +52,9 @@ public class Player : MonoBehaviour
     public Transform dashSlashPos;
     public Transform pogoSlashPos;
     public Vector2 dashRecoil;
+
+    [Header("SilkAbility")]
+    public GameObject silkBindVFXPrefab;
 
     [Header("Status Effects")]
     [SerializeField] private bool isParalyzed;
@@ -65,11 +68,14 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isJumping;
     [SerializeField] private bool isLedgeGrabbing;
     [SerializeField] private bool isDead;
+    [SerializeField] private bool inHeal;
 
     [Header("Misc")]
     [SerializeField] private State state = State.idle;
     public bool resting;
     private Coroutine dashCoroutine;
+    public Material flashMat;
+    private Material originalMaterial;
 
     private enum State
     { idle, running, jumping, falling, hurt, dashing, ledgeGrabbing }
@@ -102,6 +108,7 @@ public class Player : MonoBehaviour
         groundBox = hurtBox.bounds.size;
         groundBox.x -= 0.05f;
         groundBox.y = 0.1f;
+        originalMaterial = sprite.material;
     }
 
     private void Update()
@@ -111,7 +118,7 @@ public class Player : MonoBehaviour
         if (!inAttack)
             attackTimer += Time.deltaTime;
 
-        if (!resting && disableControlCounter == 0 && !isDashing && !isParalyzed)
+        if (!resting && disableControlCounter == 0 && !isDashing && !isParalyzed && !inHeal)
         {
             HandleMovement();
 
@@ -264,27 +271,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void PogoAttack()
-    {
-        dustPE.Play();
-        Vector2 dashDirection;
-        if (isFacingLeft)
-            dashDirection = new Vector2(-1f, -1f);
-        else
-            dashDirection = new Vector2(1f, -1f);
-
-        if (dashCoroutine != null)
-            StopCoroutine(dashCoroutine);
-        dashCoroutine = StartCoroutine(Dash(true, dashDirection));
-
-        // Attack
-        anim.SetBool("pogoAttack", true);
-        PlayerDashSlash pogoSlash = Instantiate(pogoSlashPrefab, pogoSlashPos, false);
-        pogoSlash.transform.localPosition = Vector3.zero;
-        pogoSlash.disappearTime = playerStat.dashTime;
-        pogoSlash.player = this;
-    }
-
     private void HandleAttack()
     {
         if (Input.GetKeyDown(KeyCode.C) && attackTimer > playerStat.attackCooldown && !inAttack)
@@ -370,6 +356,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Mainly used for state or looped animation
+    /// </summary>
     private void AnimationControl()
     {
         if (isDead || isHurt || isParalyzed)
@@ -415,6 +404,8 @@ public class Player : MonoBehaviour
         rb.gravityScale = originalGravityScale;
         isDashing = false;
         inAttack = false;
+        inHeal = false;
+        sprite.material = originalMaterial;
         anim.SetBool("dashAttack", false);
         anim.SetBool("pogoAttack", false);
         if (playerStat.currentHp <= 0)
@@ -436,14 +427,34 @@ public class Player : MonoBehaviour
         {
             playerStat.currentSilk -= 8;
             playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, 8);
-            playerStat.currentHp += playerStat.silkHeal;
-            playerStat.currentHp = Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
+            anim.SetTrigger("heal");
         }
     }
 
     #endregion Main Functions
 
     #region Sub Functions
+
+    private void PogoAttack()
+    {
+        dustPE.Play();
+        Vector2 dashDirection;
+        if (isFacingLeft)
+            dashDirection = new Vector2(-1f, -1f);
+        else
+            dashDirection = new Vector2(1f, -1f);
+
+        if (dashCoroutine != null)
+            StopCoroutine(dashCoroutine);
+        dashCoroutine = StartCoroutine(Dash(true, dashDirection));
+
+        // Attack
+        anim.SetBool("pogoAttack", true);
+        PlayerDashSlash pogoSlash = Instantiate(pogoSlashPrefab, pogoSlashPos, false);
+        pogoSlash.transform.localPosition = Vector3.zero;
+        pogoSlash.disappearTime = playerStat.dashTime;
+        pogoSlash.player = this;
+    }
 
     private void Flip()
     {
@@ -557,6 +568,28 @@ public class Player : MonoBehaviour
         inAttack = false;
     }
 
+    public void BeginHeal()
+    {
+        inHeal = true;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0f;
+        GameObject vfx = Instantiate(silkBindVFXPrefab, transform, false);
+        vfx.transform.localPosition = new Vector3(0.25f, 0, 0);
+    }
+
+    public void ActualHeal()
+    {
+        playerStat.currentHp += playerStat.silkHeal;
+        playerStat.currentHp = Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
+        StartCoroutine(FlashWhite());
+    }
+
+    public void EndHeal()
+    {
+        inHeal = false;
+        rb.gravityScale = originalGravityScale;
+    }
+
     #endregion Animation Events
 
     #region Coroutines
@@ -650,6 +683,13 @@ public class Player : MonoBehaviour
         isDead = false;
         playerStat.currentHp = playerStat.maxHp;
         disableControlCounter -= 1;
+    }
+
+    private IEnumerator FlashWhite()
+    {
+        sprite.material = flashMat;
+        yield return new WaitForSeconds(0.25f);
+        sprite.material = originalMaterial;
     }
 
     #endregion Coroutines
