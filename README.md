@@ -12,6 +12,8 @@ C - Attack
 
 V - Dash attack
 
+Q - Heal 3 HP. Require 8 silk thread
+
 Jump near ledge to grab them.
 
 Attack while holding up arrow to do an upward attack.
