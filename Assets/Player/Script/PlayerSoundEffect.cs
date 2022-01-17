@@ -6,6 +6,7 @@ public class PlayerSoundEffect : MonoBehaviour
 {
     [Header("Footstep")]
     public float footstepFrequency;
+    [SerializeField] private AudioSource footstepSound;
     private float footstepTimer;
 
     [Header("Other")]
@@ -26,10 +27,21 @@ public class PlayerSoundEffect : MonoBehaviour
     private void HandleFootstepSound()
     {
         footstepTimer += Time.deltaTime;
-        if (footstepTimer >= footstepFrequency && player.isGrounded)
+        if (footstepTimer >= footstepFrequency && player.isGrounded && player.state == Player.State.running)
         {
             footstepTimer = 0f;
+            PlayFootstepSound();
         }
+    }
+
+    public void PlayFootstepSound()
+    {
+        float randomVolume = Random.Range(0.8f, 1f);
+        float randomPitch = Random.Range(0.7f, 1.3f);
+
+        footstepSound.volume = randomVolume;
+        footstepSound.pitch = randomPitch;
+        footstepSound.Play();
     }
 
     public void PlayAttackSound()

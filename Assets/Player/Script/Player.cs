@@ -71,13 +71,13 @@ public class Player : MonoBehaviour
     [SerializeField] private bool inHeal;
 
     [Header("Misc")]
-    [SerializeField] private State state = State.idle;
+    public State state = State.idle;
     public bool resting;
     private Coroutine dashCoroutine;
     public Material flashMat;
     private Material originalMaterial;
 
-    private enum State
+    public enum State
     { idle, running, jumping, falling, hurt, dashing, ledgeGrabbing }
     public enum StatusEffect
     { paralyzed, slowed };
