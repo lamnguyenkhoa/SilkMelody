@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
     public Transform dashSlashPos;
     public Transform pogoSlashPos;
     public Vector2 dashRecoil;
+    private float parryTimer;
 
     [Header("SilkAbility")]
     public GameObject silkBindVFXPrefab;
@@ -69,11 +70,13 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isLedgeGrabbing;
     [SerializeField] private bool isDead;
     [SerializeField] private bool inHeal;
+    [SerializeField] private bool isParrying;
 
     [Header("Misc")]
     public State state = State.idle;
     public bool resting;
     private Coroutine dashCoroutine;
+    private Coroutine parryCoroutine;
     public Material flashMat;
     private Material originalMaterial;
 
@@ -118,13 +121,18 @@ public class Player : MonoBehaviour
         if (!inAttack)
             attackTimer += Time.deltaTime;
 
-        if (!resting && disableControlCounter == 0 && !isDashing && !isParalyzed && !inHeal)
+        if (!isParrying)
+            parryTimer += Time.deltaTime;
+
+        if (!resting && disableControlCounter == 0 && !isDashing && !isParalyzed && !inHeal && !isParrying)
         {
             HandleMovement();
 
             HandleJump();
 
             HandleAttack();
+
+            HandleParry();
 
             HandleDash();
 
@@ -262,7 +270,7 @@ public class Player : MonoBehaviour
             dashCoroutine = StartCoroutine(Dash(true, dashDirection));
 
             // Attack
-            soundEffect.PlayAttackSound();
+            soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.attack);
             anim.SetBool("dashAttack", true);
             PlayerDashSlash dashSlash = Instantiate(dashSlashPrefab, dashSlashPos, false);
             dashSlash.transform.localPosition = Vector3.zero;
@@ -293,8 +301,21 @@ public class Player : MonoBehaviour
                 AttackDealDamage(false);
             }
 
-            soundEffect.PlayAttackSound();
+            soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.attack);
             attackTimer = 0f;
+        }
+    }
+
+    private void HandleParry()
+    {
+        if (Input.GetKeyDown(KeyCode.F) && !inAttack && isGrounded)
+        {
+            if (parryTimer >= playerStat.parryCooldown)
+            {
+                parryTimer = 0f;
+                rb.velocity = Vector2.zero;
+                parryCoroutine = StartCoroutine(Parrying());
+            }
         }
     }
 
@@ -396,15 +417,25 @@ public class Player : MonoBehaviour
     public void Damaged(int amount, Vector3 knockbackDir)
     {
         if (inIFrame) return;
+        if (isParrying)
+        {
+            if (parryCoroutine != null)
+                StopCoroutine(parryCoroutine);
+            StartCoroutine(ParryRipose());
+            return;
+        }
+
         if (amount == 0)
             Debug.Log("This attack deal 0 damage!");
-        soundEffect.PlayDamagedSound();
+        soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.damaged);
         playerStat.currentHp -= amount;
         playerStat.currentHp = Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
         rb.gravityScale = originalGravityScale;
         isDashing = false;
         inAttack = false;
+        isParalyzed = false;
         inHeal = false;
+        isParrying = false;
         sprite.material = originalMaterial;
         anim.SetBool("dashAttack", false);
         anim.SetBool("pogoAttack", false);
@@ -480,6 +511,11 @@ public class Player : MonoBehaviour
 
     public void InflictedStatusEffect(StatusEffect status)
     {
+        if (inIFrame || isParrying)
+        {
+            return;
+        }
+
         switch (status)
         {
             case StatusEffect.paralyzed:
@@ -570,6 +606,7 @@ public class Player : MonoBehaviour
 
     public void BeginHeal()
     {
+        soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.silkbind);
         inHeal = true;
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0f;
@@ -641,13 +678,11 @@ public class Player : MonoBehaviour
     private IEnumerator Stunned()
     {
         isHurt = true;
-        isParalyzed = false;
         disableControlCounter += 1;
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(playerStat.stunTime);
         disableControlCounter -= 1;
         isHurt = false;
-        inAttack = false;
     }
 
     private IEnumerator GotParalyzed()
@@ -683,6 +718,69 @@ public class Player : MonoBehaviour
         isDead = false;
         playerStat.currentHp = playerStat.maxHp;
         disableControlCounter -= 1;
+    }
+
+    private IEnumerator Parrying()
+    {
+        isParrying = true;
+        anim.SetInteger("parryState", 1);
+        yield return new WaitForSeconds(playerStat.parryWindow);
+        anim.SetInteger("parryState", 0);
+        isParrying = false;
+    }
+
+    private IEnumerator ParryRipose()
+    {
+        //Get hit -> freeze time
+        anim.SetInteger("parryState", 2);
+        soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.parry);
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(0.35f);
+        Time.timeScale = 1f;
+
+        // I-frame
+        inIFrame = true;
+        int playerLayerId = LayerMask.NameToLayer("Player");
+        int EnemyLayerId = LayerMask.NameToLayer("Enemy");
+        int EnemyAttackLayerId = LayerMask.NameToLayer("EnemyAttack");
+        Physics2D.IgnoreLayerCollision(playerLayerId, EnemyLayerId, true);
+        Physics2D.IgnoreLayerCollision(playerLayerId, EnemyAttackLayerId, true);
+
+        // while dash forward and attack
+        soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.attack);
+        anim.SetInteger("parryState", 3);
+        PlayerDashSlash dashSlash = Instantiate(dashSlashPrefab, dashSlashPos, false);
+        dashSlash.transform.localPosition = Vector3.zero;
+        dashSlash.disappearTime = playerStat.dashTime;
+        dashSlash.player = this;
+        dashSlash.piercing = true;
+        dustPE.Play();
+        Vector2 dashDirection;
+        if (isFacingLeft)
+            dashDirection = new Vector2(-1f, 0f);
+        else
+            dashDirection = new Vector2(1f, 0f);
+        isDashing = true;
+        inAttack = true;
+        rb.gravityScale = 0f;
+        rb.velocity = Vector2.zero;
+        rb.AddForce(dashDirection * playerStat.dashForce * 1.5f, ForceMode2D.Impulse);
+
+        // Finish dash n attack
+        yield return new WaitForSeconds(playerStat.dashTime);
+        isDashing = false;
+        inAttack = false;
+        isParrying = false;
+        rb.gravityScale = originalGravityScale;
+        anim.SetInteger("parryState", 0);
+
+        // Bonus iFrame time
+        yield return new WaitForSeconds(0.1f);
+
+        // Return to normal
+        inIFrame = false;
+        Physics2D.IgnoreLayerCollision(playerLayerId, EnemyLayerId, false);
+        Physics2D.IgnoreLayerCollision(playerLayerId, EnemyAttackLayerId, false);
     }
 
     private IEnumerator FlashWhite()

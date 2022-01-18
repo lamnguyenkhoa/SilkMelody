@@ -26,6 +26,8 @@ MonoBehaviour:
   enemyKnockbackPower: 5
   selfKnockbackPower: 1
   attackCooldown: 0.15
+  parryWindow: 0.25
+  parryCooldown: 1
   copperShard: 0
   scaleShard: 0
   stunTime: 0.3

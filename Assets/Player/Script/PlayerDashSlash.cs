@@ -17,7 +17,8 @@ public class PlayerDashSlash : MonoBehaviour
     [SerializeField] private AudioSource hitEnemySound;
     private bool playedImpact = false;
     private Collider2D attackCollider;
-    [SerializeField] private bool canResetDash;
+    public bool canResetDash;
+    public bool piercing;
 
     public float disappearTime;
     private float timer;
@@ -69,13 +70,15 @@ public class PlayerDashSlash : MonoBehaviour
         Enemy enemy = collision.GetComponent<Enemy>();
         if (enemy)
         {
-            // Play effect that only happened ONCE (if player hit enemy)
+            // Play effect that only happened ONCE (if player hit enemy) unless attack is piercing
             if (!playedImpact)
             {
                 sparkLight.enabled = true;
                 PlayHitEnemySound();
                 playedImpact = true;
-                player.AttackRecoil(canResetDash);
+                // If piercing (attack multiple enemy) then no recoil
+                if (!piercing)
+                    player.AttackRecoil(canResetDash);
             }
             // Push enemy backward slightly
             Vector2 knockbackForce = (Vector2)(enemy.transform.position - player.transform.position).normalized * knockbackPower;
@@ -89,7 +92,8 @@ public class PlayerDashSlash : MonoBehaviour
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
                 player.DashAttackTouchGround();
-                playedImpact = true;
+                if (!piercing)
+                    playedImpact = true;
             }
         }
     }

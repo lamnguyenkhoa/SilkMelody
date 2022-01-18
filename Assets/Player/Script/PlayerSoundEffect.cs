@@ -6,13 +6,18 @@ public class PlayerSoundEffect : MonoBehaviour
 {
     [Header("Footstep")]
     public float footstepFrequency;
-    [SerializeField] private AudioSource footstepSound;
+    [SerializeField] private AudioSource footstep;
     private float footstepTimer;
 
     [Header("Other")]
     [SerializeField] private AudioSource attack;
     [SerializeField] private AudioSource damaged;
+    [SerializeField] private AudioSource parry;
+    [SerializeField] private AudioSource silkbind;
     private Player player;
+
+    public enum SoundEnum
+    { attack, damaged, parry, silkbind, footstep }
 
     private void Start()
     {
@@ -30,37 +35,40 @@ public class PlayerSoundEffect : MonoBehaviour
         if (footstepTimer >= footstepFrequency && player.isGrounded && player.state == Player.State.running)
         {
             footstepTimer = 0f;
-            PlayFootstepSound();
+            PlaySoundEffect(SoundEnum.footstep);
         }
     }
 
-    public void PlayFootstepSound()
+    public void PlaySoundEffect(SoundEnum soundName)
     {
+        AudioSource soundSource = attack;
+        switch (soundName)
+        {
+            case SoundEnum.attack:
+                soundSource = attack;
+                break;
+
+            case SoundEnum.damaged:
+                soundSource = damaged;
+                break;
+
+            case SoundEnum.parry:
+                soundSource = parry;
+                break;
+
+            case SoundEnum.silkbind:
+                soundSource = silkbind;
+                break;
+
+            case SoundEnum.footstep:
+                soundSource = footstep;
+                break;
+        }
         float randomVolume = Random.Range(0.8f, 1f);
         float randomPitch = Random.Range(0.7f, 1.3f);
 
-        footstepSound.volume = randomVolume;
-        footstepSound.pitch = randomPitch;
-        footstepSound.Play();
-    }
-
-    public void PlayAttackSound()
-    {
-        float randomVolume = Random.Range(0.8f, 1f);
-        float randomPitch = Random.Range(0.7f, 1.3f);
-
-        attack.volume = randomVolume;
-        attack.pitch = randomPitch;
-        attack.Play();
-    }
-
-    public void PlayDamagedSound()
-    {
-        float randomVolume = Random.Range(0.8f, 1f);
-        float randomPitch = Random.Range(0.7f, 1.3f);
-
-        damaged.volume = randomVolume;
-        damaged.pitch = randomPitch;
-        damaged.Play();
+        soundSource.volume = randomVolume;
+        soundSource.pitch = randomPitch;
+        soundSource.Play();
     }
 }

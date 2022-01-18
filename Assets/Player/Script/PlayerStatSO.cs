@@ -20,6 +20,8 @@ public class PlayerStatSO : ScriptableObject
     public float enemyKnockbackPower = 2f;
     public float selfKnockbackPower = 1f;
     public float attackCooldown = 0.15f;
+    public float parryWindow = 0.2f;
+    public float parryCooldown = 1f;
 
     [Header("Inventory")]
     public int copperShard = 0;

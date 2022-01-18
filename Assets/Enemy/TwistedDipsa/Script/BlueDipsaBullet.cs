@@ -5,6 +5,7 @@ using UnityEngine;
 public class BlueDipsaBullet : MonoBehaviour
 {
     public int damage = 1;
+    public int drainSilk = 2;
 
     private void Start()
     {
@@ -16,9 +17,9 @@ public class BlueDipsaBullet : MonoBehaviour
         Player player = collision.transform.GetComponent<Player>();
         if (player)
         {
-            // Effect here
             player.Damaged(damage, (player.transform.position - transform.position).normalized);
-            Debug.Log("Player hit by blue dipsa bullet! Drained mana!");
+            player.playerStat.currentSilk -= 2;
+            player.playerStat.currentSilk = Mathf.Clamp(player.playerStat.currentSilk, 0, player.playerStat.maxSilk);
         }
         PlayDestroyEffect();
         Destroy(this.gameObject);
