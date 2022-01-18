@@ -13,11 +13,12 @@ public class PlayerSoundEffect : MonoBehaviour
     [SerializeField] private AudioSource attack;
     [SerializeField] private AudioSource damaged;
     [SerializeField] private AudioSource parry;
+    [SerializeField] private AudioSource dash;
     [SerializeField] private AudioSource silkbind;
     private Player player;
 
     public enum SoundEnum
-    { attack, damaged, parry, silkbind, footstep }
+    { attack, damaged, parry, silkbind, footstep, dash }
 
     private void Start()
     {
@@ -62,6 +63,10 @@ public class PlayerSoundEffect : MonoBehaviour
 
             case SoundEnum.footstep:
                 soundSource = footstep;
+                break;
+
+            case SoundEnum.dash:
+                soundSource = dash;
                 break;
         }
         float randomVolume = Random.Range(0.8f, 1f);

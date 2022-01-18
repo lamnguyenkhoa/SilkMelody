@@ -633,6 +633,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator Dash(bool alsoAttack, Vector2 dashDirection)
     {
+        soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.dash);
         isDashing = true;
         if (alsoAttack)
             inAttack = true;
@@ -781,6 +782,9 @@ public class Player : MonoBehaviour
         inIFrame = false;
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyLayerId, false);
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyAttackLayerId, false);
+
+        // Reset parry cooldown
+        parryTimer = playerStat.parryCooldown;
     }
 
     private IEnumerator FlashWhite()
