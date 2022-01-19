@@ -10,15 +10,42 @@ public class RestChair : MonoBehaviour
     [SerializeField] private bool playerSitting;
     [SerializeField] private Player player;
     public GameObject interactText;
+    private InputMaster inputMaster;
+
+    private void Awake()
+    {
+        inputMaster = new InputMaster();
+    }
+
+    private void OnEnable()
+    {
+        inputMaster.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputMaster.Disable();
+    }
 
     private void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            SitOnChair();
-        }
+        HandleGetOnChair();
+        HandleGetOffChair();
+    }
 
-        if (playerSitting && Input.GetKeyDown(KeyCode.DownArrow))
+    private void HandleGetOnChair()
+    {
+        bool pressUp = inputMaster.Gameplay.Movement.ReadValue<Vector2>().y == 1;
+        if (playerInRange && pressUp)
+        {
+            GetOnChair();
+        }
+    }
+
+    private void HandleGetOffChair()
+    {
+        bool pressDown = inputMaster.Gameplay.Movement.ReadValue<Vector2>().y == -1;
+        if (playerSitting && pressDown)
         {
             GetOffChair();
         }
@@ -40,7 +67,7 @@ public class RestChair : MonoBehaviour
         interactText.SetActive(true);
     }
 
-    public void SitOnChair()
+    public void GetOnChair()
     {
         playerSitting = true;
         player.resting = true;

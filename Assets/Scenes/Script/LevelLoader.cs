@@ -72,7 +72,7 @@ public class LevelLoader : MonoBehaviour
                 RestChair chair = GameObject.Find(respawnChairName).GetComponent<RestChair>();
                 player.transform.position = chair.transform.position;
                 chair.RespawnAssignToChair(player.GetComponent<Player>());
-                chair.SitOnChair();
+                chair.GetOnChair();
                 doRespawn = false;
             }
         }

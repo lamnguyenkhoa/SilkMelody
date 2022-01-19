@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -86,6 +87,7 @@ public class Player : MonoBehaviour
     { paralyzed, slowed };
 
     public static Player instance;
+    private InputMaster inputMaster;
 
     #endregion Variables
 
@@ -96,10 +98,23 @@ public class Player : MonoBehaviour
         if (!instance)
         {
             instance = this;
+            inputMaster = new InputMaster();
             DontDestroyOnLoad(this.gameObject);
         }
         else
             Destroy(this.gameObject);
+    }
+
+    private void OnEnable()
+    {
+        if (inputMaster != null)
+            inputMaster.Enable();
+    }
+
+    private void OnDisable()
+    {
+        if (inputMaster != null)
+            inputMaster.Disable();
     }
 
     private void Start()
@@ -139,9 +154,9 @@ public class Player : MonoBehaviour
             if (canLedgeGrab)
                 HandleLedgeGrab();
 
-            HandleCoyoteTime();
-
             HandleDashAttack();
+
+            HandleCoyoteTime();
 
             HandleHeal();
         }
@@ -181,8 +196,9 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
-        verInput = Input.GetAxisRaw("Vertical");
-        horInput = Input.GetAxis("Horizontal");
+        Vector2 direction = inputMaster.Gameplay.Movement.ReadValue<Vector2>();
+        verInput = direction.y;
+        horInput = direction.x;
 
         // Move left
         if (horInput < 0 && !inAttack)
@@ -206,17 +222,19 @@ public class Player : MonoBehaviour
 
     private void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        InputAction jumpAction = inputMaster.Gameplay.Jump;
+        if (jumpAction.WasPressedThisFrame())
         {
             if (isGrounded || isLedgeGrabbing || coyoteAirTimer <= coyoteTime)
             {
                 jumpTimer = maxJumpTime;
                 isJumping = true;
                 rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
+                coyoteAirTimer = coyoteTime + 1f; // Prevent coyote double jump bug
                 dustPE.Play();
             }
         }
-        if (Input.GetKey(KeyCode.X) && isJumping)
+        if (jumpAction.IsPressed() && isJumping)
         {
             if (jumpTimer > 0)
             {
@@ -228,16 +246,19 @@ public class Player : MonoBehaviour
                 isJumping = false;
             }
         }
-        if (Input.GetKeyUp(KeyCode.X) && isJumping)
+        if (jumpAction.WasReleasedThisFrame() && isJumping)
         {
+            jumpTimer = 0f;
             isJumping = false;
             rb.velocity = new Vector2(rb.velocity.x, 0f);
+            coyoteAirTimer = coyoteTime + 1f; // Prevent coyote double jump bug
         }
     }
 
     private void HandleDash()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && !isDashing && dashCount > 0)
+        InputAction dashAction = inputMaster.Gameplay.Dash;
+        if (dashAction.WasPressedThisFrame() && !isDashing && dashCount > 0)
         {
             dashCount--;
             dustPE.Play();
@@ -255,7 +276,8 @@ public class Player : MonoBehaviour
 
     private void HandleDashAttack()
     {
-        if (Input.GetKeyDown(KeyCode.V) && !isDashing && !inAttack && dashCount > 0)
+        InputAction dashAttackAction = inputMaster.Gameplay.DashAttack;
+        if (dashAttackAction.WasPressedThisFrame() && !isDashing && !inAttack && dashCount > 0)
         {
             dashCount--;
             dustPE.Play();
@@ -281,7 +303,8 @@ public class Player : MonoBehaviour
 
     private void HandleAttack()
     {
-        if (Input.GetKeyDown(KeyCode.C) && attackTimer > playerStat.attackCooldown && !inAttack)
+        InputAction attackAction = inputMaster.Gameplay.Attack;
+        if (attackAction.WasPressedThisFrame() && attackTimer > playerStat.attackCooldown && !inAttack)
         {
             // Up attack
             if (verInput >= 0.1f)
@@ -308,7 +331,8 @@ public class Player : MonoBehaviour
 
     private void HandleParry()
     {
-        if (Input.GetKeyDown(KeyCode.F) && !inAttack && isGrounded)
+        InputAction parryAction = inputMaster.Gameplay.Parry;
+        if (parryAction.WasPressedThisFrame() && !inAttack && isGrounded)
         {
             if (parryTimer >= playerStat.parryCooldown)
             {
@@ -454,7 +478,8 @@ public class Player : MonoBehaviour
 
     public void HandleHeal()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && playerStat.currentSilk >= 8 && !inAttack)
+        InputAction healAction = inputMaster.Gameplay.Heal;
+        if (healAction.WasPressedThisFrame() && playerStat.currentSilk >= 8 && !inAttack)
         {
             playerStat.currentSilk -= 8;
             playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
