@@ -4,21 +4,31 @@
 
 ## Control
 
-Z - Dash
-
-X - Jump. Hold X to jump higher
-
-C - Attack
-
-V - Dash attack
-
-Q - Heal 3 HP. Require 8 silk thread
-
 Jump near ledge to grab them.
+
+Hold Jump to jump higher.
 
 Attack while holding up arrow to do an upward attack.
 
-Attack while holding down arrow and midair to d an pogo attack.
+Attack while holding down arrow and midair to do an pogo attack.
+
+### Keyboard
+
+- X - Jump.
+- Q - Heal 3 HP. Require 8 silk thread
+- F - Parry
+- C - Attack
+- Z - Dash
+- V - Dash attack
+
+### Xbox
+
+- A - Jump
+- X - Attack
+- B - Heal
+- Y - Parry
+- RT - Dash
+- LB - Dash Attack
 
 ## Design document
 
