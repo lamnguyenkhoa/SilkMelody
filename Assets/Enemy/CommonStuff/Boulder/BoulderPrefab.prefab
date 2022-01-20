@@ -9,12 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1187002854272609849}
-  - component: {fileID: 1187002854272609848}
   - component: {fileID: 1187002854272609850}
+  - component: {fileID: -546377266335040514}
   - component: {fileID: 1187002854272609851}
   - component: {fileID: 1187002854272609844}
-  - component: {fileID: 535901121156387521}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BoulderPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,33 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1187002854272609848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1187002854272609845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8e4e13184e82654384a1af04ed07e33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 1
-  currentHp: 0
-  damage: 1
-  knockbackAble: 1
-  isInvulnerable: 0
-  shouldStopMoving: 0
-  isDead: 0
-  iFrame: 0.1
-  dropLoot: {fileID: 0}
-  dropAmount: 0
-  lootPos: {fileID: 0}
-  willBeDestroyed: 1
-  objectsToDisable: []
-  flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
-  sprite: {fileID: 1187002854272609850}
 --- !u!212 &1187002854272609850
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -114,6 +86,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-546377266335040514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187002854272609845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3adc7388382bd74d8e2a3063edf69f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  durability: 1
+  damage: 1
+  knockbackAble: 1
+  flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
+  sprite: {fileID: 1187002854272609850}
+  maxBounce: 0
 --- !u!50 &1187002854272609851
 Rigidbody2D:
   serializedVersion: 4
@@ -151,15 +141,3 @@ CircleCollider2D:
   m_Offset: {x: 0.1, y: 0}
   serializedVersion: 2
   m_Radius: 0.6
---- !u!114 &535901121156387521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1187002854272609845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11c83df53b30a5e429202f1d97c35349, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

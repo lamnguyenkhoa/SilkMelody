@@ -865,7 +865,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5929603884186253507
 Transform:
   m_ObjectHideFlags: 0
@@ -926,7 +926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slashPrefab: {fileID: 1440048459, guid: a620af7570ec52e4a9b28a4dd9b18cc0, type: 3}
   stat: {fileID: 0}
-  timeBetweenAttack: 0.5
+  timeBetweenAttack: 0.25
   inAttack: 0
   isFacingLeft: 0
   speedOverdrive: 1
@@ -961,7 +961,7 @@ MonoBehaviour:
   slamForce: 300
   groundChecker: {fileID: 730476668}
   groundCrashSound: {fileID: 470742849}
-  ballPrefab: {fileID: 7533675733517669823, guid: 4188402a2cda4394eabf95f93739c77b, type: 3}
+  ballPrefab: {fileID: 3529367651728377040, guid: 4188402a2cda4394eabf95f93739c77b, type: 3}
   hitForce: 35
   throwMinRange: 6
   ballHitSound: {fileID: 2104813550}

@@ -79,5 +79,20 @@ public class PlayerSlash : MonoBehaviour
             playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
             // Play hit/damaged effect on enemy (if there are multiple enemies within attack)
         }
+
+        Projectile projectile = collision.GetComponent<Projectile>();
+        if (projectile && projectile.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
+        {
+            if (!playedImpact)
+            {
+                sparkLight.enabled = true;
+                PlayHitEnemySound();
+                playedImpact = true;
+            }
+            Vector2 knockbackForce = (Vector2)(projectile.transform.position - player.position).normalized * knockbackPower;
+            projectile.Damaged(playerStat.damage, knockbackForce);
+            playerStat.currentSilk += 1;
+            playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
+        }
     }
 }

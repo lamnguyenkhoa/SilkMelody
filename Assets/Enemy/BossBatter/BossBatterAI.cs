@@ -71,7 +71,7 @@ public class BossBatterAI : MonoBehaviour
     public AudioSource groundCrashSound;
 
     [Header("ThrowBall")]
-    public BatterBall ballPrefab;
+    public Projectile ballPrefab;
     public float hitForce;
     public float throwMinRange; // should larger than meleeRange
     public AudioSource ballHitSound;
@@ -225,7 +225,7 @@ public class BossBatterAI : MonoBehaviour
         spawnBallPos = transform.position + spawnBallPos;
 
         anim.ResetTrigger("throw"); // failsafe to prevent bug
-        BatterBall newBall = Instantiate(ballPrefab, spawnBallPos, Quaternion.identity);
+        Projectile newBall = Instantiate(ballPrefab, spawnBallPos, Quaternion.identity);
         Vector2 ballDirection = (player.transform.position - spawnBallPos).normalized;
         newBall.GetComponent<Rigidbody2D>().AddForce(ballDirection * hitForce, ForceMode2D.Impulse);
         ballHitSound.Play();
