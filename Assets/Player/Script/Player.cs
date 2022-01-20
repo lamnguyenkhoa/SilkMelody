@@ -13,8 +13,8 @@ public class Player : MonoBehaviour
     private PlayerSoundEffect soundEffect;
     public SpriteRenderer sprite;
     public PlayerSlash slashPrefab;
-    public PlayerDashSlash dashSlashPrefab;
-    public PlayerDashSlash pogoSlashPrefab;
+    public PlayerSlash dashSlashPrefab;
+    public PlayerSlash pogoSlashPrefab;
     public ParticleSystem dustPE;
     public Transform groundCheck;
     public Collider2D hurtBox;
@@ -294,7 +294,7 @@ public class Player : MonoBehaviour
             // Attack
             soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.attack);
             anim.SetBool("dashAttack", true);
-            PlayerDashSlash dashSlash = Instantiate(dashSlashPrefab, dashSlashPos, false);
+            PlayerSlash dashSlash = Instantiate(dashSlashPrefab, dashSlashPos, false);
             dashSlash.transform.localPosition = Vector3.zero;
             dashSlash.disappearTime = playerStat.dashTime;
             dashSlash.player = this;
@@ -506,7 +506,7 @@ public class Player : MonoBehaviour
 
         // Attack
         anim.SetBool("pogoAttack", true);
-        PlayerDashSlash pogoSlash = Instantiate(pogoSlashPrefab, pogoSlashPos, false);
+        PlayerSlash pogoSlash = Instantiate(pogoSlashPrefab, pogoSlashPos, false);
         pogoSlash.transform.localPosition = Vector3.zero;
         pogoSlash.disappearTime = playerStat.dashTime;
         pogoSlash.player = this;
@@ -574,7 +574,7 @@ public class Player : MonoBehaviour
             else
                 slash.transform.position += Vector3.right * 0.5f;
         }
-        slash.player = this.transform;
+        slash.player = this;
         slash.knockbackPower = playerStat.enemyKnockbackPower;
     }
 
@@ -775,10 +775,11 @@ public class Player : MonoBehaviour
         // while dash forward and attack
         soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.attack);
         anim.SetInteger("parryState", 3);
-        PlayerDashSlash dashSlash = Instantiate(dashSlashPrefab, dashSlashPos, false);
+        PlayerSlash dashSlash = Instantiate(dashSlashPrefab, dashSlashPos, false);
         dashSlash.transform.localPosition = Vector3.zero;
         dashSlash.disappearTime = playerStat.dashTime;
         dashSlash.player = this;
+        dashSlash.hasRecoil = false;
         dashSlash.piercing = true;
         dustPE.Play();
         Vector2 dashDirection;

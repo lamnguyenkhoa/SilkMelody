@@ -6696,8 +6696,8 @@ MonoBehaviour:
   rb: {fileID: 5268734040163008459}
   sprite: {fileID: 1390681650}
   slashPrefab: {fileID: 1553535645527644202, guid: 70413a68e7556fd41896fc28428e7a60, type: 3}
-  dashSlashPrefab: {fileID: 5763335981127475356, guid: f01a3c29fd06a134faf708926afd9b94, type: 3}
-  pogoSlashPrefab: {fileID: 3815167315807970867, guid: 5523338ab0a33504da4eaaf1e6014152, type: 3}
+  dashSlashPrefab: {fileID: 6793016622804597089, guid: f01a3c29fd06a134faf708926afd9b94, type: 3}
+  pogoSlashPrefab: {fileID: 4694062022422219172, guid: 5523338ab0a33504da4eaaf1e6014152, type: 3}
   dustPE: {fileID: 1660418597}
   groundCheck: {fileID: 54146327}
   hurtBox: {fileID: 5268734040163008456}

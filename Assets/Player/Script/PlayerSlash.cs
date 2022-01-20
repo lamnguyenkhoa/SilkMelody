@@ -5,48 +5,59 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class PlayerSlash : MonoBehaviour
 {
-    [HideInInspector] public Transform player;
+    [HideInInspector] public Player player;
     public Light2D sparkLight;
     public PlayerStatSO playerStat;
     public float knockbackPower = 1f;
     private SpriteRenderer sprite;
     private Color fadeColor;
     private float fadeSpeed = 0f;
-    public float fadeSpeedAccel = 0.1f;
+    private float fadeSpeedAccel = 100f;
     private float lightOriginalIntensitiy;
     [SerializeField] private AudioSource hitEnemySound;
-    private bool playedImpact = false;
+    private bool impacted = false;
+    private Collider2D attackCollider;
 
+    [Header("SpecialAttack")]
+    public bool canResetDash;
+    [HideInInspector] public bool piercing; // Used for parry ripose
+    public bool hasRecoil; // Stop the player after the attack touch an enemy
+    public bool isDashAttack;
+
+    public float disappearTime = 0.15f; // Normal attack 0.15s
     private float timer;
-    public float activeTime = 0.15f;
 
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         fadeColor = sprite.color;
-        timer = 0f;
         lightOriginalIntensitiy = sparkLight.intensity;
+        attackCollider = transform.GetComponent<Collider2D>();
+        if (piercing && hasRecoil)
+            Debug.Log("Mutually exclusive! Cannot be both!");
     }
 
     private void Update()
     {
-        // Prevent late enemy get inside the hitbox
         timer += Time.deltaTime;
-        if (timer > activeTime)
-            transform.GetComponent<BoxCollider2D>().enabled = false;
+        if (impacted || timer >= disappearTime)
+        {
+            if (attackCollider.enabled)
+                attackCollider.enabled = false;
 
-        // Fade the sprite
-        if (fadeColor.a > 0)
-        {
-            fadeColor.a -= fadeSpeed * Time.deltaTime;
-            fadeColor.a = Mathf.Clamp(fadeColor.a, 0, 1);
-            sprite.color = fadeColor;
-            fadeSpeed += fadeSpeedAccel * Time.deltaTime;
-            sparkLight.intensity = lightOriginalIntensitiy * fadeColor.a;
-        }
-        else
-        {
-            Destroy(this.gameObject, 1f);
+            // Fade the sprite
+            if (fadeColor.a > 0)
+            {
+                fadeColor.a -= fadeSpeed * Time.deltaTime;
+                fadeColor.a = Mathf.Clamp(fadeColor.a, 0, 1);
+                sprite.color = fadeColor;
+                fadeSpeed += fadeSpeedAccel * Time.deltaTime;
+                sparkLight.intensity = lightOriginalIntensitiy * fadeColor.a;
+            }
+            else
+            {
+                Destroy(this.gameObject, 1f);
+            }
         }
     }
 
@@ -60,39 +71,51 @@ public class PlayerSlash : MonoBehaviour
         hitEnemySound.Play();
     }
 
+    private void EnemyImpactEffect()
+    {
+        sparkLight.enabled = true;
+        PlayHitEnemySound();
+        impacted = true;
+        // If piercing (attack multiple enemy) then no recoil
+        if (!piercing && hasRecoil)
+            player.AttackRecoil(canResetDash);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Enemy enemy = collision.GetComponent<Enemy>();
+        Projectile projectile = collision.GetComponent<Projectile>();
         if (enemy)
         {
-            // Play effect that only happened ONCE (if player hit enemy)
-            if (!playedImpact)
+            // Play effect that only happened ONCE (if player hit enemy) unless attack is piercing
+            if (!impacted)
             {
-                sparkLight.enabled = true;
-                PlayHitEnemySound();
-                playedImpact = true;
+                EnemyImpactEffect();
             }
             // Push enemy backward slightly
-            Vector2 knockbackForce = (Vector2)(enemy.transform.position - player.position).normalized * knockbackPower;
+            Vector2 knockbackForce = (Vector2)(enemy.transform.position - player.transform.position).normalized * knockbackPower;
             enemy.Damaged(playerStat.damage, knockbackForce);
             playerStat.currentSilk += 1;
             playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
             // Play hit/damaged effect on enemy (if there are multiple enemies within attack)
         }
-
-        Projectile projectile = collision.GetComponent<Projectile>();
-        if (projectile && projectile.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
+        else if (projectile && projectile.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
         {
-            if (!playedImpact)
+            if (!impacted)
             {
-                sparkLight.enabled = true;
-                PlayHitEnemySound();
-                playedImpact = true;
+                EnemyImpactEffect();
             }
-            Vector2 knockbackForce = (Vector2)(projectile.transform.position - player.position).normalized * knockbackPower;
+            Vector2 knockbackForce = (Vector2)(projectile.transform.position - player.transform.position).normalized * knockbackPower;
             projectile.Damaged(playerStat.damage, knockbackForce);
-            playerStat.currentSilk += 1;
-            playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
+        }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            if (isDashAttack)
+            {
+                player.DashAttackTouchGround();
+                if (!piercing)
+                    impacted = true;
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8893608861639652196}
-  - component: {fileID: 3815167315807970867}
+  - component: {fileID: 4694062022422219172}
   - component: {fileID: 9019847198069056334}
   - component: {fileID: 8651522031463297099}
   - component: {fileID: 8865698704732882601}
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3815167315807970867
+--- !u!114 &4694062022422219172
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,17 +44,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 3296969355646484341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b31cdbb8cd5edc42a7e9527208c57d2, type: 3}
+  m_Script: {fileID: 11500000, guid: 28043dda53d915d419ab942542bf7db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   sparkLight: {fileID: 8651522031155682721}
   playerStat: {fileID: 11400000, guid: efb225c053021f54da0c927e53a7548d, type: 2}
   knockbackPower: 1
-  fadeSpeedAccel: 100
   hitEnemySound: {fileID: 8651522031463297099}
   canResetDash: 1
-  disappearTime: 0
+  piercing: 0
+  hasRecoil: 1
+  isDashAttack: 1
+  disappearTime: 0.15
 --- !u!212 &9019847198069056334
 SpriteRenderer:
   m_ObjectHideFlags: 0
