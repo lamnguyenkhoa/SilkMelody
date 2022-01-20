@@ -536,7 +536,7 @@ public class Player : MonoBehaviour
 
     public void InflictedStatusEffect(StatusEffect status)
     {
-        if (inIFrame || isParrying)
+        if (isParrying)
         {
             return;
         }

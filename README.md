@@ -2,6 +2,8 @@
 
 ## Summary
 
+A bootleg game.
+
 ## Control
 
 Jump near ledge to grab them.
@@ -33,6 +35,13 @@ Attack while holding down arrow and midair to do an pogo attack.
 ## Design document
 
 Trello link: <https://trello.com/b/y4U81oTS/silkmelody>
+
+### Packages used
+
+- Cinemachine
+- InputSystem
+- URP
+- A\* Pathfinding
 
 ### Resources
 

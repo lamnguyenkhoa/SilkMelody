@@ -31,7 +31,12 @@ public class Loot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Player player = collision.transform.GetComponent<Player>();
+        if (collision.gameObject.layer != LayerMask.NameToLayer("PlayerTrigger"))
+        {
+            return;
+        }
+
+        Player player = collision.transform.parent.GetComponent<Player>();
         if (player && !pickedUp)
         {
             switch (lootType)

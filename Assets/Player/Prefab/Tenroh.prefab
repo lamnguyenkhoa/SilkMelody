@@ -1290,13 +1290,14 @@ GameObject:
   - component: {fileID: 1597709196}
   - component: {fileID: 1597709198}
   - component: {fileID: 1597709197}
-  m_Layer: 7
+  - component: {fileID: 131389240}
+  m_Layer: 13
   m_Name: LootMagnet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1597709196
 Transform:
   m_ObjectHideFlags: 0
@@ -1318,7 +1319,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597709195}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -1334,7 +1335,7 @@ PointEffector2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597709195}
-  m_Enabled: 1
+  m_Enabled: 0
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
@@ -1347,6 +1348,32 @@ PointEffector2D:
   m_ForceMode: 2
   m_Drag: 0
   m_AngularDrag: 0
+--- !u!61 &131389240
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597709195}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.012770414, y: -0.17328727}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 8, y: 8}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.2835221, y: 1.5923057}
+  m_EdgeRadius: 0
 --- !u!1 &1638716620
 GameObject:
   m_ObjectHideFlags: 0
@@ -6577,7 +6604,6 @@ GameObject:
   - component: {fileID: 5268734040163008456}
   - component: {fileID: 5268734040163008458}
   - component: {fileID: 1179739879}
-  - component: {fileID: 5268734040696338971}
   m_Layer: 7
   m_Name: Tenroh
   m_TagString: Player
@@ -6729,29 +6755,3 @@ MonoBehaviour:
   parry: {fileID: 1373835054}
   dash: {fileID: 1718531228}
   silkbind: {fileID: 612127322}
---- !u!61 &5268734040696338971
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5268734040163008468}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.012770414, y: -0.17328727}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 8, y: 8}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.2835221, y: 1.5923057}
-  m_EdgeRadius: 0

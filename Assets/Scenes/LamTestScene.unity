@@ -18115,7 +18115,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2044102289}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.3001156, y: 7.94584, z: -10}
+  m_LocalPosition: {x: -5.3001084, y: 7.94585, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -18365,6 +18365,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 361175349, guid: 17b5050de626d824fbe5295147c07027, type: 3}
+      propertyPath: notWallMask.m_Bits
+      value: 12161
+      objectReference: {fileID: 0}
     - target: {fileID: 3948018697234521737, guid: 17b5050de626d824fbe5295147c07027, type: 3}
       propertyPath: m_Name
       value: Crawling
@@ -18967,7 +18971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8368222961404959780, guid: dc32454e3fa72e14da3ca8e20d63c769, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 124
       objectReference: {fileID: 0}
     - target: {fileID: 8368222961404959780, guid: dc32454e3fa72e14da3ca8e20d63c769, type: 3}
       propertyPath: m_AnchoredPosition.y
