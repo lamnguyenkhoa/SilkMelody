@@ -84,6 +84,10 @@ public class PlayerSlash : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Enemy enemy = collision.GetComponent<Enemy>();
+        // Failsafe
+        if (!enemy && collision.transform.parent != null)
+            enemy = collision.transform.parent.GetComponent<Enemy>();
+
         Projectile projectile = collision.GetComponent<Projectile>();
         if (enemy)
         {

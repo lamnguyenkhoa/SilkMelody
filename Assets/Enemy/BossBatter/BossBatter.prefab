@@ -742,6 +742,7 @@ GameObject:
   - component: {fileID: 5929603882930801755}
   - component: {fileID: 5929603882930801752}
   - component: {fileID: 5929603882930801758}
+  - component: {fileID: 1444804386}
   m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
@@ -846,6 +847,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d229858aa9f39f4590ad79d64d29d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &1444804386
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5929603882930801754}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.051918507, y: -0.2595904}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4, y: 4}
+    newSize: {x: 4, y: 4}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5191813, y: 3.3051639}
+  m_EdgeRadius: 0
 --- !u!1 &5929603884186253535
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,14 +885,13 @@ GameObject:
   - component: {fileID: 5929603884186253506}
   - component: {fileID: 5929603884186253504}
   - component: {fileID: 5929603884186253533}
-  - component: {fileID: 5929603884186253532}
   m_Layer: 8
   m_Name: BossBatter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5929603884186253507
 Transform:
   m_ObjectHideFlags: 0
@@ -926,7 +952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slashPrefab: {fileID: 1440048459, guid: a620af7570ec52e4a9b28a4dd9b18cc0, type: 3}
   stat: {fileID: 0}
-  timeBetweenAttack: 0.25
+  timeBetweenAttack: 0
   inAttack: 0
   isFacingLeft: 0
   speedOverdrive: 1
@@ -986,29 +1012,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &5929603884186253532
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5929603884186253535}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.051918507, y: -0.2595904}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.5191813, y: 3.3051639}
-  m_EdgeRadius: 0

@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rb;
     private Coroutine spriteFlashCoroutine;
     private Coroutine stopMovingCoroutine;
+    private Collider2D bodyCollider;
 
     private void Start()
     {
@@ -40,6 +41,9 @@ public class Enemy : MonoBehaviour
         originalMat = sprite.material;
         anim = sprite.transform.GetComponent<Animator>();
         fadeColor = sprite.color;
+        bodyCollider = transform.GetComponent<Collider2D>();
+        if (!bodyCollider)
+            bodyCollider = sprite.transform.GetComponent<Collider2D>();
     }
 
     private void Update()
@@ -80,7 +84,7 @@ public class Enemy : MonoBehaviour
     public void Death()
     {
         // Change collision and sprite
-        GetComponent<Collider2D>().enabled = false;
+        bodyCollider.enabled = false;
         Color deathColor = sprite.color;
         deathColor.r = 0.3f; deathColor.b = 0.3f; deathColor.g = 0.3f;
         sprite.color = deathColor;
