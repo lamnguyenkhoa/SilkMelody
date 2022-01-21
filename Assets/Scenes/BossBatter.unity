@@ -5646,7 +5646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8368222961404959780, guid: dc32454e3fa72e14da3ca8e20d63c769, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 124
       objectReference: {fileID: 0}
     - target: {fileID: 8368222961404959780, guid: dc32454e3fa72e14da3ca8e20d63c769, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5828,6 +5828,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5929603884186253504, guid: 5f0d556b2e2bcf140a26b967b6a2535a, type: 3}
+      propertyPath: speedOverdrive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5929603884186253504, guid: 5f0d556b2e2bcf140a26b967b6a2535a, type: 3}
+      propertyPath: timeBetweenAttack
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5929603884186253504, guid: 5f0d556b2e2bcf140a26b967b6a2535a, type: 3}
       propertyPath: boulderSpawnZoneLeft
       value: 

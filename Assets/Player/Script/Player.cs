@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     public enum State
     { idle, running, jumping, falling, hurt, dashing, ledgeGrabbing }
     public enum StatusEffect
-    { paralyzed, slowed };
+    { none, paralyzed, slowed, drained };
 
     public static Player instance;
     private InputMaster inputMaster;
@@ -549,6 +549,11 @@ public class Player : MonoBehaviour
 
             case StatusEffect.slowed:
                 StartCoroutine(GotSlowed());
+                break;
+
+            case StatusEffect.drained:
+                playerStat.currentSilk -= 2;
+                playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
                 break;
         }
     }

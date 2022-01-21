@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float durability;
+    public bool unhittable;
+    public float durability = 1;
     private float currentDurability;
     public int damage;
     public bool knockbackAble = true;
@@ -17,6 +18,7 @@ public class Projectile : MonoBehaviour
     private bool isDead;
     public int maxBounce;
     private int bounceCounter;
+    public Player.StatusEffect inflictStatus;
 
     private void Start()
     {
@@ -25,6 +27,7 @@ public class Projectile : MonoBehaviour
         originalMat = sprite.material;
         fadeColor = sprite.color;
         bounceCounter = 0;
+        Destroy(this.gameObject, 10f);
     }
 
     private void Update()
@@ -46,6 +49,9 @@ public class Projectile : MonoBehaviour
 
     public void Damaged(float amount, Vector3 knockbackForce)
     {
+        if (unhittable)
+            return;
+
         if (knockbackAble)
         {
             Knockback(knockbackForce);
@@ -81,7 +87,7 @@ public class Projectile : MonoBehaviour
         rb.drag = 1;
         rb.freezeRotation = false;
         isDead = true;
-        Destroy(this.gameObject, 10f);
+        Destroy(this.gameObject, 5f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -93,6 +99,7 @@ public class Projectile : MonoBehaviour
             if (player)
             {
                 player.Damaged(damage, (player.transform.position - transform.position).normalized);
+                player.InflictedStatusEffect(inflictStatus);
             }
         }
         else if (gameObject.layer == LayerMask.NameToLayer("PlayerAttack"))

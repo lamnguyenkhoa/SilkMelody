@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4797233803275751678}
   - component: {fileID: 4797233803275751667}
   - component: {fileID: 4797233803275751676}
-  - component: {fileID: -8274968436472343084}
+  - component: {fileID: 2004600076814890145}
   m_Layer: 10
   m_Name: YellowDipsaBullet
   m_TagString: Untagged
@@ -123,7 +123,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
---- !u!114 &-8274968436472343084
+--- !u!114 &2004600076814890145
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,7 +132,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4797233803275751679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34eab0a4c46318d4eb3477841ae27b2d, type: 3}
+  m_Script: {fileID: 11500000, guid: c3adc7388382bd74d8e2a3063edf69f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unhittable: 1
+  durability: 1
   damage: 1
+  knockbackAble: 1
+  flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
+  sprite: {fileID: 4797233803275751678}
+  maxBounce: 0
+  inflictStatus: 1
