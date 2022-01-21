@@ -105,6 +105,9 @@ public class PlayerSlash : MonoBehaviour
         }
         else if (projectile && projectile.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
         {
+            if (projectile.unhittable)
+                return;
+
             if (!impacted)
             {
                 EnemyImpactEffect();

@@ -2,66 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TwistedDipsaAI : MonoBehaviour
+public class TwistedDipsaAI : DipsaAI
 {
-    public float timeBetweenAttack = 3f;
-    public float bulletSpeed = 3f;
-    private float attackTimer = 0f;
     public GameObject[] bulletPrefabs;
-    public Transform shootPos;
-    private Transform player;
     public float spreadAngle = 15f;
-    private Enemy stat;
-    private bool alerted;
-    private RbPathfindAI pathfindAI;
-    public float detectionRadius;
-    public LayerMask playerMask;
 
-    private void Start()
-    {
-        stat = GetComponent<Enemy>();
-        pathfindAI = GetComponent<RbPathfindAI>();
-        player = GameObject.Find("Tenroh").transform;
-    }
-
-    private void Update()
-    {
-        if (stat.isDead)
-            this.enabled = false;
-
-        if (alerted)
-        {
-            if (!pathfindAI.enabled)
-                pathfindAI.enabled = true;
-
-            if (Vector2.Distance(transform.position, player.position) <= detectionRadius)
-                stat.shouldStopMoving = true;
-            else
-                stat.shouldStopMoving = false;
-
-            attackTimer += Time.deltaTime;
-            if (attackTimer >= timeBetweenAttack)
-            {
-                if (Vector2.Distance(transform.position, player.position) <= detectionRadius)
-                {
-                    Attack();
-                    attackTimer = 0f;
-                }
-            }
-        }
-        else
-        {
-            attackTimer = 0f;
-            if (pathfindAI.enabled)
-                pathfindAI.enabled = false;
-            if (Physics2D.OverlapCircle(transform.position, detectionRadius, playerMask))
-            {
-                alerted = true;
-            }
-        }
-    }
-
-    private void Attack()
+    protected override void Attack()
     {
         StartCoroutine(stat.StopMoving());
         ShuffleBulletArray();
@@ -88,10 +34,5 @@ public class TwistedDipsaAI : MonoBehaviour
             bulletPrefabs[random] = bulletPrefabs[i];
             bulletPrefabs[i] = tmp;
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }
