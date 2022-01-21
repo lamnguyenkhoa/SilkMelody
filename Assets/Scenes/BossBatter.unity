@@ -3412,7 +3412,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756336961}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.316202, y: -3.7821598, z: -10}
+  m_LocalPosition: {x: -30.325388, y: -3.7821498, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5895,10 +5895,6 @@ PrefabInstance:
     - target: {fileID: 5929603884186253535, guid: 5f0d556b2e2bcf140a26b967b6a2535a, type: 3}
       propertyPath: m_Name
       value: BossBatter
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929603884186253535, guid: 5f0d556b2e2bcf140a26b967b6a2535a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f0d556b2e2bcf140a26b967b6a2535a, type: 3}

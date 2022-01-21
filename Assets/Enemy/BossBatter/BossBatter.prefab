@@ -891,7 +891,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5929603884186253507
 Transform:
   m_ObjectHideFlags: 0
@@ -952,7 +952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slashPrefab: {fileID: 1440048459, guid: a620af7570ec52e4a9b28a4dd9b18cc0, type: 3}
   stat: {fileID: 0}
-  timeBetweenAttack: 0
+  timeBetweenAttack: 0.2
   inAttack: 0
   isFacingLeft: 0
   speedOverdrive: 1

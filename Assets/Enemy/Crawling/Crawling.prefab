@@ -264,7 +264,7 @@ MonoBehaviour:
   nearFall: 0
   notWallMask:
     serializedVersion: 2
-    m_Bits: 3969
+    m_Bits: 12161
   stabilized: 0
 --- !u!1 &8341824146641315095
 GameObject:

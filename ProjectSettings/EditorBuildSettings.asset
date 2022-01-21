@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RestChairRoomEx.unity
     guid: e59ad4830a14d244eb19cb956e11ea93
+  - enabled: 1
+    path: Assets/Scenes/DirtCaveArea/DirtCave0.unity
+    guid: 88855bdd8e7aa2548a56cad244590a4f
+  - enabled: 1
+    path: Assets/Scenes/DirtCaveArea/DirtCave1.unity
+    guid: ff1b48ea3e83ee348887d8d6be22f5f8
+  - enabled: 1
+    path: Assets/Scenes/DirtCaveArea/DirtCave2.unity
+    guid: e90f7fa9ec3d75644989374c09a0da16
   m_configObjects: {}
