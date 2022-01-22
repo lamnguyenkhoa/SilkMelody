@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DirtCaveArea/DirtCave2.unity
     guid: e90f7fa9ec3d75644989374c09a0da16
+  - enabled: 1
+    path: Assets/Scenes/DirtCaveArea/DirtCave3.unity
+    guid: a080ddc6cd599054c9b27638eee4eeb1
   m_configObjects: {}
