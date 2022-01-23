@@ -36,6 +36,8 @@ Attack while holding down arrow and midair to do an pogo attack.
 
 Trello link: <https://trello.com/b/y4U81oTS/silkmelody>
 
+Map diagram: <https://drive.google.com/file/d/1FNvQ1Rmx9jhIjlrh_A7A3vSlKeX5K8J0/view?usp=sharing>
+
 ### Packages used
 
 - Cinemachine
