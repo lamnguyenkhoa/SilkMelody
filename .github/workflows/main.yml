@@ -22,10 +22,11 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
-      - run: openssl aes-256-cbc -md md5 -d -in .github/Unity_v2019.x.ulf.enc -k ${{ secrets.UNITY_LICENSE_DECRYPT_KEY }} >> .github/Unity_v2019.x.ulf
       - run: |
+            openssl aes-256-cbc -md md5 -d -in .github/Unity_v2019.x.ulf.enc -k ${{ secrets.UNITY_LICENSE_DECRYPT_KEY }} >> .github/Unity_v2019.x.ulf
             UNITY_LICENSE='$(cat .github/Unity_v2019.x.ulf)'
             echo "UNITY_LICENSE=$UNITY_LICENSE" >> $GITHUB_ENV
+            rm .github/Unity_v2019.x.ulf
       - uses: actions/cache@v2
         with:
           path: Library
