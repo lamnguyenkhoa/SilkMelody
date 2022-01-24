@@ -14,17 +14,25 @@ public static class SaveSystem
         File.WriteAllText(path, json);
     }
 
-    public static void LoadPlayerData(PlayerStatSO playerStat)
+    public static bool LoadPlayerData(PlayerStatSO playerStat)
     {
-        string path = Application.persistentDataPath + "/player.dat";
+        string path = Application.persistentDataPath + "/player.json";
         if (File.Exists(path))
         {
-            PlayerStatSO loadedPlayerData = JsonUtility.FromJson<PlayerStatSO>(File.ReadAllText(path));
-            playerStat = loadedPlayerData;
+            JsonUtility.FromJsonOverwrite(File.ReadAllText(path), playerStat);
+            return true;
         }
         else
         {
             Debug.Log("Save file not found");
+            return false;
         }
+    }
+
+    public static void DeleteExistingSave()
+    {
+        string path = Application.persistentDataPath + "/player.json";
+        if (File.Exists(path))
+            File.Delete(path);
     }
 }

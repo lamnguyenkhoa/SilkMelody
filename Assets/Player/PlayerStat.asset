@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 630e4975bda71124db89f3caf801a25d, type: 3}
   m_Name: PlayerStat
   m_EditorClassIdentifier: 
-  maxHp: 6
-  currentHp: 6
-  currentSilk: 8
+  maxHp: 5
+  currentHp: 5
+  currentSilk: 7
   maxSilk: 8
   silkHeal: 3
   damage: 1
@@ -28,7 +28,9 @@ MonoBehaviour:
   attackCooldown: 0.15
   parryWindow: 0.25
   parryCooldown: 1
-  copperShard: 0
+  respawnChairName: 
+  respawnScene: DirtCave0
+  copperShard: 6
   scaleShard: 0
   stunTime: 0.3
-  iFrameTime: 1
+  iFrameTime: 2

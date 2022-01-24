@@ -14,9 +14,6 @@ public class LevelLoader : MonoBehaviour
     public string spawnPosName = "";
 
     [Header("Respawn")]
-    public string respawnChairName = "";
-    public string respawnScene = "";
-    private Vector2 backupRespawnPos;
     private bool doRespawn;
 
     [Header("Other")]
@@ -47,34 +44,44 @@ public class LevelLoader : MonoBehaviour
 
     private void SpawnPointInit()
     {
-        // Load function here
-        // ...
-        if (respawnScene == "")
+        if (player.playerStat.respawnScene == "")
         {
-            respawnScene = SceneManager.GetActiveScene().name;
-            backupRespawnPos = player.transform.position;
+            Debug.Log("Should never reach here");
+            //player.playerStat.respawnScene = SceneManager.GetActiveScene().name;
+        }
+        else
+        {
+            doRespawn = true;
+
+            // Edge case: When player New game and die before reach the first chair
+            if (player.playerStat.respawnChairName == "" && player.playerStat.respawnPos == Vector3.zero)
+            {
+                player.playerStat.respawnPos = player.transform.position;
+            }
+            UpdatePlayerPosition(SceneManager.GetActiveScene(), LoadSceneMode.Single);
         }
     }
 
+    // Parameters are unused
     private void UpdatePlayerPosition(Scene scene, LoadSceneMode mode)
     {
         // Update position because of death
         if (doRespawn)
         {
-            if (respawnChairName == "")
+            // Not sit on any chair yet
+            if (player.playerStat.respawnChairName == "")
             {
-                player.transform.position = backupRespawnPos;
-                doRespawn = false;
-                player.rb.gravityScale = player.originalGravityScale;
+                player.transform.position = player.playerStat.respawnPos;
+                player.rb.isKinematic = false;
             }
             else
             {
-                RestChair chair = GameObject.Find(respawnChairName).GetComponent<RestChair>();
+                RestChair chair = GameObject.Find(player.playerStat.respawnChairName).GetComponent<RestChair>();
                 player.transform.position = chair.transform.position;
                 chair.RespawnAssignToChair(player.GetComponent<Player>());
                 chair.GetOnChair();
-                doRespawn = false;
             }
+            doRespawn = false;
         }
         // Update position because of change scene
         else if (spawnPosName != "")
@@ -91,14 +98,14 @@ public class LevelLoader : MonoBehaviour
 
     public void UpdateSpawnPoint(string restChairName)
     {
-        respawnChairName = restChairName;
-        respawnScene = SceneManager.GetActiveScene().name;
+        player.playerStat.respawnChairName = restChairName;
+        player.playerStat.respawnScene = SceneManager.GetActiveScene().name;
     }
 
     public void Respawn()
     {
         doRespawn = true;
-        LoadLevel(respawnScene, "");
+        LoadLevel(player.playerStat.respawnScene, "");
     }
 
     public void LoadLevel(string sceneName, string spawnPosName)

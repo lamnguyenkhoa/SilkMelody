@@ -55,7 +55,7 @@ public class RestChair : MonoBehaviour
     {
         playerSitting = false;
         player.resting = false;
-        player.rb.gravityScale = player.originalGravityScale;
+        player.rb.isKinematic = false;
 
         // Turn off invulnerable
         int playerLayerId = LayerMask.NameToLayer("Player");
@@ -73,7 +73,7 @@ public class RestChair : MonoBehaviour
         player.resting = true;
         player.RestChairRecovery();
         player.rb.velocity = Vector2.zero;
-        player.rb.gravityScale = 0f;
+        player.rb.isKinematic = true;
         player.transform.position = sittingPos.position;
         LevelLoader.instance.UpdateSpawnPoint(this.gameObject.name);
 

@@ -9,12 +9,15 @@ public class MainMenu : MonoBehaviour
 
     public void NewGameButton()
     {
+        playerStat.ResetToNewGameState();
+        SaveSystem.DeleteExistingSave();
         SceneManager.LoadScene("DirtCave0");
     }
 
     public void ContinueButton()
     {
-        // SaveSystem.LoadPlayerData(playerStat);
+        if (SaveSystem.LoadPlayerData(playerStat))
+            SceneManager.LoadScene(playerStat.respawnScene);
     }
 
     public void QuitButton()
