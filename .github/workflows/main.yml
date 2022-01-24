@@ -22,6 +22,12 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
+      - name: Decrypt the license file
+            run: openssl aes-256-cbc -md md5 -d -in .github/Unity_v2019.x.ulf.enc -k ${{ secrets.UNITY_LICENSE_DECRYPT_KEY }} >> .github/Unity_v2019.x.ulf
+      - name: Set license to env
+            run: |
+                UNITY_LICENSE=$(cat .github/Unity_v2019.x.ulf)
+                echo "UNITY_LICENSE=$UNITY_LICENSE" >> $GITHUB_ENV
       - uses: actions/cache@v2
         with:
           path: Library
@@ -29,7 +35,7 @@ jobs:
           restore-keys: Library-
       - uses: game-ci/unity-builder@v2
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_LICENSE: ${{ env.UNITY_LICENSE }}
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
       - uses: actions/upload-artifact@v2
