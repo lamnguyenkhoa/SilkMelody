@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerStat", menuName = "ScriptableObjects/PlayerStat")]
+[System.Serializable]
 public class PlayerStatSO : ScriptableObject
 {
     [Header("Stat")]
@@ -34,4 +35,14 @@ public class PlayerStatSO : ScriptableObject
     /** Note: If player get damaged, they will be stunned for a short time and has
      * i-frame for a long time.
      */
+
+    public void ResetToNewGameState()
+    {
+        copperShard = 0;
+        scaleShard = 0;
+        maxHp = 5;
+        currentHp = 5;
+        maxSilk = 8;
+        currentSilk = 0;
+    }
 }

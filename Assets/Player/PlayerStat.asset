@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 630e4975bda71124db89f3caf801a25d, type: 3}
   m_Name: PlayerStat
   m_EditorClassIdentifier: 
-  maxHp: 5
-  currentHp: 5
+  maxHp: 6
+  currentHp: 6
   currentSilk: 8
   maxSilk: 8
   silkHeal: 3

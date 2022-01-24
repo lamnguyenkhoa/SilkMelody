@@ -36,7 +36,7 @@ public class RestChair : MonoBehaviour
     private void HandleGetOnChair()
     {
         bool pressUp = inputMaster.Gameplay.Movement.ReadValue<Vector2>().y == 1;
-        if (playerInRange && pressUp)
+        if (playerInRange && pressUp && !playerSitting)
         {
             GetOnChair();
         }
@@ -83,6 +83,8 @@ public class RestChair : MonoBehaviour
         int EnemyAttackLayerId = LayerMask.NameToLayer("EnemyAttack");
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyLayerId, true);
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyAttackLayerId, true);
+
+        SaveSystem.SavePlayerData(player.playerStat);
 
         interactText.SetActive(false);
     }
