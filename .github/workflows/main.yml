@@ -1,34 +1,37 @@
-name: CI
-on: [push]
+name: Auto Build 
+
+on: [push, pull_request]
+
 jobs:
-  build:
+  buildForAllSupportedPlatforms:
+    name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
-    container: gableroux/unity3d:2018.2.21f1
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
+          - StandaloneWindows # Build a Windows standalone.
+          - StandaloneWindows64 # Build a Windows 64-bit standalone.
+          - StandaloneLinux64 # Build a Linux 64-bit standalone.
+          - WebGL # WebGL.
     steps:
-        - name: Checkout Project
-          uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          lfs: true
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-
+      - uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_DECRYPT_KEY }}
+        with:
+          targetPlatform: ${{ matrix.targetPlatform }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
 
-        - name: Decrypt the license file
-          run: openssl aes-256-cbc -md md5 -d -in .github/Unity_v2022.x.ulf.enc -k ${{ secrets.UNITY_LICENSE_DECRYPT_KEY }} >> .github/Unity_v2022.x.ulf
-        
-        # Activate unity
-        - name: Activate Unity
-          run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .github/Unity_v2022.x.ulf || exit 0
-        
-        # Build Windows and OSX
-        - name: Build Windows Player
-          run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -buildWindows64Player ./bin-win64/CISample.exe
-        - name: Build OSX Player
-          run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -buildOSXUniversalPlayer ./bin-osx/CISample.app      
-        
-        - name: Archive Windows Build
-          uses: actions/upload-artifact@v1
-          with:
-            name: CISampleWin64Binary
-            path: ./bin-win64
-
-        - name: Archive Mac Build
-          uses: actions/upload-artifact@v1
-          with:
-            name: CISampleOSXBinary
-            path: ./bin-osx
