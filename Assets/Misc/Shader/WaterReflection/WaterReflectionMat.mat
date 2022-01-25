@@ -57,11 +57,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - NoiseScale: 4
     - RefractionStrength: 1
     - WaterSpeed: 0.1
     - _EnableExternalAlpha: 0
     m_Colors:
     - Speed: {r: 0.1, g: 0.1, b: 0, a: 0}
+    - WaterColor: {r: 0.5226415, g: 0.7453658, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
