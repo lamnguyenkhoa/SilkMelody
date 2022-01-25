@@ -6,27 +6,42 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/LamTestScene.unity
+    path: Assets/Scene/Level/TestArea/LamTestScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/BossBatter.unity
+    path: Assets/Scene/Level/TestArea/BossBatter.unity
     guid: c621af72183722742b390f19311d8d36
   - enabled: 1
-    path: Assets/Scenes/RestChairRoomEx.unity
+    path: Assets/Scene/Level/TestArea/RestChairRoomEx.unity
     guid: e59ad4830a14d244eb19cb956e11ea93
   - enabled: 1
-    path: Assets/Scenes/DirtCaveArea/DirtCave0.unity
+    path: Assets/Scene/Level/DirtCaveArea/DirtCave0.unity
     guid: 88855bdd8e7aa2548a56cad244590a4f
   - enabled: 1
-    path: Assets/Scenes/DirtCaveArea/DirtCave1.unity
+    path: Assets/Scene/Level/DirtCaveArea/DirtCave1.unity
     guid: ff1b48ea3e83ee348887d8d6be22f5f8
   - enabled: 1
-    path: Assets/Scenes/DirtCaveArea/DirtCave2.unity
+    path: Assets/Scene/Level/DirtCaveArea/DirtCave2.unity
     guid: e90f7fa9ec3d75644989374c09a0da16
   - enabled: 1
-    path: Assets/Scenes/DirtCaveArea/DirtCave3.unity
+    path: Assets/Scene/Level/DirtCaveArea/DirtCave3.unity
     guid: a080ddc6cd599054c9b27638eee4eeb1
   - enabled: 1
-    path: Assets/Scenes/DirtCaveArea/DirtCave4.unity
+    path: Assets/Scene/Level/DirtCaveArea/DirtCave4.unity
     guid: f95804f9acc1e874b86518906ae3e637
+<<<<<<< HEAD
+=======
+  - enabled: 1
+    path: Assets/Scene/Level/DirtCaveArea/DirtCave5.unity
+    guid: 9d2afa731ba24b74aa1dea27cdea0f90
+  - enabled: 1
+    path: Assets/Scene/Level/DirtCaveArea/DirtCave6.unity
+    guid: 52a9308169ee54e4dba2dc43720230d6
+  - enabled: 1
+    path: Assets/Scene/Level/DirtCaveArea/DirtCave7.unity
+    guid: 51af89f7020033642bb78312373c681b
+  - enabled: 1
+    path: Assets/Scene/Level/DirtCaveArea/DirtCave8.unity
+    guid: 4d0f1862b675dce488eb10722540e96a
+>>>>>>> 1351d0936617101da661b07344551bce13851c7f
   m_configObjects: {}
