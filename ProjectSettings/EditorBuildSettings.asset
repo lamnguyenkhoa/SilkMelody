@@ -29,8 +29,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/Level/DirtCaveArea/DirtCave4.unity
     guid: f95804f9acc1e874b86518906ae3e637
-<<<<<<< HEAD
-=======
   - enabled: 1
     path: Assets/Scene/Level/DirtCaveArea/DirtCave5.unity
     guid: 9d2afa731ba24b74aa1dea27cdea0f90
@@ -43,5 +41,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/Level/DirtCaveArea/DirtCave8.unity
     guid: 4d0f1862b675dce488eb10722540e96a
->>>>>>> 1351d0936617101da661b07344551bce13851c7f
   m_configObjects: {}
