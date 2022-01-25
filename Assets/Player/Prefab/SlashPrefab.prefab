@@ -719,9 +719,12 @@ MonoBehaviour:
   sparkLight: {fileID: 1786011910}
   playerStat: {fileID: 11400000, guid: efb225c053021f54da0c927e53a7548d, type: 2}
   knockbackPower: 1
-  fadeSpeedAccel: 100
   hitEnemySound: {fileID: 1478593772}
-  activeTime: 0.1
+  canResetDash: 0
+  piercing: 0
+  hasRecoil: 0
+  isDashAttack: 0
+  disappearTime: 0.15
 --- !u!82 &1478593772
 AudioSource:
   m_ObjectHideFlags: 0

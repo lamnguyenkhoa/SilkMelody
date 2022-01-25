@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 5
   currentHp: 5
-  currentSilk: 8
+  currentSilk: 7
   maxSilk: 8
   silkHeal: 3
   damage: 1
@@ -28,7 +28,10 @@ MonoBehaviour:
   attackCooldown: 0.15
   parryWindow: 0.25
   parryCooldown: 1
-  copperShard: 0
+  respawnScene: DirtCave0
+  respawnChairName: 
+  respawnPos: {x: 0, y: 0, z: 0}
+  copperShard: 6
   scaleShard: 0
   stunTime: 0.3
-  iFrameTime: 1
+  iFrameTime: 2

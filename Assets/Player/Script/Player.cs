@@ -742,7 +742,7 @@ public class Player : MonoBehaviour
     {
         isDead = true;
         disableControlCounter += 1;
-        rb.gravityScale = 0f;
+        rb.isKinematic = true;
         rb.velocity = Vector2.zero;
         LevelLoader.instance.Respawn();
         yield return new WaitForSeconds(LevelLoader.instance.transitionTime);
