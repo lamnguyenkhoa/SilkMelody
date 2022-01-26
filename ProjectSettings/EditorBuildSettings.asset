@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scene/Level/MainMenu.unity
+    guid: 151e7bd331fe0344e859cfa1ad2805ea
+  - enabled: 1
     path: Assets/Scene/Level/DirtCaveArea/DirtCave0.unity
     guid: 88855bdd8e7aa2548a56cad244590a4f
   - enabled: 1

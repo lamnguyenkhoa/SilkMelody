@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private int dashCount;
+    [SerializeField] private int jumpCount;
     [SerializeField] private float verInput;
     [SerializeField] private float horInput;
     private float jumpTimer;
@@ -122,7 +123,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         soundEffect = GetComponent<PlayerSoundEffect>();
         originalGravityScale = rb.gravityScale;
-        dashCount = playerStat.maxDashCount;
+        dashCount = playerStat.maxDash;
+        jumpCount = playerStat.extraJump;
         groundBox = hurtBox.bounds.size;
         groundBox.x -= 0.05f;
         groundBox.y = 0.1f;
@@ -225,13 +227,15 @@ public class Player : MonoBehaviour
         InputAction jumpAction = inputMaster.Gameplay.Jump;
         if (jumpAction.WasPressedThisFrame())
         {
+            // Jump from ground
             if (isGrounded || isLedgeGrabbing || coyoteAirTimer <= coyoteTime)
             {
-                jumpTimer = maxJumpTime;
-                isJumping = true;
-                rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
-                coyoteAirTimer = coyoteTime + 1f; // Prevent coyote double jump bug
-                dustPE.Play();
+                Jump();
+            }
+            else if (jumpCount > 0)
+            {
+                Jump();
+                jumpCount--;
             }
         }
         if (jumpAction.IsPressed() && isJumping)
@@ -362,7 +366,8 @@ public class Player : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
             rb.gravityScale = 0f;
-            dashCount = playerStat.maxDashCount;
+            dashCount = playerStat.maxDash;
+            jumpCount = playerStat.extraJump;
         }
         else
         {
@@ -397,7 +402,8 @@ public class Player : MonoBehaviour
             if (airTime > 0.2f)
                 dustPE.Play();
             airTime = 0f;
-            dashCount = playerStat.maxDashCount;
+            dashCount = playerStat.maxDash;
+            jumpCount = playerStat.extraJump;
         }
     }
 
@@ -490,6 +496,15 @@ public class Player : MonoBehaviour
     #endregion Main Functions
 
     #region Sub Functions
+
+    private void Jump()
+    {
+        jumpTimer = maxJumpTime;
+        isJumping = true;
+        rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
+        coyoteAirTimer = coyoteTime + 1f; // Prevent coyote double jump bug
+        dustPE.Play();
+    }
 
     private void PogoAttack()
     {
@@ -595,7 +610,10 @@ public class Player : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.AddForce(dashRecoil, ForceMode2D.Impulse);
         if (resetDash)
-            dashCount = playerStat.maxDashCount;
+        {
+            dashCount = playerStat.maxDash;
+            jumpCount = playerStat.extraJump;
+        }
     }
 
     public void DashAttackTouchGround()

@@ -16,7 +16,8 @@ public class PlayerStatSO : ScriptableObject
     public float moveSpeed = 7f;
     public float jumpForce = 12f;
     public float dashForce = 20f;
-    public int maxDashCount = 1;
+    public int maxDash = 1;
+    public int extraJump = 0;
     public float dashTime = 0.25f;
     public float enemyKnockbackPower = 5f;
     public float selfKnockbackPower = 1f;
@@ -52,7 +53,8 @@ public class PlayerStatSO : ScriptableObject
         moveSpeed = 7f;
         jumpForce = 12f;
         dashForce = 20f;
-        maxDashCount = 1;
+        maxDash = 1;
+        extraJump = 0;
         dashTime = 0.25f;
         enemyKnockbackPower = 5f;
         selfKnockbackPower = 1f;

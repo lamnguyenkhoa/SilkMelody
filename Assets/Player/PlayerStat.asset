@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 5
   currentHp: 5
-  currentSilk: 7
+  currentSilk: 8
   maxSilk: 8
   silkHeal: 3
   damage: 1
   moveSpeed: 7
   jumpForce: 12
   dashForce: 20
-  maxDashCount: 1
+  maxDash: 1
+  extraJump: 1
   dashTime: 0.25
   enemyKnockbackPower: 5
   selfKnockbackPower: 1
@@ -30,8 +31,8 @@ MonoBehaviour:
   parryCooldown: 1
   respawnScene: DirtCave0
   respawnChairName: 
-  respawnPos: {x: 0, y: 0, z: 0}
-  copperShard: 6
+  respawnPos: {x: -5.3, y: 7.97, z: 0}
+  copperShard: 0
   scaleShard: 0
   stunTime: 0.3
   iFrameTime: 2
