@@ -26,6 +26,7 @@ public class BossBatterAI : MonoBehaviour
     private Rigidbody2D rb;
 
     [Header("Moveset control")]
+    public float beginWait = 1f;
     public float timeBetweenAttack;
     [SerializeField] private bool inAttack;
     private float attackTimer;
@@ -84,6 +85,7 @@ public class BossBatterAI : MonoBehaviour
         anim = spriteHolder.GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         originalGravityScale = rb.gravityScale;
+        attackTimer = -beginWait;
 
         // Speed overdrive
         maxChargeSpeed *= speedOverdrive;
