@@ -53,6 +53,13 @@ public class LevelLoader : MonoBehaviour
         {
             doRespawn = true;
 
+            // For easier unit testing
+            if (Application.isEditor)
+            {
+                Debug.Log("Reset player respawnPos to (0 0 0)");
+                player.playerStat.respawnPos = Vector3.zero;
+            }
+
             // Edge case: When player New game and die before reach the first chair
             if (player.playerStat.respawnChairName == "" && player.playerStat.respawnPos == Vector3.zero)
             {

@@ -31,7 +31,7 @@ MonoBehaviour:
   parryCooldown: 1
   respawnScene: DirtCave0
   respawnChairName: 
-  respawnPos: {x: -5.3, y: 7.97, z: 0}
+  respawnPos: {x: 0, y: 0, z: 0}
   copperShard: 0
   scaleShard: 0
   stunTime: 0.3
