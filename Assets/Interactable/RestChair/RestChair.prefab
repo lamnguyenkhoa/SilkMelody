@@ -320,6 +320,7 @@ MonoBehaviour:
   playerSitting: 0
   player: {fileID: 0}
   interactText: {fileID: 137900240}
+  worldState: {fileID: 11400000, guid: 619dad78450a9cd4cbc69758209fcb1f, type: 2}
 --- !u!61 &7402090460154892001
 BoxCollider2D:
   m_ObjectHideFlags: 0

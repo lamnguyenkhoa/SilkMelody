@@ -56,8 +56,9 @@ public class LevelLoader : MonoBehaviour
             // For easier unit testing
             if (Application.isEditor)
             {
-                Debug.Log("Reset player respawnPos to (0 0 0)");
+                Debug.Log("Reset player respawnPos to (0 0 0) and delete respawnChairName");
                 player.playerStat.respawnPos = Vector3.zero;
+                player.playerStat.respawnChairName = "";
             }
 
             // Edge case: When player New game and die before reach the first chair

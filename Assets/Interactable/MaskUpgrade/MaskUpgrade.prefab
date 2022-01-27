@@ -715,3 +715,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatingAmout: 0.2
+  maskId: 0
+  worldState: {fileID: 11400000, guid: 619dad78450a9cd4cbc69758209fcb1f, type: 2}

@@ -52,9 +52,12 @@ MonoBehaviour:
   activatedSprite: {fileID: -2473618710519919056, guid: b485af572ad9c7b4c843862d08acd718, type: 3}
   deactivateObjs:
   - {fileID: 4444285221112058734}
+  - {fileID: 0}
   activateObjs:
   - {fileID: 4444285221408244299}
   sfx: {fileID: 4444285220732907229}
+  doorSwitchId: 0
+  worldState: {fileID: 11400000, guid: 619dad78450a9cd4cbc69758209fcb1f, type: 2}
 --- !u!212 &4444285220732907203
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -141,7 +144,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4444285220732907206}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

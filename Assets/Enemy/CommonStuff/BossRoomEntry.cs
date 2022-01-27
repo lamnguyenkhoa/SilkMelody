@@ -13,6 +13,8 @@ public class BossRoomEntry : MonoBehaviour
     public GameObject boss;
     private bool defeatedBoss;
     private bool activated;
+    public WorldStateSO worldState;
+    public WorldStateSO.BossEnum bossEnum;
 
     private void Start()
     {
@@ -20,6 +22,11 @@ public class BossRoomEntry : MonoBehaviour
         doorObject.SetActive(false);
         bossBGM.Stop();
         boss.SetActive(false);
+
+        if (worldState.bossDefeated[(int)bossEnum])
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void Update()

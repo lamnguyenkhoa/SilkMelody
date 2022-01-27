@@ -6,32 +6,50 @@ using UnityEngine;
 
 public static class SaveSystem
 {
-    public static void SavePlayerData(PlayerStatSO playerData)
+    public static void SavePlayerData(PlayerStatSO playerData, WorldStateSO worldData)
     {
         string path = Application.persistentDataPath + Path.DirectorySeparatorChar + "player.json";
-
         string json = JsonUtility.ToJson(playerData, true);
+        File.WriteAllText(path, json);
+
+        path = Application.persistentDataPath + Path.DirectorySeparatorChar + "world.json";
+        json = JsonUtility.ToJson(worldData, true);
         File.WriteAllText(path, json);
     }
 
-    public static bool LoadPlayerData(PlayerStatSO playerStat)
+    public static bool LoadPlayerData(PlayerStatSO playerStat, WorldStateSO worldData)
     {
         string path = Application.persistentDataPath + "/player.json";
         if (File.Exists(path))
         {
             JsonUtility.FromJsonOverwrite(File.ReadAllText(path), playerStat);
-            return true;
         }
         else
         {
-            Debug.Log("Save file not found");
+            Debug.Log("Player save file not found");
             return false;
         }
+
+        path = Application.persistentDataPath + "/world.json";
+        if (File.Exists(path))
+        {
+            JsonUtility.FromJsonOverwrite(File.ReadAllText(path), worldData);
+        }
+        else
+        {
+            Debug.Log("World save file not found");
+            return false;
+        }
+        return true;
     }
 
     public static void DeleteExistingSave()
     {
         string path = Application.persistentDataPath + "/player.json";
+        if (File.Exists(path))
+            File.Delete(path);
+
+        path = Application.persistentDataPath + "/world.json";
         if (File.Exists(path))
             File.Delete(path);
     }

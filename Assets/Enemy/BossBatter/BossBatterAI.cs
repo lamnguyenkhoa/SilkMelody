@@ -24,6 +24,7 @@ public class BossBatterAI : MonoBehaviour
     private Transform spriteHolder;
     [HideInInspector] public Enemy stat;
     private Rigidbody2D rb;
+    public WorldStateSO worldState;
 
     [Header("Moveset control")]
     public float beginWait = 1f;
@@ -103,6 +104,7 @@ public class BossBatterAI : MonoBehaviour
         if (stat.isDead)
         {
             StopAllCoroutines();
+            worldState.bossDefeated[(int)WorldStateSO.BossEnum.Batter] = true;
             inAttack = false;
             this.enabled = false;
         }

@@ -7,6 +7,16 @@ public class MaskUpgrade : MonoBehaviour
     public float floatingAmout;
     private Vector3 originalPosition;
     private bool used;
+    public int maskId;
+    public WorldStateSO worldState;
+
+    private void Awake()
+    {
+        if (worldState.maskUpgrades[maskId])
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -23,6 +33,7 @@ public class MaskUpgrade : MonoBehaviour
         Player player = collision.GetComponent<Player>();
         if (player && !used)
         {
+            worldState.maskUpgrades[maskId] = true;
             used = true;
             player.playerStat.maxHp += 1;
             player.playerStat.currentHp = player.playerStat.maxHp;

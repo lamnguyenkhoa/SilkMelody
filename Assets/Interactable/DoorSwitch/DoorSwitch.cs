@@ -9,11 +9,27 @@ public class DoorSwitch : MonoBehaviour
     public GameObject[] deactivateObjs;
     public GameObject[] activateObjs;
     public AudioSource sfx;
+    public int doorSwitchId;
+    public WorldStateSO worldState;
+
+    private void Awake()
+    {
+        if (worldState.doorSwitches[doorSwitchId])
+        {
+            activated = true;
+            transform.GetComponent<SpriteRenderer>().sprite = activatedSprite;
+            foreach (GameObject obj in deactivateObjs)
+                obj.SetActive(false);
+            foreach (GameObject obj in activateObjs)
+                obj.SetActive(true); ;
+        }
+    }
 
     public void Activate()
     {
         if (activated)
             return;
+        worldState.doorSwitches[doorSwitchId] = true;
         activated = true;
         sfx.Play();
         transform.GetComponent<SpriteRenderer>().sprite = activatedSprite;

@@ -952,6 +952,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slashPrefab: {fileID: 1440048459, guid: a620af7570ec52e4a9b28a4dd9b18cc0, type: 3}
   stat: {fileID: 0}
+  worldState: {fileID: 11400000, guid: 619dad78450a9cd4cbc69758209fcb1f, type: 2}
+  beginWait: 1
   timeBetweenAttack: 0.2
   inAttack: 0
   isFacingLeft: 0
@@ -979,7 +981,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentPetCounter: 0
-  timeBetweenSummon: 10
+  timeBetweenSummon: 5
   summonSound: {fileID: 368107087}
   shockwavePrefab: {fileID: 4085509167583987173, guid: bfe3e372cbb8df44bb676be0e66c85fe, type: 3}
   shockwaveSpeed: 15
