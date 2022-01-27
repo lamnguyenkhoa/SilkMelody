@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maskUpgrades: 010000
   silkUpgrades: 000000
-  doubleJump: 0
+  doubleJump: 1
   wallJump: 0
   doorSwitches: 010000
-  bossDefeated: 000000
+  bossDefeated: 010000
