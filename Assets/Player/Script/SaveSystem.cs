@@ -17,7 +17,7 @@ public static class SaveSystem
         File.WriteAllText(path, json);
     }
 
-    public static bool LoadPlayerData(PlayerStatSO playerStat, WorldStateSO worldData)
+    public static void LoadPlayerData(PlayerStatSO playerStat, WorldStateSO worldData)
     {
         string path = Application.persistentDataPath + "/player.json";
         if (File.Exists(path))
@@ -27,7 +27,6 @@ public static class SaveSystem
         else
         {
             Debug.Log("Player save file not found");
-            return false;
         }
 
         path = Application.persistentDataPath + "/world.json";
@@ -38,9 +37,7 @@ public static class SaveSystem
         else
         {
             Debug.Log("World save file not found");
-            return false;
         }
-        return true;
     }
 
     public static void DeleteExistingSave()
@@ -52,5 +49,20 @@ public static class SaveSystem
         path = Application.persistentDataPath + "/world.json";
         if (File.Exists(path))
             File.Delete(path);
+    }
+
+    public static bool CheckSaveExist()
+    {
+        string playerPath = Application.persistentDataPath + "/player.json";
+        string worldPath = Application.persistentDataPath + "/world.json";
+
+        if (File.Exists(playerPath) && File.Exists(worldPath))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

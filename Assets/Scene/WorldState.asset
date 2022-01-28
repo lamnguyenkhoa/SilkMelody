@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd53a599672644409b7c2141f3fdf9a, type: 3}
   m_Name: WorldState
   m_EditorClassIdentifier: 
-  maskUpgrades: 010000
+  maskUpgrades: 000000
   silkUpgrades: 000000
-  doubleJump: 1
+  doubleJump: 0
   wallJump: 0
-  doorSwitches: 010000
-  bossDefeated: 010000
+  doorSwitches: 000000
+  bossDefeated: 000000
