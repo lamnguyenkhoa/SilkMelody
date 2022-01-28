@@ -401,7 +401,10 @@ public class Player : MonoBehaviour
         else
         {
             if (airTime > 0.2f)
+            {
                 dustPE.Play();
+                soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.landing);
+            }
             airTime = 0f;
             dashCount = playerStat.maxDash;
             jumpCount = playerStat.extraJump;
@@ -504,6 +507,7 @@ public class Player : MonoBehaviour
         isJumping = true;
         rb.velocity = new Vector2(rb.velocity.x, playerStat.jumpForce);
         coyoteAirTimer = coyoteTime + 1f; // Prevent coyote double jump bug
+        soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.jump);
         dustPE.Play();
     }
 
