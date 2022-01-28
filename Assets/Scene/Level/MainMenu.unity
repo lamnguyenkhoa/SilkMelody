@@ -653,8 +653,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32366b4ff0db840ab482066de67322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStat: {fileID: 11400000, guid: efb225c053021f54da0c927e53a7548d, type: 2}
-  worldState: {fileID: 11400000, guid: 619dad78450a9cd4cbc69758209fcb1f, type: 2}
 --- !u!1 &999804916
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,8 +902,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32366b4ff0db840ab482066de67322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStat: {fileID: 11400000, guid: efb225c053021f54da0c927e53a7548d, type: 2}
-  worldState: {fileID: 11400000, guid: 619dad78450a9cd4cbc69758209fcb1f, type: 2}
 --- !u!1 &1513403136
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,8 +1323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32366b4ff0db840ab482066de67322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStat: {fileID: 11400000, guid: efb225c053021f54da0c927e53a7548d, type: 2}
-  worldState: {fileID: 11400000, guid: 619dad78450a9cd4cbc69758209fcb1f, type: 2}
 --- !u!1001 &2036191978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1336,6 +1330,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 723737696, guid: a036eade283557848b60b5e0d1e677f3, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4108478404735970064, guid: a036eade283557848b60b5e0d1e677f3, type: 3}
       propertyPath: m_Name
       value: GameMaster

@@ -7,6 +7,7 @@ public class GameMaster : MonoBehaviour
     public PlayerData playerData;
     public WorldData worldData;
     public static GameMaster instance;
+    public AudioSource bgm;
 
     private void Awake()
     {
@@ -19,6 +20,12 @@ public class GameMaster : MonoBehaviour
         }
         else
         {
+            // Change area/region BGM
+            if (instance.bgm.clip != this.bgm.clip)
+            {
+                instance.bgm.clip = this.bgm.clip;
+                instance.bgm.Play();
+            }
             Destroy(this.gameObject);
         }
     }

@@ -47,6 +47,7 @@ public class BossRoomEntry : MonoBehaviour
             if (player)
             {
                 doorObject.SetActive(true);
+                GameMaster.instance.bgm.Pause();
                 cameraConfiner.m_BoundingShape2D = bossRoomConfineArea;
                 bossBGM.Play();
                 boss.SetActive(true);
@@ -58,6 +59,7 @@ public class BossRoomEntry : MonoBehaviour
     public void DefeatBossFight()
     {
         doorObject.SetActive(false);
+        GameMaster.instance.bgm.UnPause();
         bossBGM.Stop();
         cameraConfiner.m_BoundingShape2D = originalConfineArea;
         defeatedBoss = true;

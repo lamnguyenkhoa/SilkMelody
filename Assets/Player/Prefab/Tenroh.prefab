@@ -7036,5 +7036,5 @@ MonoBehaviour:
   parry: {fileID: 1373835054}
   dash: {fileID: 1718531228}
   silkbind: {fileID: 612127322}
-  jump: {fileID: 0}
-  landing: {fileID: 0}
+  jump: {fileID: 1930640295}
+  landing: {fileID: 1880660040}
