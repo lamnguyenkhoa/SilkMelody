@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RestChair : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class RestChair : MonoBehaviour
     [SerializeField] private bool playerSitting;
     [SerializeField] private Player player;
     public GameObject interactText;
+    public Image softFlash;
+    public GameObject savingText;
     private InputMaster inputMaster;
 
     private void Awake()
@@ -27,6 +30,12 @@ public class RestChair : MonoBehaviour
         inputMaster.Disable();
     }
 
+    private void Start()
+    {
+        // Failsafe
+        savingText.SetActive(false);
+    }
+
     private void Update()
     {
         HandleGetOnChair();
@@ -39,6 +48,9 @@ public class RestChair : MonoBehaviour
         if (playerInRange && pressUp && !playerSitting)
         {
             GetOnChair();
+            StopAllCoroutines();
+            StartCoroutine(SoftFlash());
+            StartCoroutine(SavingText());
         }
     }
 
@@ -113,5 +125,25 @@ public class RestChair : MonoBehaviour
             playerInRange = false;
             interactText.SetActive(false);
         }
+    }
+
+    private IEnumerator SoftFlash()
+    {
+        Color fadeColor = softFlash.color;
+        fadeColor.a = (float)(100.0 / 255.0);
+        softFlash.color = fadeColor;
+        while (fadeColor.a > 0)
+        {
+            fadeColor.a -= 0.3f * Time.deltaTime;
+            softFlash.color = fadeColor;
+            yield return null;
+        }
+    }
+
+    private IEnumerator SavingText()
+    {
+        savingText.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        savingText.SetActive(false);
     }
 }
