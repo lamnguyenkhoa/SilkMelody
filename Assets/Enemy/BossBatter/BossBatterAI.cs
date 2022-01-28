@@ -24,7 +24,7 @@ public class BossBatterAI : MonoBehaviour
     private Transform spriteHolder;
     [HideInInspector] public Enemy stat;
     private Rigidbody2D rb;
-    public WorldStateSO worldState;
+    private WorldData worldState;
 
     [Header("Moveset control")]
     public float beginWait = 1f;
@@ -80,6 +80,7 @@ public class BossBatterAI : MonoBehaviour
 
     private void Start()
     {
+        worldState = GameMaster.instance.worldData;
         stat = GetComponent<Enemy>();
         player = GameObject.Find("Tenroh").GetComponent<Player>();
         spriteHolder = transform.Find("Sprite");
@@ -104,7 +105,7 @@ public class BossBatterAI : MonoBehaviour
         if (stat.isDead)
         {
             StopAllCoroutines();
-            worldState.bossDefeated[(int)WorldStateSO.BossEnum.Batter] = true;
+            worldState.bossDefeated[(int)WorldData.BossEnum.Batter] = true;
             inAttack = false;
             this.enabled = false;
         }

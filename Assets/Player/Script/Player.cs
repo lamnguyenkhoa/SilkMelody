@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public ParticleSystem dustPE;
     public Transform groundCheck;
     public Collider2D hurtBox;
-    public PlayerStatSO playerStat;
+    public PlayerData playerStat;
 
     [Header("Movement")]
     [SerializeField] private int dashCount;
@@ -100,6 +100,7 @@ public class Player : MonoBehaviour
         {
             instance = this;
             inputMaster = new InputMaster();
+            playerStat = GameMaster.instance.playerData;
             DontDestroyOnLoad(this.gameObject);
         }
         else

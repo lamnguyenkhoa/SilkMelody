@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SilkBarUI : MonoBehaviour
 {
-    public PlayerStatSO playerStat;
+    private PlayerData playerStat;
     public Sprite silkIcon;
     public Sprite emptyIcon;
     private List<Image> silkList = new List<Image>();
@@ -13,6 +13,7 @@ public class SilkBarUI : MonoBehaviour
 
     private void Awake()
     {
+        playerStat = GameMaster.instance.playerData;
         InitNumberOfSilk();
     }
 

@@ -10,10 +10,12 @@ public class DoorSwitch : MonoBehaviour
     public GameObject[] activateObjs;
     public AudioSource sfx;
     public int doorSwitchId;
-    public WorldStateSO worldState;
+    private WorldData worldState;
 
     private void Awake()
     {
+        worldState = GameMaster.instance.worldData;
+
         if (worldState.doorSwitches[doorSwitchId])
         {
             activated = true;

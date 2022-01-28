@@ -8,10 +8,11 @@ public class MaskUpgrade : MonoBehaviour
     private Vector3 originalPosition;
     private bool used;
     public int maskId;
-    public WorldStateSO worldState;
+    public WorldData worldState;
 
     private void Awake()
     {
+        worldState = GameMaster.instance.worldData;
         if (worldState.maskUpgrades[maskId])
         {
             Destroy(this.gameObject);

@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerStat", menuName = "ScriptableObjects/PlayerStat")]
 [System.Serializable]
-public class PlayerStatSO : ScriptableObject
+public class PlayerData
 {
     [Header("Stat")]
     public int maxHp = 5;
@@ -26,7 +25,7 @@ public class PlayerStatSO : ScriptableObject
     public float parryCooldown = 1f;
 
     [Header("Location")]
-    public string respawnScene = "";
+    public string respawnScene = "DirtCave0";
     public string respawnChairName = "";
     public Vector3 respawnPos = Vector3.zero; // Use when there is no chair
 
@@ -37,10 +36,6 @@ public class PlayerStatSO : ScriptableObject
     [Header("Misc")]
     public float stunTime = 0.4f;
     public float iFrameTime = 1.5f;
-
-    /** Note: If player get damaged, they will be stunned for a short time and has
-     * i-frame for a long time.
-     */
 
     public void ResetToNewGameState()
     {

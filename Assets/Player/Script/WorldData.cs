@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WorldState", menuName = "ScriptableObjects/WorldState")]
 [System.Serializable]
-public class WorldStateSO : ScriptableObject
+public class WorldData
 {
     [Header("Collectibles")]
     public bool[] maskUpgrades = new bool[3];

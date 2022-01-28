@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class SilkbindSandal : MonoBehaviour
 {
     private bool used;
-    public WorldStateSO worldState;
+    private WorldData worldState;
     public float tutorialMinTime = 3f;
     public GameObject tutorial;
     public GameObject promt;
@@ -17,6 +17,7 @@ public class SilkbindSandal : MonoBehaviour
 
     private void Awake()
     {
+        worldState = GameMaster.instance.worldData;
         if (worldState.doubleJump)
             Destroy(this.gameObject);
     }

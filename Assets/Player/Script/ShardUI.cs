@@ -6,7 +6,12 @@ using UnityEngine;
 public class ShardUI : MonoBehaviour
 {
     public TextMeshProUGUI copperText;
-    public PlayerStatSO playerStat;
+    public PlayerData playerStat;
+
+    private void Start()
+    {
+        playerStat = GameMaster.instance.playerData;
+    }
 
     private void Update()
     {

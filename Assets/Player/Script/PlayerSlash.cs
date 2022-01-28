@@ -7,7 +7,7 @@ public class PlayerSlash : MonoBehaviour
 {
     [HideInInspector] public Player player;
     public Light2D sparkLight;
-    public PlayerStatSO playerStat;
+    public PlayerData playerStat;
     public float knockbackPower = 1f;
     private SpriteRenderer sprite;
     private Color fadeColor;
@@ -35,6 +35,7 @@ public class PlayerSlash : MonoBehaviour
         attackCollider = transform.GetComponent<Collider2D>();
         if (piercing && hasRecoil)
             Debug.Log("Mutually exclusive! Cannot be both!");
+        playerStat = GameMaster.instance.playerData;
     }
 
     private void Update()

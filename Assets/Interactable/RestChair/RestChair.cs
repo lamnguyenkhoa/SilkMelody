@@ -11,7 +11,6 @@ public class RestChair : MonoBehaviour
     [SerializeField] private Player player;
     public GameObject interactText;
     private InputMaster inputMaster;
-    public WorldStateSO worldState;
 
     private void Awake()
     {
@@ -85,7 +84,7 @@ public class RestChair : MonoBehaviour
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyLayerId, true);
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyAttackLayerId, true);
 
-        SaveSystem.SavePlayerData(player.playerStat, worldState);
+        SaveSystem.SavePlayerData();
 
         interactText.SetActive(false);
     }

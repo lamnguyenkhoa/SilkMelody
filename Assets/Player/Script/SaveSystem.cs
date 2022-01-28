@@ -6,23 +6,23 @@ using UnityEngine;
 
 public static class SaveSystem
 {
-    public static void SavePlayerData(PlayerStatSO playerData, WorldStateSO worldData)
+    public static void SavePlayerData()
     {
         string path = Application.persistentDataPath + Path.DirectorySeparatorChar + "player.json";
-        string json = JsonUtility.ToJson(playerData, true);
+        string json = JsonUtility.ToJson(GameMaster.instance.playerData, true);
         File.WriteAllText(path, json);
 
         path = Application.persistentDataPath + Path.DirectorySeparatorChar + "world.json";
-        json = JsonUtility.ToJson(worldData, true);
+        json = JsonUtility.ToJson(GameMaster.instance.worldData, true);
         File.WriteAllText(path, json);
     }
 
-    public static void LoadPlayerData(PlayerStatSO playerStat, WorldStateSO worldData)
+    public static void LoadPlayerData()
     {
         string path = Application.persistentDataPath + "/player.json";
         if (File.Exists(path))
         {
-            JsonUtility.FromJsonOverwrite(File.ReadAllText(path), playerStat);
+            JsonUtility.FromJsonOverwrite(File.ReadAllText(path), GameMaster.instance.playerData);
         }
         else
         {
@@ -32,7 +32,7 @@ public static class SaveSystem
         path = Application.persistentDataPath + "/world.json";
         if (File.Exists(path))
         {
-            JsonUtility.FromJsonOverwrite(File.ReadAllText(path), worldData);
+            JsonUtility.FromJsonOverwrite(File.ReadAllText(path), GameMaster.instance.worldData);
         }
         else
         {

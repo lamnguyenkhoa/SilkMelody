@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class HealthUI : MonoBehaviour
 {
-    public PlayerStatSO playerStat;
+    private PlayerData playerStat;
     public Sprite maskIcon;
     public Sprite emptyMaskIcon;
     private List<Image> maskList = new List<Image>();
     public Image maskPrefab;
 
-    private void Awake()
+    private void Start()
     {
+        playerStat = GameMaster.instance.playerData;
         InitNumberOfMask();
     }
 

@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public PlayerStatSO playerStat;
-    public WorldStateSO worldState;
-
     private void Start()
     {
         if (transform.name == "Continue")
@@ -23,10 +20,6 @@ public class MainMenu : MonoBehaviour
 
     public void NewGameButton()
     {
-        playerStat.ResetToNewGameState();
-        worldState.ResetToNewGameState();
-        UnityEditor.EditorUtility.SetDirty(playerStat);
-        UnityEditor.EditorUtility.SetDirty(worldState);
         SaveSystem.DeleteExistingSave();
         SceneManager.LoadScene("DirtCave0");
     }
@@ -35,8 +28,8 @@ public class MainMenu : MonoBehaviour
     {
         if (SaveSystem.CheckSaveExist())
         {
-            SaveSystem.LoadPlayerData(playerStat, worldState);
-            SceneManager.LoadScene(playerStat.respawnScene);
+            SaveSystem.LoadPlayerData();
+            SceneManager.LoadScene(GameMaster.instance.playerData.respawnScene);
         }
     }
 

@@ -13,11 +13,12 @@ public class BossRoomEntry : MonoBehaviour
     public GameObject boss;
     private bool defeatedBoss;
     private bool activated;
-    public WorldStateSO worldState;
-    public WorldStateSO.BossEnum bossEnum;
+    private WorldData worldState;
+    public WorldData.BossEnum bossEnum;
 
     private void Start()
     {
+        worldState = GameMaster.instance.worldData;
         // Failsafe, make sure stuff are inactived
         doorObject.SetActive(false);
         bossBGM.Stop();
