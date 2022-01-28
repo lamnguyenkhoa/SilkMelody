@@ -10,10 +10,7 @@ public class MainMenu : MonoBehaviour
 
     public void NewGameButton()
     {
-        playerStat.ResetToNewGameState();
-        worldState.ResetToNewGameState();
-        SaveSystem.DeleteExistingSave();
-        SceneManager.LoadScene("DirtCave0");
+        StartCoroutine(NewGame());
     }
 
     public void ContinueButton()
@@ -26,5 +23,14 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+
+    private IEnumerator NewGame()
+    {
+        playerStat.ResetToNewGameState();
+        worldState.ResetToNewGameState();
+        SaveSystem.DeleteExistingSave();
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene("DirtCave0");
     }
 }
