@@ -43,7 +43,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": ""Press""
                 },
                 {
-                    ""name"": ""Heal"",
+                    ""name"": ""SilkSkill"",
                     ""type"": ""Button"",
                     ""id"": ""96170ed1-1b19-4007-a167-fd6c38a63877"",
                     ""expectedControlType"": ""Button"",
@@ -292,7 +292,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Heal"",
+                    ""action"": ""SilkSkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -303,7 +303,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Heal"",
+                    ""action"": ""SilkSkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -416,7 +416,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Gameplay_Attack = m_Gameplay.FindAction("Attack", throwIfNotFound: true);
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
         m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
-        m_Gameplay_Heal = m_Gameplay.FindAction("Heal", throwIfNotFound: true);
+        m_Gameplay_SilkSkill = m_Gameplay.FindAction("SilkSkill", throwIfNotFound: true);
         m_Gameplay_Parry = m_Gameplay.FindAction("Parry", throwIfNotFound: true);
         m_Gameplay_DashAttack = m_Gameplay.FindAction("DashAttack", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
@@ -472,7 +472,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Attack;
     private readonly InputAction m_Gameplay_Movement;
     private readonly InputAction m_Gameplay_Dash;
-    private readonly InputAction m_Gameplay_Heal;
+    private readonly InputAction m_Gameplay_SilkSkill;
     private readonly InputAction m_Gameplay_Parry;
     private readonly InputAction m_Gameplay_DashAttack;
     private readonly InputAction m_Gameplay_Jump;
@@ -483,7 +483,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Attack => m_Wrapper.m_Gameplay_Attack;
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
         public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
-        public InputAction @Heal => m_Wrapper.m_Gameplay_Heal;
+        public InputAction @SilkSkill => m_Wrapper.m_Gameplay_SilkSkill;
         public InputAction @Parry => m_Wrapper.m_Gameplay_Parry;
         public InputAction @DashAttack => m_Wrapper.m_Gameplay_DashAttack;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
@@ -505,9 +505,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Dash.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
-                @Heal.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHeal;
-                @Heal.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHeal;
-                @Heal.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHeal;
+                @SilkSkill.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSilkSkill;
+                @SilkSkill.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSilkSkill;
+                @SilkSkill.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSilkSkill;
                 @Parry.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnParry;
                 @Parry.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnParry;
                 @Parry.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnParry;
@@ -530,9 +530,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
-                @Heal.started += instance.OnHeal;
-                @Heal.performed += instance.OnHeal;
-                @Heal.canceled += instance.OnHeal;
+                @SilkSkill.started += instance.OnSilkSkill;
+                @SilkSkill.performed += instance.OnSilkSkill;
+                @SilkSkill.canceled += instance.OnSilkSkill;
                 @Parry.started += instance.OnParry;
                 @Parry.performed += instance.OnParry;
                 @Parry.canceled += instance.OnParry;
@@ -569,7 +569,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
-        void OnHeal(InputAction.CallbackContext context);
+        void OnSilkSkill(InputAction.CallbackContext context);
         void OnParry(InputAction.CallbackContext context);
         void OnDashAttack(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);

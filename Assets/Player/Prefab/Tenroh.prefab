@@ -6957,6 +6957,7 @@ MonoBehaviour:
   dustPE: {fileID: 1660418597}
   groundCheck: {fileID: 54146327}
   hurtBox: {fileID: 5268734040163008456}
+  gossamerPrefab: {fileID: 2395748455145630215, guid: 2289ddba89103aa449a061887f615aaa, type: 3}
   playerStat:
     maxHp: 5
     currentHp: 5
@@ -7012,7 +7013,7 @@ MonoBehaviour:
   isJumping: 0
   isLedgeGrabbing: 0
   isDead: 0
-  inHeal: 0
+  inSilkSkill: 0
   isParrying: 0
   state: 0
   resting: 0

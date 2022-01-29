@@ -35,4 +35,15 @@ public class PlayerAnimEventRef : MonoBehaviour
     {
         player.EndHeal();
     }
+
+    public void BeginGossamer()
+    {
+        player.BeginGossamer();
+    }
+
+    public void EndGossamer()
+    {
+        // Temp
+        player.EndHeal();
+    }
 }

@@ -30,7 +30,7 @@
                     "interactions": "Press"
                 },
                 {
-                    "name": "Heal",
+                    "name": "SilkSkill",
                     "type": "Button",
                     "id": "96170ed1-1b19-4007-a167-fd6c38a63877",
                     "expectedControlType": "Button",
@@ -279,7 +279,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Heal",
+                    "action": "SilkSkill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -290,7 +290,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Heal",
+                    "action": "SilkSkill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

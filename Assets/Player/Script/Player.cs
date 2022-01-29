@@ -18,7 +18,9 @@ public class Player : MonoBehaviour
     public ParticleSystem dustPE;
     public Transform groundCheck;
     public Collider2D hurtBox;
-    public PlayerData playerStat;
+    public GameObject gossamerPrefab;
+    private GameObject gossamerInstance;
+    [HideInInspector] public PlayerData playerStat;
 
     [Header("Movement")]
     [SerializeField] private int dashCount;
@@ -71,7 +73,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isJumping;
     [SerializeField] private bool isLedgeGrabbing;
     [SerializeField] private bool isDead;
-    [SerializeField] private bool inHeal;
+    [SerializeField] private bool inSilkSkill;
     [SerializeField] private bool isParrying;
 
     [Header("Misc")]
@@ -142,7 +144,7 @@ public class Player : MonoBehaviour
         if (!isParrying)
             parryTimer += Time.deltaTime;
 
-        if (!resting && disableControlCounter == 0 && !isDashing && !isParalyzed && !inHeal && !isParrying)
+        if (!resting && disableControlCounter == 0 && !isDashing && !isParalyzed && !inSilkSkill && !isParrying)
         {
             HandleMovement();
 
@@ -161,7 +163,7 @@ public class Player : MonoBehaviour
 
             HandleCoyoteTime();
 
-            HandleHeal();
+            HandleSilkSkill();
         }
 
         AnimationControl();
@@ -459,6 +461,9 @@ public class Player : MonoBehaviour
             return;
         }
 
+        if (gossamerInstance != null)
+            Destroy(gossamerInstance);
+
         if (amount == 0)
             Debug.Log("This attack deal 0 damage!");
         soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.damaged);
@@ -468,7 +473,7 @@ public class Player : MonoBehaviour
         isDashing = false;
         inAttack = false;
         isParalyzed = false;
-        inHeal = false;
+        inSilkSkill = false;
         isParrying = false;
         sprite.material = originalMaterial;
         anim.SetBool("dashAttack", false);
@@ -486,14 +491,25 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void HandleHeal()
+    public void HandleSilkSkill()
     {
-        InputAction healAction = inputMaster.Gameplay.Heal;
-        if (healAction.WasPressedThisFrame() && playerStat.currentSilk >= 8 && !inAttack)
+        InputAction silkAction = inputMaster.Gameplay.SilkSkill;
+        if (silkAction.WasPressedThisFrame())
         {
-            playerStat.currentSilk -= 8;
-            playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
-            anim.SetTrigger("heal");
+            // Gossamer
+            if (verInput >= 0.1f && playerStat.currentSilk >= 6 && !inAttack)
+            {
+                playerStat.currentSilk -= 6;
+                playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
+                anim.SetTrigger("gossamer");
+            }
+            // Heal
+            else if (playerStat.currentSilk >= 8 && !inAttack)
+            {
+                playerStat.currentSilk -= 8;
+                playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
+                anim.SetTrigger("heal");
+            }
         }
     }
 
@@ -660,7 +676,7 @@ public class Player : MonoBehaviour
     public void BeginHeal()
     {
         soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.silkbind);
-        inHeal = true;
+        inSilkSkill = true;
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0f;
         GameObject vfx = Instantiate(silkBindVFXPrefab, transform, false);
@@ -674,9 +690,19 @@ public class Player : MonoBehaviour
         StartCoroutine(FlashWhite());
     }
 
+    public void BeginGossamer()
+    {
+        // If player get hit during gossamer, the gossamer object will be destroy prematurely
+        inSilkSkill = true;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0f;
+        gossamerInstance = Instantiate(gossamerPrefab, transform, false);
+        gossamerInstance.transform.localPosition = new Vector3(0.25f, 0, 0);
+    }
+
     public void EndHeal()
     {
-        inHeal = false;
+        inSilkSkill = false;
         rb.gravityScale = originalGravityScale;
     }
 

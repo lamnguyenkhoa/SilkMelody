@@ -14,10 +14,16 @@ Attack while holding up arrow to do an upward attack.
 
 Attack while holding down arrow and midair to do an pogo attack.
 
+Silk skill:
+
+- No vertical input: Heal 3HP. Cost 8 silk.
+
+- Up input (press silk skill while holding up): Gossamer Storm. Cost 6 silk.
+
 ### Keyboard
 
 - X - Jump.
-- Q - Heal 3 HP. Require 8 silk thread
+- Q - Silk skill
 - F - Parry
 - C - Attack
 - Z - Dash
@@ -27,7 +33,7 @@ Attack while holding down arrow and midair to do an pogo attack.
 
 - A - Jump
 - X - Attack
-- B - Heal
+- B - Silk skill
 - Y - Parry
 - RT - Dash
 - LB - Dash Attack
