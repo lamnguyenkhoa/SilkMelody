@@ -28,7 +28,7 @@ public class Gossamer : MonoBehaviour
             foreach (Collider2D hitEnemy in hitEnemies)
             {
                 Enemy enemy = hitEnemy.GetComponent<Enemy>();
-                if (enemy == null)
+                if (enemy == null && hitEnemy.transform.parent != null)
                     enemy = hitEnemy.transform.parent.GetComponent<Enemy>();
                 enemy.Damaged(damage, Vector2.zero);
             }

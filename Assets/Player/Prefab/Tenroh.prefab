@@ -6958,6 +6958,7 @@ MonoBehaviour:
   groundCheck: {fileID: 54146327}
   hurtBox: {fileID: 5268734040163008456}
   gossamerPrefab: {fileID: 2395748455145630215, guid: 2289ddba89103aa449a061887f615aaa, type: 3}
+  silkBurstPrefab: {fileID: 5183563316530110927, guid: ab0add5cbae2c414482053001c41bf1a, type: 3}
   playerStat:
     maxHp: 5
     currentHp: 5

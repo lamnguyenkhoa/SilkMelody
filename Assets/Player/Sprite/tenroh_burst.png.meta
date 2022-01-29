@@ -1,37 +1,25 @@
 fileFormatVersion: 2
-guid: 271784aa5862e8f4bac325ad8c3b1e99
+guid: 76c6f179312a01a41871890a81ef24e8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8337116757266020064
-    second: GossamerSilk_0
+      213: -6575672606305013509
+    second: tenroh_burst_0
   - first:
-      213: 3809951371283807486
-    second: GossamerSilk_1
+      213: -2561119923123123263
+    second: tenroh_burst_1
   - first:
-      213: 3530822912102369845
-    second: GossamerSilk_2
+      213: 807187688446168294
+    second: tenroh_burst_2
   - first:
-      213: 6525118177855252352
-    second: GossamerSilk_3
+      213: -3769483999899040092
+    second: tenroh_burst_3
   - first:
-      213: 1656380174479278652
-    second: GossamerSilk_4
+      213: 4036496546935366861
+    second: tenroh_burst_4
   - first:
-      213: -8225206639530373423
-    second: GossamerSilk_5
-  - first:
-      213: 6917758713407491263
-    second: GossamerSilk_6
-  - first:
-      213: -6641514891120074686
-    second: GossamerSilk_7
-  - first:
-      213: -1572064556695448039
-    second: GossamerSilk_8
-  - first:
-      213: -7225372795016600889
-    second: GossamerSilk_9
+      213: 6444827656388189460
+    second: tenroh_burst_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -95,7 +83,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 8192
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -107,7 +95,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 8192
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -121,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GossamerSilk_0
+      name: tenroh_burst_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 512
-        height: 512
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -135,20 +123,83 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 029c3303b7c9c4c80800000000000000
-      internalID: -8337116757266020064
+      spriteID: bf03ced9a948eb4a0800000000000000
+      internalID: -6575672606305013509
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GossamerSilk_1
+      name: tenroh_burst_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cb0213dff2157cd0800000000000000
+      internalID: -2561119923123123263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tenroh_burst_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ec07ec0de4b33b00800000000000000
+      internalID: 807187688446168294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tenroh_burst_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a6cf7f064a10bbc0800000000000000
+      internalID: -3769483999899040092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tenroh_burst_4
       rect:
         serializedVersion: 2
         x: 512
         y: 0
-        width: 512
-        height: 512
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,20 +207,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efc32e0169aafd430800000000000000
-      internalID: 3809951371283807486
+      spriteID: dc46c212934840830800000000000000
+      internalID: 4036496546935366861
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GossamerSilk_2
+      name: tenroh_burst_5
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 640
         y: 0
-        width: 512
-        height: 512
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -177,155 +228,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53a0ca04bb0000130800000000000000
-      internalID: 3530822912102369845
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GossamerSilk_3
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 0
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 087a1844960ed8a50800000000000000
-      internalID: 6525118177855252352
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GossamerSilk_4
-      rect:
-        serializedVersion: 2
-        x: 2048
-        y: 0
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c3246d82ef4acf610800000000000000
-      internalID: 1656380174479278652
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GossamerSilk_5
-      rect:
-        serializedVersion: 2
-        x: 2560
-        y: 0
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1de8b9ee3223add80800000000000000
-      internalID: -8225206639530373423
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GossamerSilk_6
-      rect:
-        serializedVersion: 2
-        x: 3072
-        y: 0
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fbc4482e5e0d00060800000000000000
-      internalID: 6917758713407491263
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GossamerSilk_7
-      rect:
-        serializedVersion: 2
-        x: 3584
-        y: 0
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2402250156994d3a0800000000000000
-      internalID: -6641514891120074686
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GossamerSilk_8
-      rect:
-        serializedVersion: 2
-        x: 4096
-        y: 0
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9169f266d97ee2ae0800000000000000
-      internalID: -1572064556695448039
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GossamerSilk_9
-      rect:
-        serializedVersion: 2
-        x: 4608
-        y: 0
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7c2a34f79b15abb90800000000000000
-      internalID: -7225372795016600889
+      spriteID: 41d91a97b90a07950800000000000000
+      internalID: 6444827656388189460
       vertices: []
       indices: 
       edges: []

@@ -20,6 +20,8 @@ Silk skill:
 
 - Up input (press silk skill while holding up): Gossamer Storm. Cost 6 silk.
 
+- Down input: Silk Burst projectile. Cost 4 silk.
+
 ### Keyboard
 
 - X - Jump.

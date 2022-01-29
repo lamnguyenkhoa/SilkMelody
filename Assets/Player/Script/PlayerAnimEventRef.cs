@@ -46,4 +46,25 @@ public class PlayerAnimEventRef : MonoBehaviour
         // Temp
         player.EndHeal();
     }
+
+    public void BeginSilkBurst()
+    {
+        player.BeginSilkBurst();
+    }
+
+    public void ThrowSilkBurst()
+    {
+        player.ThrowSilkBurst();
+    }
+
+    public void CatchSilkBurstRecoil()
+    {
+        player.CatchSilkBurstRecoil();
+    }
+
+    public void EndSilkBurst()
+    {
+        // Temp
+        player.EndHeal();
+    }
 }

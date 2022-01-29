@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     public Collider2D hurtBox;
     public GameObject gossamerPrefab;
     private GameObject gossamerInstance;
+    public GameObject silkBurstPrefab;
+    private GameObject silkBurstInstance;
     [HideInInspector] public PlayerData playerStat;
 
     [Header("Movement")]
@@ -463,6 +465,8 @@ public class Player : MonoBehaviour
 
         if (gossamerInstance != null)
             Destroy(gossamerInstance);
+        if (silkBurstInstance != null)
+            Destroy(silkBurstInstance);
 
         if (amount == 0)
             Debug.Log("This attack deal 0 damage!");
@@ -494,17 +498,24 @@ public class Player : MonoBehaviour
     public void HandleSilkSkill()
     {
         InputAction silkAction = inputMaster.Gameplay.SilkSkill;
-        if (silkAction.WasPressedThisFrame())
+        if (silkAction.WasPressedThisFrame() && !inAttack)
         {
             // Gossamer
-            if (verInput >= 0.1f && playerStat.currentSilk >= 6 && !inAttack)
+            if (verInput >= 0.1f && playerStat.currentSilk >= 6)
             {
                 playerStat.currentSilk -= 6;
                 playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
                 anim.SetTrigger("gossamer");
             }
+            // Silk burst
+            else if (verInput <= -0.1f && playerStat.currentSilk >= 4)
+            {
+                playerStat.currentSilk -= 4;
+                playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
+                anim.SetTrigger("silkBurst");
+            }
             // Heal
-            else if (playerStat.currentSilk >= 8 && !inAttack)
+            else if (playerStat.currentSilk >= 8)
             {
                 playerStat.currentSilk -= 8;
                 playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
@@ -690,6 +701,12 @@ public class Player : MonoBehaviour
         StartCoroutine(FlashWhite());
     }
 
+    public void EndHeal()
+    {
+        inSilkSkill = false;
+        rb.gravityScale = originalGravityScale;
+    }
+
     public void BeginGossamer()
     {
         // If player get hit during gossamer, the gossamer object will be destroy prematurely
@@ -700,10 +717,26 @@ public class Player : MonoBehaviour
         gossamerInstance.transform.localPosition = new Vector3(0.25f, 0, 0);
     }
 
-    public void EndHeal()
+    public void BeginSilkBurst()
     {
-        inSilkSkill = false;
-        rb.gravityScale = originalGravityScale;
+        inSilkSkill = true;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0f;
+    }
+
+    public void ThrowSilkBurst()
+    {
+        silkBurstInstance = Instantiate(silkBurstPrefab, transform, false);
+        silkBurstInstance.transform.localPosition = new Vector3(4, 0, 0);
+        silkBurstInstance.GetComponent<SilkBurst>().playerPos = transform.position;
+    }
+
+    public void CatchSilkBurstRecoil()
+    {
+        if (isFacingLeft)
+            rb.AddForce(new Vector2(10f, 2f), ForceMode2D.Impulse);
+        else
+            rb.AddForce(new Vector2(-10f, 2f), ForceMode2D.Impulse);
     }
 
     #endregion Animation Events
