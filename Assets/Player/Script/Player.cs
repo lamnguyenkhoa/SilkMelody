@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
 
     [Header("DebugWatch")]
     [SerializeField] private bool inAttack;
-    [SerializeField] private bool isHurt;
+    public bool isHurt;
     [SerializeField] private bool isDashing;
     [SerializeField] private bool isFacingLeft;
     [SerializeField] private bool isJumping;
@@ -77,6 +77,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isDead;
     [SerializeField] private bool inSilkSkill;
     [SerializeField] private bool isParrying;
+    public bool inMenu;
 
     [Header("Misc")]
     public State state = State.idle;
@@ -146,7 +147,7 @@ public class Player : MonoBehaviour
         if (!isParrying)
             parryTimer += Time.deltaTime;
 
-        if (!resting && disableControlCounter == 0 && !isDashing && !isParalyzed && !inSilkSkill && !isParrying)
+        if (!resting && disableControlCounter == 0 && !isDashing && !isParalyzed && !inSilkSkill && !isParrying && !inMenu)
         {
             HandleMovement();
 
@@ -515,7 +516,7 @@ public class Player : MonoBehaviour
                 anim.SetTrigger("silkBurst");
             }
             // Heal
-            else if (playerStat.currentSilk >= 8)
+            else if (playerStat.currentSilk >= 8 && playerStat.currentHp < playerStat.maxHp)
             {
                 playerStat.currentSilk -= 8;
                 playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
