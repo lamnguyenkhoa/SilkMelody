@@ -81,6 +81,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""0b713fc8-a3a1-4cc4-be35-07a9c2d2c484"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -391,6 +399,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""InventoryMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""87f1cee9-069f-468f-bc8c-f82cef058230"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -689,6 +708,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Gameplay_DashAttack = m_Gameplay.FindAction("DashAttack", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_InventoryMenu = m_Gameplay.FindAction("InventoryMenu", throwIfNotFound: true);
+        m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_LeftTab = m_Inventory.FindAction("LeftTab", throwIfNotFound: true);
@@ -752,6 +772,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_DashAttack;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_InventoryMenu;
+    private readonly InputAction m_Gameplay_Pause;
     public struct GameplayActions
     {
         private @InputMaster m_Wrapper;
@@ -764,6 +785,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @DashAttack => m_Wrapper.m_Gameplay_DashAttack;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @InventoryMenu => m_Wrapper.m_Gameplay_InventoryMenu;
+        public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -797,6 +819,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @InventoryMenu.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventoryMenu;
                 @InventoryMenu.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventoryMenu;
                 @InventoryMenu.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventoryMenu;
+                @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -825,6 +850,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @InventoryMenu.started += instance.OnInventoryMenu;
                 @InventoryMenu.performed += instance.OnInventoryMenu;
                 @InventoryMenu.canceled += instance.OnInventoryMenu;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -914,6 +942,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnDashAttack(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnInventoryMenu(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IInventoryActions
     {
