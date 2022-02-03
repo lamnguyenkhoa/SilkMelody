@@ -80,6 +80,7 @@ MonoBehaviour:
   redTools:
   - {fileID: 11400000, guid: 19a7396d1f16f9e46bc238f0d2402047, type: 2}
   - {fileID: 11400000, guid: 40438ee527e218140bc96ab1d7569dbe, type: 2}
+  - {fileID: 11400000, guid: a3b6b2c8a78686c4f9d7b7e8afee2726, type: 2}
   redToolsCurrentCharge: []
   foundTools: 
   equippedTools: 

@@ -45,5 +45,16 @@ public class GameMaster : MonoBehaviour
         {
             redToolsCurrentCharge[i] = redTools[i].maxCharge;
         }
+
+        // Help testing
+        if (Application.isEditor)
+        {
+            int nTool = System.Enum.GetNames(typeof(RedTool.ToolName)).Length;
+            equippedTools = new RedTool.ToolName[nTool];
+            for (int i = 0; i < nTool; i++)
+            {
+                equippedTools[i] = (RedTool.ToolName)i;
+            }
+        }
     }
 }

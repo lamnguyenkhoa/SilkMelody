@@ -26,6 +26,7 @@ public class RedToolController : MonoBehaviour
                 break;
 
             case RedTool.ToolName.lifebloodNeedle:
+                Debug.Log("Used lifeblood needle");
                 break;
 
             default:
