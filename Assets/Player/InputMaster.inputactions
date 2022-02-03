@@ -76,6 +76,30 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "UseRedTool",
+                    "type": "Button",
+                    "id": "b535c2d1-f312-41c7-acaa-2a5db5a497ac",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SwapToolRight",
+                    "type": "Button",
+                    "id": "c767b5cb-dcc7-4955-bb8f-9a8aa21b4d0b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SwapToolLeft",
+                    "type": "Button",
+                    "id": "aa865740-c190-462e-aeba-f0f71e64c80e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -395,6 +419,39 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6296404f-f2bd-4003-bdec-c466c983a11c",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "UseRedTool",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46dd96e5-d0dc-4800-a9b8-3c4165aef6cb",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "SwapToolRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8e71f58-a4f5-4653-b635-4daa966071ee",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwapToolLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

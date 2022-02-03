@@ -89,6 +89,30 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""UseRedTool"",
+                    ""type"": ""Button"",
+                    ""id"": ""b535c2d1-f312-41c7-acaa-2a5db5a497ac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SwapToolRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""c767b5cb-dcc7-4955-bb8f-9a8aa21b4d0b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SwapToolLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""aa865740-c190-462e-aeba-f0f71e64c80e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -410,6 +434,39 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6296404f-f2bd-4003-bdec-c466c983a11c"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""UseRedTool"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46dd96e5-d0dc-4800-a9b8-3c4165aef6cb"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""SwapToolRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8e71f58-a4f5-4653-b635-4daa966071ee"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwapToolLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -709,6 +766,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_InventoryMenu = m_Gameplay.FindAction("InventoryMenu", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
+        m_Gameplay_UseRedTool = m_Gameplay.FindAction("UseRedTool", throwIfNotFound: true);
+        m_Gameplay_SwapToolRight = m_Gameplay.FindAction("SwapToolRight", throwIfNotFound: true);
+        m_Gameplay_SwapToolLeft = m_Gameplay.FindAction("SwapToolLeft", throwIfNotFound: true);
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_LeftTab = m_Inventory.FindAction("LeftTab", throwIfNotFound: true);
@@ -773,6 +833,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_InventoryMenu;
     private readonly InputAction m_Gameplay_Pause;
+    private readonly InputAction m_Gameplay_UseRedTool;
+    private readonly InputAction m_Gameplay_SwapToolRight;
+    private readonly InputAction m_Gameplay_SwapToolLeft;
     public struct GameplayActions
     {
         private @InputMaster m_Wrapper;
@@ -786,6 +849,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @InventoryMenu => m_Wrapper.m_Gameplay_InventoryMenu;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
+        public InputAction @UseRedTool => m_Wrapper.m_Gameplay_UseRedTool;
+        public InputAction @SwapToolRight => m_Wrapper.m_Gameplay_SwapToolRight;
+        public InputAction @SwapToolLeft => m_Wrapper.m_Gameplay_SwapToolLeft;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -822,6 +888,15 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @UseRedTool.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUseRedTool;
+                @UseRedTool.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUseRedTool;
+                @UseRedTool.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUseRedTool;
+                @SwapToolRight.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwapToolRight;
+                @SwapToolRight.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwapToolRight;
+                @SwapToolRight.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwapToolRight;
+                @SwapToolLeft.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwapToolLeft;
+                @SwapToolLeft.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwapToolLeft;
+                @SwapToolLeft.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwapToolLeft;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -853,6 +928,15 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @UseRedTool.started += instance.OnUseRedTool;
+                @UseRedTool.performed += instance.OnUseRedTool;
+                @UseRedTool.canceled += instance.OnUseRedTool;
+                @SwapToolRight.started += instance.OnSwapToolRight;
+                @SwapToolRight.performed += instance.OnSwapToolRight;
+                @SwapToolRight.canceled += instance.OnSwapToolRight;
+                @SwapToolLeft.started += instance.OnSwapToolLeft;
+                @SwapToolLeft.performed += instance.OnSwapToolLeft;
+                @SwapToolLeft.canceled += instance.OnSwapToolLeft;
             }
         }
     }
@@ -943,6 +1027,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnInventoryMenu(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnUseRedTool(InputAction.CallbackContext context);
+        void OnSwapToolRight(InputAction.CallbackContext context);
+        void OnSwapToolLeft(InputAction.CallbackContext context);
     }
     public interface IInventoryActions
     {

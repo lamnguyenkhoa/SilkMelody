@@ -9,6 +9,13 @@ public class GameMaster : MonoBehaviour
     public static GameMaster instance;
     public AudioSource bgm;
 
+    [Header("RedTool")]
+    public RedTool[] redTools;
+    public float[] redToolsCurrentCharge;
+    public RedTool.ToolName[] foundTools;
+    public RedTool.ToolName[] equippedTools;
+    public RedTool.ToolName selectedTool;
+
     private void Awake()
     {
         if (!instance)
@@ -16,6 +23,7 @@ public class GameMaster : MonoBehaviour
             instance = this;
             playerData = new PlayerData();
             worldData = new WorldData();
+            InitRedToolsCharge();
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -27,6 +35,15 @@ public class GameMaster : MonoBehaviour
                 instance.bgm.Play();
             }
             Destroy(this.gameObject);
+        }
+    }
+
+    private void InitRedToolsCharge()
+    {
+        redToolsCurrentCharge = new float[redTools.Length];
+        for (int i = 0; i < redTools.Length; i++)
+        {
+            redToolsCurrentCharge[i] = redTools[i].maxCharge;
         }
     }
 }

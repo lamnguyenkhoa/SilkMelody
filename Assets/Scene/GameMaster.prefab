@@ -77,6 +77,13 @@ MonoBehaviour:
     doorSwitches: 000000
     bossDefeated: 000000
   bgm: {fileID: 723737696}
+  redTools:
+  - {fileID: 11400000, guid: 19a7396d1f16f9e46bc238f0d2402047, type: 2}
+  - {fileID: 11400000, guid: 40438ee527e218140bc96ab1d7569dbe, type: 2}
+  redToolsCurrentCharge: []
+  foundTools: 
+  equippedTools: 
+  selectedTool: 0
 --- !u!82 &723737696
 AudioSource:
   m_ObjectHideFlags: 0

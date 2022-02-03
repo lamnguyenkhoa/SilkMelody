@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool inAttack;
     public bool isHurt;
     [SerializeField] private bool isDashing;
-    [SerializeField] private bool isFacingLeft;
+    public bool isFacingLeft;
     [SerializeField] private bool isJumping;
     [SerializeField] private bool isLedgeGrabbing;
     [SerializeField] private bool isDead;
@@ -167,6 +167,8 @@ public class Player : MonoBehaviour
             HandleCoyoteTime();
 
             HandleSilkSkill();
+
+            HandleItemUsage();
         }
 
         AnimationControl();
@@ -522,6 +524,30 @@ public class Player : MonoBehaviour
                 playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
                 anim.SetTrigger("heal");
             }
+        }
+    }
+
+    public void HandleItemUsage()
+    {
+        int nTool = GameMaster.instance.equippedTools.Length;
+        if (nTool == 0)
+            return;
+
+        InputAction swapToolRight = inputMaster.Gameplay.SwapToolRight;
+        InputAction useTool = inputMaster.Gameplay.UseRedTool;
+
+        if (swapToolRight.WasPressedThisFrame())
+        {
+            GameMaster.instance.selectedTool = GameMaster.instance.selectedTool += 1;
+            if ((int)GameMaster.instance.selectedTool > nTool - 1)
+            {
+                GameMaster.instance.selectedTool = 0;
+            }
+        }
+
+        if (useTool.WasPressedThisFrame() && !inAttack)
+        {
+            GetComponent<RedToolController>().UseRedTool(GameMaster.instance.selectedTool);
         }
     }
 
