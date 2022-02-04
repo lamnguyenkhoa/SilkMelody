@@ -18,10 +18,42 @@ public class Talisman : MonoBehaviour
         for (int i = 0; i < redSlots.Length; i++)
         {
             Image image = redSlots[i].transform.GetChild(0).GetComponent<Image>();
-            if (i < GameMaster.instance.equippedTools.Count)
+            if (i < GameMaster.instance.equippedRedTools.Count)
             {
-                int toolId = (int)GameMaster.instance.equippedTools[GameMaster.instance.selectedId];
+                int toolId = (int)GameMaster.instance.equippedRedTools[i];
                 image.sprite = GameMaster.instance.redToolData[toolId].sprite;
+                image.gameObject.SetActive(true);
+            }
+            else
+            {
+                image.gameObject.SetActive(false);
+            }
+        }
+
+        // Blue tools
+        for (int i = 0; i < blueSlots.Length; i++)
+        {
+            Image image = blueSlots[i].transform.GetChild(0).GetComponent<Image>();
+            if (i < GameMaster.instance.equippedBlueTools.Count)
+            {
+                int toolId = (int)GameMaster.instance.equippedBlueTools[i];
+                image.sprite = GameMaster.instance.blueToolData[toolId].sprite;
+                image.gameObject.SetActive(true);
+            }
+            else
+            {
+                image.gameObject.SetActive(false);
+            }
+        }
+
+        // Yellow tools
+        for (int i = 0; i < yellowSlots.Length; i++)
+        {
+            Image image = yellowSlots[i].transform.GetChild(0).GetComponent<Image>();
+            if (i < GameMaster.instance.equippedYellowTools.Count)
+            {
+                int toolId = (int)GameMaster.instance.equippedYellowTools[i];
+                image.sprite = GameMaster.instance.yellowToolData[toolId].sprite;
                 image.gameObject.SetActive(true);
             }
             else

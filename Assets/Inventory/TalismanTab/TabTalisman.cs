@@ -16,27 +16,32 @@ public class TabTalisman : MonoBehaviour
 
     public void SetFirstSelectedButton()
     {
-        var eventSystem = EventSystem.current;
         GameObject selectedGameObject = null;
-        eventSystem.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(null);
         if (redGroup.transform.childCount > 0)
         {
             selectedGameObject = redGroup.transform.GetChild(0).gameObject;
-            eventSystem.SetSelectedGameObject(selectedGameObject, new BaseEventData(eventSystem));
+            StartCoroutine(SetSelectedGameObject(selectedGameObject));
         }
         else if (blueGroup.transform.childCount > 0)
         {
             selectedGameObject = blueGroup.transform.GetChild(0).gameObject;
-            eventSystem.SetSelectedGameObject(selectedGameObject, new BaseEventData(eventSystem));
+            StartCoroutine(SetSelectedGameObject(selectedGameObject));
         }
         else if (yellowGroup.transform.childCount > 0)
         {
             selectedGameObject = yellowGroup.transform.GetChild(0).gameObject;
-            eventSystem.SetSelectedGameObject(selectedGameObject, new BaseEventData(eventSystem));
+            StartCoroutine(SetSelectedGameObject(selectedGameObject));
         }
 
         // Display the select frame sprite
         if (selectedGameObject != null)
             selectedGameObject.transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    private IEnumerator SetSelectedGameObject(GameObject selectedGameObject)
+    {
+        yield return new WaitForSeconds(0.1f);
+        EventSystem.current.SetSelectedGameObject(selectedGameObject, new BaseEventData(EventSystem.current));
     }
 }

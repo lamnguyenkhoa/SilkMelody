@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,9 +16,19 @@ public class GameMaster : MonoBehaviour
     [Header("RedTool")]
     public RedTool[] redToolData; // SO Database for all redTool. Order is important.
     public float[] redToolsCurrentCharge; // for ALL redTool, not just equipped one
-    public RedTool.ToolName[] foundTools;
-    public List<RedTool.ToolName> equippedTools = new List<RedTool.ToolName>();
+    public RedTool.ToolName[] foundRedTools;
+    public List<RedTool.ToolName> equippedRedTools = new List<RedTool.ToolName>();
     public int selectedId; // index of equippedTools
+
+    [Header("BlueTool")]
+    public BlueTool[] blueToolData;
+    public BlueTool.ToolName[] foundBlueTools;
+    public List<BlueTool.ToolName> equippedBlueTools = new List<BlueTool.ToolName>();
+
+    [Header("YellowTool")]
+    public YellowTool[] yellowToolData;
+    public YellowTool.ToolName[] foundyellowTools;
+    public List<YellowTool.ToolName> equippedYellowTools = new List<YellowTool.ToolName>();
 
     private void Awake()
     {
@@ -28,6 +39,7 @@ public class GameMaster : MonoBehaviour
             worldData = new WorldData();
             InitRedToolsCharge();
             DontDestroyOnLoad(this.gameObject);
+            CheckTalismanReference();
         }
         else
         {
@@ -38,6 +50,15 @@ public class GameMaster : MonoBehaviour
                 instance.bgm.Play();
             }
             Destroy(this.gameObject);
+        }
+    }
+
+    private void CheckTalismanReference()
+    {
+        if (equippedTalisman == null)
+        {
+            Debug.Log("Forgot to set talisman reference");
+            GameObject.Find("InventoryMenu").transform.GetChild(0).Find("TalismanGroup").Find("TalismanImage").GetComponent<Talisman>();
         }
     }
 
@@ -53,7 +74,7 @@ public class GameMaster : MonoBehaviour
 
     public void SwapTool(bool rightDirection)
     {
-        if (equippedTools.Count == 0)
+        if (equippedRedTools.Count == 0)
             return;
 
         if (rightDirection)
@@ -61,34 +82,70 @@ public class GameMaster : MonoBehaviour
         else
             selectedId--;
 
-        if (selectedId > equippedTools.Count - 1)
+        if (selectedId > equippedRedTools.Count - 1)
             selectedId = 0;
         if (selectedId < 0)
-            selectedId = equippedTools.Count - 1;
+            selectedId = equippedRedTools.Count - 1;
     }
 
     public void EquipUnequipRedTool(RedTool.ToolName tool)
     {
         int nRedSlot = equippedTalisman.redSlots.Length;
         // Unequip
-        if (equippedTools.Contains(tool))
+        if (equippedRedTools.Contains(tool))
         {
-            equippedTools.Remove(tool);
+            equippedRedTools.Remove(tool);
         }
         // Equip
-        else if (equippedTools.Count < nRedSlot)
+        else if (equippedRedTools.Count < nRedSlot)
         {
-            equippedTools.Add(tool);
+            equippedRedTools.Add(tool);
         }
 
-        // Remove uneqipped but selected tool
-        if (selectedId >= equippedTools.Count)
+        // Remove unequipped but selected tool
+        if (selectedId >= equippedRedTools.Count)
         {
-            if (equippedTools.Count > 0)
+            if (equippedRedTools.Count > 0)
             {
                 selectedId = 0;
-                Debug.Log("Fallback, used " + equippedTools[selectedId] + " to replaced " + tool);
+                Debug.Log("Fallback, used " + equippedRedTools[selectedId] + " to replaced " + tool);
             }
+        }
+
+        // Update crest
+        equippedTalisman.UpdateSlotImage();
+    }
+
+    public void EquipUnequipBlueTool(BlueTool.ToolName tool)
+    {
+        int nBlueSlot = equippedTalisman.blueSlots.Length;
+        // Unequip
+        if (equippedBlueTools.Contains(tool))
+        {
+            equippedBlueTools.Remove(tool);
+        }
+        // Equip
+        else if (equippedBlueTools.Count < nBlueSlot)
+        {
+            equippedBlueTools.Add(tool);
+        }
+
+        // Update crest
+        equippedTalisman.UpdateSlotImage();
+    }
+
+    public void EquipUnequipYellowTool(YellowTool.ToolName tool)
+    {
+        int nYellowTool = equippedTalisman.yellowSlots.Length;
+        // Unequip
+        if (equippedYellowTools.Contains(tool))
+        {
+            equippedYellowTools.Remove(tool);
+        }
+        // Equip
+        else if (equippedYellowTools.Count < nYellowTool)
+        {
+            equippedYellowTools.Add(tool);
         }
 
         // Update crest

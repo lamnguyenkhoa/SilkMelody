@@ -10,7 +10,7 @@ public class ToolCircleUI : MonoBehaviour
 
     private void Update()
     {
-        if (GameMaster.instance.equippedTools.Count == 0)
+        if (GameMaster.instance.equippedRedTools.Count == 0)
         {
             if (circleImage.enabled)
                 circleImage.enabled = false;
@@ -25,7 +25,7 @@ public class ToolCircleUI : MonoBehaviour
             if (!toolImage.enabled)
                 toolImage.enabled = true;
 
-            int currentToolId = (int)GameMaster.instance.equippedTools[GameMaster.instance.selectedId];
+            int currentToolId = (int)GameMaster.instance.equippedRedTools[GameMaster.instance.selectedId];
             circleImage.fillAmount = GameMaster.instance.redToolsCurrentCharge[currentToolId] / GameMaster.instance.redToolData[currentToolId].maxCharge;
 
             // Update tool image

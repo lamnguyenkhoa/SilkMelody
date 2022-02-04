@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f68f6888eb479488aa0f881f273297, type: 3}
   m_Name: TripleKnife
   m_EditorClassIdentifier: 
+  displayName: Triple Knife
+  description: Throw 3 small knifes in a fan shape. Although has low damage, they
+    can be used to deflect enemy projectiles.
   maxCharge: 5
   fixCostPerCharge: 1
   sprite: {fileID: 21300000, guid: 29602758bad66f341a846d85151d963a, type: 3}

@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f68f6888eb479488aa0f881f273297, type: 3}
   m_Name: LifebloodNeedle
   m_EditorClassIdentifier: 
+  displayName: Lifeblood Needle
+  description: 'Gain some temporary health.
+
+    Not yet implemented.'
   maxCharge: 2
   fixCostPerCharge: 0
   sprite: {fileID: 21300000, guid: 51e7cb809cece264c9864d21013ee4af, type: 3}
