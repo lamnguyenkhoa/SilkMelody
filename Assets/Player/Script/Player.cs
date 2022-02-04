@@ -529,7 +529,7 @@ public class Player : MonoBehaviour
 
     public void HandleItemUsage()
     {
-        int nTool = GameMaster.instance.equippedTools.Length;
+        int nTool = GameMaster.instance.equippedTools.Count;
         if (nTool == 0)
             return;
 
@@ -538,16 +538,12 @@ public class Player : MonoBehaviour
 
         if (swapToolRight.WasPressedThisFrame())
         {
-            GameMaster.instance.selectedTool = GameMaster.instance.selectedTool += 1;
-            if ((int)GameMaster.instance.selectedTool > nTool - 1)
-            {
-                GameMaster.instance.selectedTool = 0;
-            }
+            GameMaster.instance.SwapTool(true);
         }
 
         if (useTool.WasPressedThisFrame() && !inAttack)
         {
-            GetComponent<RedToolController>().UseRedTool(GameMaster.instance.selectedTool);
+            GetComponent<RedToolController>().UseRedTool(GameMaster.instance.equippedTools[GameMaster.instance.selectedId]);
         }
     }
 

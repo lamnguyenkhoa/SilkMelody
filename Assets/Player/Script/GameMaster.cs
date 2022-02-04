@@ -10,11 +10,12 @@ public class GameMaster : MonoBehaviour
     public AudioSource bgm;
 
     [Header("RedTool")]
-    public RedTool[] redTools;
-    public float[] redToolsCurrentCharge;
+    public RedTool[] redToolData;
+    public float[] redToolsCurrentCharge; // for ALL redTool, not just equipped one
     public RedTool.ToolName[] foundTools;
-    public RedTool.ToolName[] equippedTools;
-    public RedTool.ToolName selectedTool;
+    public List<RedTool.ToolName> equippedTools = new List<RedTool.ToolName>();
+    public int nRedSlot;
+    public int selectedId; // index of equippedTools
 
     private void Awake()
     {
@@ -40,20 +41,60 @@ public class GameMaster : MonoBehaviour
 
     private void InitRedToolsCharge()
     {
-        redToolsCurrentCharge = new float[redTools.Length];
-        for (int i = 0; i < redTools.Length; i++)
+        redToolsCurrentCharge = new float[redToolData.Length];
+        for (int i = 0; i < redToolData.Length; i++)
         {
-            redToolsCurrentCharge[i] = redTools[i].maxCharge;
+            redToolsCurrentCharge[i] = redToolData[i].maxCharge;
         }
 
         // Help testing
-        if (Application.isEditor)
+        //if (Application.isEditor)
+        //{
+        //    int nTool = System.Enum.GetNames(typeof(RedTool.ToolName)).Length;
+        //    equippedTools = new RedTool.ToolName[nTool];
+        //    for (int i = 0; i < nTool; i++)
+        //    {
+        //        equippedTools[i] = (RedTool.ToolName)i;
+        //    }
+        //}
+    }
+
+    public void SwapTool(bool rightDirection)
+    {
+        if (equippedTools.Count == 0)
+            return;
+
+        if (rightDirection)
+            selectedId++;
+        else
+            selectedId--;
+
+        if (selectedId > equippedTools.Count - 1)
+            selectedId = 0;
+        if (selectedId < 0)
+            selectedId = equippedTools.Count - 1;
+    }
+
+    public void EquipUnequipRedTool(RedTool.ToolName tool)
+    {
+        // Unequip
+        if (equippedTools.Contains(tool))
         {
-            int nTool = System.Enum.GetNames(typeof(RedTool.ToolName)).Length;
-            equippedTools = new RedTool.ToolName[nTool];
-            for (int i = 0; i < nTool; i++)
+            equippedTools.Remove(tool);
+        }
+        // Equip
+        else if (equippedTools.Count < nRedSlot)
+        {
+            equippedTools.Add(tool);
+        }
+
+        // Remove uneqipped but selected tool
+        if (selectedId >= equippedTools.Count)
+        {
+            if (equippedTools.Count > 0)
             {
-                equippedTools[i] = (RedTool.ToolName)i;
+                selectedId = 0;
+                Debug.Log("Fallback, used " + equippedTools[selectedId] + " to replaced " + tool);
             }
         }
     }
