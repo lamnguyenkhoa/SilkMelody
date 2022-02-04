@@ -9,12 +9,14 @@ public class GameMaster : MonoBehaviour
     public static GameMaster instance;
     public AudioSource bgm;
 
+    [Header("Crest")]
+    public Talisman equippedTalisman; // Must alway wear a crest. Cannot null.
+
     [Header("RedTool")]
-    public RedTool[] redToolData;
+    public RedTool[] redToolData; // SO Database for all redTool. Order is important.
     public float[] redToolsCurrentCharge; // for ALL redTool, not just equipped one
     public RedTool.ToolName[] foundTools;
     public List<RedTool.ToolName> equippedTools = new List<RedTool.ToolName>();
-    public int nRedSlot;
     public int selectedId; // index of equippedTools
 
     private void Awake()
@@ -41,22 +43,12 @@ public class GameMaster : MonoBehaviour
 
     private void InitRedToolsCharge()
     {
+        // For new game
         redToolsCurrentCharge = new float[redToolData.Length];
         for (int i = 0; i < redToolData.Length; i++)
         {
             redToolsCurrentCharge[i] = redToolData[i].maxCharge;
         }
-
-        // Help testing
-        //if (Application.isEditor)
-        //{
-        //    int nTool = System.Enum.GetNames(typeof(RedTool.ToolName)).Length;
-        //    equippedTools = new RedTool.ToolName[nTool];
-        //    for (int i = 0; i < nTool; i++)
-        //    {
-        //        equippedTools[i] = (RedTool.ToolName)i;
-        //    }
-        //}
     }
 
     public void SwapTool(bool rightDirection)
@@ -77,6 +69,7 @@ public class GameMaster : MonoBehaviour
 
     public void EquipUnequipRedTool(RedTool.ToolName tool)
     {
+        int nRedSlot = equippedTalisman.redSlots.Length;
         // Unequip
         if (equippedTools.Contains(tool))
         {
@@ -97,5 +90,8 @@ public class GameMaster : MonoBehaviour
                 Debug.Log("Fallback, used " + equippedTools[selectedId] + " to replaced " + tool);
             }
         }
+
+        // Update crest
+        equippedTalisman.UpdateSlotImage();
     }
 }
