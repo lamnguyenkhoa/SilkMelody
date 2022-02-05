@@ -33,6 +33,17 @@ public class PlayerData
     public int copperShard = 0;
     public int scaleShard = 0;
 
+    public List<Talisman.TalismanName> foundTalismans = new List<Talisman.TalismanName>();
+    public Talisman.TalismanName equippedTalismanName = Talisman.TalismanName.wanderer;
+    public float[] redToolsCurrentCharge;
+    public List<RedTool.ToolName> foundRedTools = new List<RedTool.ToolName>();
+    public List<RedTool.ToolName> equippedRedTools = new List<RedTool.ToolName>();
+    public int selectedRedToolId;
+    public List<BlueTool.ToolName> foundBlueTools = new List<BlueTool.ToolName>();
+    public List<BlueTool.ToolName> equippedBlueTools = new List<BlueTool.ToolName>();
+    public List<YellowTool.ToolName> foundYellowTools = new List<YellowTool.ToolName>();
+    public List<YellowTool.ToolName> equippedYellowTools = new List<YellowTool.ToolName>();
+
     [Header("Misc")]
     public float stunTime = 0.4f;
     public float iFrameTime = 1.5f;

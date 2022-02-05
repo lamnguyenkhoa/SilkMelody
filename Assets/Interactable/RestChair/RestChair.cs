@@ -96,6 +96,8 @@ public class RestChair : MonoBehaviour
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyLayerId, true);
         Physics2D.IgnoreLayerCollision(playerLayerId, EnemyAttackLayerId, true);
 
+        GameMaster.instance.RefillRedTool();
+
         SaveSystem.SavePlayerData();
 
         interactText.SetActive(false);

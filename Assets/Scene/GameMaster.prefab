@@ -67,6 +67,16 @@ MonoBehaviour:
     respawnPos: {x: 0, y: 0, z: 0}
     copperShard: 0
     scaleShard: 0
+    foundTalismans: 
+    equippedTalismanName: 0
+    redToolsCurrentCharge: []
+    foundRedTools: 
+    equippedRedTools: 
+    selectedRedToolId: 0
+    foundBlueTools: 
+    equippedBlueTools: 
+    foundYellowTools: 
+    equippedYellowTools: 
     stunTime: 0.4
     iFrameTime: 1.5
   worldData:
@@ -77,29 +87,21 @@ MonoBehaviour:
     doorSwitches: 000000
     bossDefeated: 000000
   bgm: {fileID: 723737696}
+  debugInventory: 0
   talismanData:
   - {fileID: 2189655057926892909, guid: 45206d6973ee08c4eb6908e6e963d5e7, type: 3}
   - {fileID: 5569097994143329607, guid: b4a86edfab965ed4b9a48c364b139331, type: 3}
-  foundTalismans: 0000000001000000
   equippedTalisman: {fileID: 0}
   talismanHolder: {fileID: 0}
   redToolData:
   - {fileID: 11400000, guid: 19a7396d1f16f9e46bc238f0d2402047, type: 2}
   - {fileID: 11400000, guid: 40438ee527e218140bc96ab1d7569dbe, type: 2}
   - {fileID: 11400000, guid: a3b6b2c8a78686c4f9d7b7e8afee2726, type: 2}
-  redToolsCurrentCharge: []
-  foundRedTools: 
-  equippedRedTools: 
-  selectedId: 0
   blueToolData:
   - {fileID: 11400000, guid: 087fce91f79cd9c40914a93a0785334a, type: 2}
   - {fileID: 11400000, guid: 8690e254a89bf8c48b4cd6c9e4275d04, type: 2}
-  foundBlueTools: 
-  equippedBlueTools: 
   yellowToolData:
   - {fileID: 11400000, guid: 98bf47e00d768684eb687f09b09153ff, type: 2}
-  foundyellowTools: 
-  equippedYellowTools: 
 --- !u!82 &723737696
 AudioSource:
   m_ObjectHideFlags: 0

@@ -10,39 +10,27 @@ public class GameMaster : MonoBehaviour
     public static GameMaster instance;
     public AudioSource bgm;
 
+    [Header("Debug")]
+    public bool debugInventory;
+
     [Header("Talisman")]
     public GameObject[] talismanData; // prefabs
-    public List<Talisman.TalismanName> foundTalismans = new List<Talisman.TalismanName>();
     public Talisman equippedTalisman; // Set the default talisman in inspector. Cannot null.
     public GameObject talismanHolder;
     public delegate void TalismanChangeAction();
     public event TalismanChangeAction OnTalismanChange;
+    private bool loadTalismanFromSave = false;
 
-    [Header("RedTool")]
+    [Header("ToolsData")]
     public RedTool[] redToolData; // SO Database for all redTool. Order is important.
-    public float[] redToolsCurrentCharge; // for ALL redTool, not just equipped one
-    public List<RedTool.ToolName> foundRedTools = new List<RedTool.ToolName>();
-    public List<RedTool.ToolName> equippedRedTools = new List<RedTool.ToolName>();
-    public int selectedId; // index of equippedTools
-
-    [Header("BlueTool")]
     public BlueTool[] blueToolData;
-    public List<BlueTool.ToolName> foundBlueTools = new List<BlueTool.ToolName>();
-    public List<BlueTool.ToolName> equippedBlueTools = new List<BlueTool.ToolName>();
-
-    [Header("YellowTool")]
     public YellowTool[] yellowToolData;
-    public List<YellowTool.ToolName> foundyellowTools = new List<YellowTool.ToolName>();
-    public List<YellowTool.ToolName> equippedYellowTools = new List<YellowTool.ToolName>();
 
     private void Awake()
     {
         if (!instance)
         {
             instance = this;
-            playerData = new PlayerData();
-            worldData = new WorldData();
-            InitRedToolsCharge();
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -57,6 +45,11 @@ public class GameMaster : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        InitNewGameData();
+    }
+
     public void PatchInventoryReference()
     {
         GameObject inventoryMenu = GameObject.Find("InventoryMenu");
@@ -67,86 +60,148 @@ public class GameMaster : MonoBehaviour
         else
         {
             talismanHolder = inventoryMenu.transform.GetChild(0).Find("TalismanGroup").Find("TalismanHolder").gameObject;
-            equippedTalisman = talismanHolder.transform.GetChild(0).GetComponent<Talisman>();
+
+            if (!loadTalismanFromSave)
+                LoadTalismanFromSave();
+            else
+                equippedTalisman = talismanHolder.transform.GetChild(0).GetComponent<Talisman>();
         }
     }
 
     public void ChangeToNextTalisman()
     {
-        if (foundTalismans.Count <= 1)
+        if (playerData.foundTalismans.Count <= 1)
             return;
 
         UnequipAllTools();
 
         // Get current equip talisman id;
         Talisman.TalismanName currentTalismanName = equippedTalisman.thisTalismanName;
-        int index = foundTalismans.FindIndex(x => x == currentTalismanName);
+        int index = playerData.foundTalismans.FindIndex(x => x == currentTalismanName);
 
         // Get the next index
         index++;
-        if (index > foundTalismans.Count - 1)
+        if (index > playerData.foundTalismans.Count - 1)
             index = 0;
         Destroy(talismanHolder.transform.GetChild(0).gameObject);
-        GameObject newTalisman = Instantiate(talismanData[(int)foundTalismans[index]], talismanHolder.transform, false);
+        GameObject newTalisman = Instantiate(talismanData[(int)playerData.foundTalismans[index]], talismanHolder.transform, false);
         equippedTalisman = newTalisman.GetComponent<Talisman>();
+        playerData.equippedTalismanName = equippedTalisman.thisTalismanName;
+    }
+
+    /// <summary>
+    /// For after loading data.
+    /// </summary>
+    /// <returns></returns>
+    public void LoadTalismanFromSave()
+    {
+        if (playerData.foundTalismans.Contains(playerData.equippedTalismanName))
+        {
+            equippedTalisman = null;
+            Destroy(talismanHolder.transform.GetChild(0).gameObject);
+            GameObject newTalisman = Instantiate(talismanData[(int)playerData.equippedTalismanName], talismanHolder.transform, false);
+            equippedTalisman = newTalisman.GetComponent<Talisman>();
+            equippedTalisman.UpdateSlotImage();
+            loadTalismanFromSave = true;
+        }
+        else
+        {
+            Debug.Log("Cannot found this talisman in inventory " + playerData.equippedTalismanName);
+        }
     }
 
     public void UnequipAllTools()
     {
-        equippedRedTools.Clear();
-        equippedBlueTools.Clear();
-        equippedYellowTools.Clear();
+        playerData.equippedRedTools.Clear();
+        playerData.equippedBlueTools.Clear();
+        playerData.equippedYellowTools.Clear();
         equippedTalisman.UpdateSlotImage();
         OnTalismanChange();
     }
 
-    private void InitRedToolsCharge()
+    // Init data for new game (if not overwrite by loading)
+    private void InitNewGameData()
     {
-        // For new game
-        redToolsCurrentCharge = new float[redToolData.Length];
+        playerData = new PlayerData();
+        worldData = new WorldData();
+        playerData.foundTalismans.Add(Talisman.TalismanName.wanderer);
+        playerData.redToolsCurrentCharge = new float[redToolData.Length];
         for (int i = 0; i < redToolData.Length; i++)
         {
-            redToolsCurrentCharge[i] = redToolData[i].maxCharge;
+            playerData.redToolsCurrentCharge[i] = redToolData[i].maxCharge;
+        }
+
+        if (Application.isEditor && debugInventory)
+        {
+            foreach (var talismaPrefab in talismanData)
+            {
+                Talisman.TalismanName talismanName = talismaPrefab.GetComponent<Talisman>().thisTalismanName;
+                if (talismanName != Talisman.TalismanName.wanderer)
+                {
+                    playerData.foundTalismans.Add(talismanName);
+                }
+            }
+            foreach (RedTool tool in redToolData)
+            {
+                playerData.foundRedTools.Add(tool.thisToolName);
+            }
+            foreach (BlueTool tool in blueToolData)
+            {
+                playerData.foundBlueTools.Add(tool.thisToolName);
+            }
+            foreach (YellowTool tool in yellowToolData)
+            {
+                playerData.foundYellowTools.Add(tool.thisToolName);
+            }
+        }
+    }
+
+    public void RefillRedTool()
+    {
+        // This should cost some coppershard or stuff, but not implemented yet.
+        for (int i = 0; i < redToolData.Length; i++)
+        {
+            playerData.redToolsCurrentCharge[i] = redToolData[i].maxCharge;
         }
     }
 
     public void SwapTool(bool rightDirection)
     {
-        if (equippedRedTools.Count == 0)
+        if (playerData.equippedRedTools.Count == 0)
             return;
 
         if (rightDirection)
-            selectedId++;
+            playerData.selectedRedToolId++;
         else
-            selectedId--;
+            playerData.selectedRedToolId--;
 
-        if (selectedId > equippedRedTools.Count - 1)
-            selectedId = 0;
-        if (selectedId < 0)
-            selectedId = equippedRedTools.Count - 1;
+        if (playerData.selectedRedToolId > playerData.equippedRedTools.Count - 1)
+            playerData.selectedRedToolId = 0;
+        if (playerData.selectedRedToolId < 0)
+            playerData.selectedRedToolId = playerData.equippedRedTools.Count - 1;
     }
 
     public void EquipUnequipRedTool(RedTool.ToolName tool)
     {
         int nRedSlot = equippedTalisman.redSlots.Length;
         // Unequip
-        if (equippedRedTools.Contains(tool))
+        if (playerData.equippedRedTools.Contains(tool))
         {
-            equippedRedTools.Remove(tool);
+            playerData.equippedRedTools.Remove(tool);
         }
         // Equip
-        else if (equippedRedTools.Count < nRedSlot)
+        else if (playerData.equippedRedTools.Count < nRedSlot)
         {
-            equippedRedTools.Add(tool);
+            playerData.equippedRedTools.Add(tool);
         }
 
         // Remove unequipped but selected tool
-        if (selectedId >= equippedRedTools.Count)
+        if (playerData.selectedRedToolId >= playerData.equippedRedTools.Count)
         {
-            if (equippedRedTools.Count > 0)
+            if (playerData.equippedRedTools.Count > 0)
             {
-                selectedId = 0;
-                Debug.Log("Fallback, used " + equippedRedTools[selectedId] + " to replaced " + tool);
+                playerData.selectedRedToolId = 0;
+                Debug.Log("Fallback, used " + playerData.equippedRedTools[playerData.selectedRedToolId] + " to replaced " + tool);
             }
         }
 
@@ -159,14 +214,14 @@ public class GameMaster : MonoBehaviour
     {
         int nBlueSlot = equippedTalisman.blueSlots.Length;
         // Unequip
-        if (equippedBlueTools.Contains(tool))
+        if (playerData.equippedBlueTools.Contains(tool))
         {
-            equippedBlueTools.Remove(tool);
+            playerData.equippedBlueTools.Remove(tool);
         }
         // Equip
-        else if (equippedBlueTools.Count < nBlueSlot)
+        else if (playerData.equippedBlueTools.Count < nBlueSlot)
         {
-            equippedBlueTools.Add(tool);
+            playerData.equippedBlueTools.Add(tool);
         }
 
         // Update crest
@@ -178,14 +233,14 @@ public class GameMaster : MonoBehaviour
     {
         int nYellowTool = equippedTalisman.yellowSlots.Length;
         // Unequip
-        if (equippedYellowTools.Contains(tool))
+        if (playerData.equippedYellowTools.Contains(tool))
         {
-            equippedYellowTools.Remove(tool);
+            playerData.equippedYellowTools.Remove(tool);
         }
         // Equip
-        else if (equippedYellowTools.Count < nYellowTool)
+        else if (playerData.equippedYellowTools.Count < nYellowTool)
         {
-            equippedYellowTools.Add(tool);
+            playerData.equippedYellowTools.Add(tool);
         }
 
         // Update crest

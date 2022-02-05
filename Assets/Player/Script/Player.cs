@@ -529,7 +529,7 @@ public class Player : MonoBehaviour
 
     public void HandleItemUsage()
     {
-        int nTool = GameMaster.instance.equippedRedTools.Count;
+        int nTool = playerStat.equippedRedTools.Count;
         if (nTool == 0)
             return;
 
@@ -543,7 +543,8 @@ public class Player : MonoBehaviour
 
         if (useTool.WasPressedThisFrame() && !inAttack)
         {
-            GetComponent<RedToolController>().UseRedTool(GameMaster.instance.equippedRedTools[GameMaster.instance.selectedId]);
+            RedTool.ToolName usedTool = playerStat.equippedRedTools[playerStat.selectedRedToolId];
+            GetComponent<RedToolController>().UseRedTool(usedTool);
         }
     }
 

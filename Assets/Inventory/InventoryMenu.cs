@@ -7,7 +7,7 @@ public class InventoryMenu : MonoBehaviour
 {
     private Player player;
     public GameObject inventoryHolder;
-    public GameObject[] inventoryTabs;
+    public GameObject[] inventoryMenuTabs;
     private InputMaster inputMaster;
 
     private InputAction openMenuAction;
@@ -62,7 +62,8 @@ public class InventoryMenu : MonoBehaviour
         {
             inventoryHolder.SetActive(true);
             player.inMenu = true;
-            currentTabIndex = 0;
+            currentTabIndex = 1;
+            UpdateInventoryMenuTab();
         }
         // Close menu
         else if (closeMenuAction.WasPressedThisFrame() && player.inMenu)
@@ -72,10 +73,7 @@ public class InventoryMenu : MonoBehaviour
         }
 
         if (player.isHurt)
-        {
-            inventoryHolder.SetActive(false);
-            player.inMenu = false;
-        }
+            CloseMenu();
 
         // Control tab
         if (player.inMenu && inventoryHolder.activeSelf)
@@ -85,29 +83,35 @@ public class InventoryMenu : MonoBehaviour
                 currentTabIndex--;
                 if (currentTabIndex < 0)
                     currentTabIndex = 2;
-                UpdateInventoryTab();
+                UpdateInventoryMenuTab();
             }
             else if (rightTabAction.WasPressedThisFrame())
             {
                 currentTabIndex++;
                 if (currentTabIndex > 2)
                     currentTabIndex = 0;
-                UpdateInventoryTab();
+                UpdateInventoryMenuTab();
             }
         }
     }
 
-    private void UpdateInventoryTab()
+    public void CloseMenu()
+    {
+        inventoryHolder.SetActive(false);
+        player.inMenu = false;
+    }
+
+    private void UpdateInventoryMenuTab()
     {
         for (int i = 0; i < 3; i++)
         {
             if (i == currentTabIndex)
             {
-                inventoryTabs[i].SetActive(true);
+                inventoryMenuTabs[i].SetActive(true);
             }
             else
             {
-                inventoryTabs[i].SetActive(false);
+                inventoryMenuTabs[i].SetActive(false);
             }
         }
     }

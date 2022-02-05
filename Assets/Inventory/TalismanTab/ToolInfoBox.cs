@@ -24,7 +24,6 @@ public class ToolInfoBox : MonoBehaviour
         else
         {
             Destroy(this.gameObject);
-            Debug.Log("This literraly shound not happened: 2 toolinfobox");
         }
     }
 }

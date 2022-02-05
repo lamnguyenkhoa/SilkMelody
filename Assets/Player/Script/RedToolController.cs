@@ -37,7 +37,7 @@ public class RedToolController : MonoBehaviour
 
     public void UseThrowBlade()
     {
-        if (GameMaster.instance.redToolsCurrentCharge[(int)RedTool.ToolName.throwBlade] > 0)
+        if (GameMaster.instance.playerData.redToolsCurrentCharge[(int)RedTool.ToolName.throwBlade] > 0)
         {
             Projectile newProj = Instantiate(throwBladeProj, player.transform.position, Quaternion.identity);
             if (player.isFacingLeft)
@@ -47,13 +47,13 @@ public class RedToolController : MonoBehaviour
             }
             else
                 newProj.GetComponent<Rigidbody2D>().velocity = new Vector2(20f, 0);
-            GameMaster.instance.redToolsCurrentCharge[(int)RedTool.ToolName.throwBlade] -= 1;
+            GameMaster.instance.playerData.redToolsCurrentCharge[(int)RedTool.ToolName.throwBlade] -= 1;
         }
     }
 
     public void UseTripleKnife()
     {
-        if (GameMaster.instance.redToolsCurrentCharge[(int)RedTool.ToolName.trippleKnife] > 0)
+        if (GameMaster.instance.playerData.redToolsCurrentCharge[(int)RedTool.ToolName.trippleKnife] > 0)
         {
             Vector2 straightDirection = Vector2.right;
             Vector2 spreadDirection1 = Quaternion.Euler(0, 0, 10f) * straightDirection;
@@ -79,7 +79,7 @@ public class RedToolController : MonoBehaviour
                 newProj2.GetComponent<Rigidbody2D>().velocity = spreadDirection1 * 20f;
                 newProj3.GetComponent<Rigidbody2D>().velocity = spreadDirection2 * 20f;
             }
-            GameMaster.instance.redToolsCurrentCharge[(int)RedTool.ToolName.trippleKnife] -= 1;
+            GameMaster.instance.playerData.redToolsCurrentCharge[(int)RedTool.ToolName.trippleKnife] -= 1;
         }
     }
 }

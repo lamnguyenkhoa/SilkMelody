@@ -27,7 +27,6 @@ public class LevelLoader : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             player = GameObject.Find("Tenroh").GetComponent<Player>();
             SpawnPointInit();
-            GameMaster.instance.PatchInventoryReference();
         }
         else
             Destroy(this.gameObject);

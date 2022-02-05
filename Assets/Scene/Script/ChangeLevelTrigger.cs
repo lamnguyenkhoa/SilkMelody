@@ -15,6 +15,7 @@ public class ChangeLevelTrigger : MonoBehaviour
             Player player = collision.gameObject.GetComponent<Player>();
             if (player)
             {
+                InventoryMenu.instance.CloseMenu();
                 LevelLoader.instance.LoadLevel(levelName, spawnPosName);
                 activated = true;
             }
