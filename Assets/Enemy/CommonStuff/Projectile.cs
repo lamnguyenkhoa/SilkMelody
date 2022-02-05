@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
     private Material originalMat;
     public SpriteRenderer sprite;
     private Color fadeColor;
-    private float fadeSpeed = 2f;
+    private float fadeSpeed = 10f;
     private bool isDead;
     public int maxBounce;
     private int bounceCounter;
@@ -79,10 +79,10 @@ public class Projectile : MonoBehaviour
     {
         // Change collision and sprite
         GetComponent<Collider2D>().enabled = false;
-        Color deathColor = sprite.color;
-        deathColor.r = 0.3f; deathColor.b = 0.3f; deathColor.g = 0.3f;
-        sprite.color = deathColor;
-        sprite.transform.localScale = new Vector3(sprite.transform.localScale.x, -1, sprite.transform.localScale.z);
+        //Color deathColor = sprite.color;
+        //deathColor.r = 0.3f; deathColor.b = 0.3f; deathColor.g = 0.3f;
+        //sprite.color = deathColor;
+        //sprite.transform.localScale = new Vector3(sprite.transform.localScale.x, -1, sprite.transform.localScale.z);
         rb.gravityScale = 1;
         rb.drag = 1;
         rb.freezeRotation = false;
