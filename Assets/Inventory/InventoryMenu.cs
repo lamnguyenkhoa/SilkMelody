@@ -17,6 +17,21 @@ public class InventoryMenu : MonoBehaviour
 
     private int currentTabIndex;
 
+    public static InventoryMenu instance;
+
+    private void Awake()
+    {
+        if (!instance)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     private void Start()
     {
         player = GameObject.Find("Tenroh").GetComponent<Player>();
@@ -36,7 +51,8 @@ public class InventoryMenu : MonoBehaviour
 
     private void OnDisable()
     {
-        inputMaster.Disable();
+        if (inputMaster != null)
+            inputMaster.Disable();
     }
 
     private void Update()

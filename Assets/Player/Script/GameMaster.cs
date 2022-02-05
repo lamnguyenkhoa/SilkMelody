@@ -44,7 +44,6 @@ public class GameMaster : MonoBehaviour
             worldData = new WorldData();
             InitRedToolsCharge();
             DontDestroyOnLoad(this.gameObject);
-            CheckTalismanReference();
         }
         else
         {
@@ -58,11 +57,17 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    private void CheckTalismanReference()
+    public void PatchInventoryReference()
     {
-        if (equippedTalisman == null)
+        GameObject inventoryMenu = GameObject.Find("InventoryMenu");
+        if (inventoryMenu == null)
         {
-            Debug.Log("Forgot to set talisman reference");
+            Debug.Log("Scene does not have inventoryMenu");
+        }
+        else
+        {
+            talismanHolder = inventoryMenu.transform.GetChild(0).Find("TalismanGroup").Find("TalismanHolder").gameObject;
+            equippedTalisman = talismanHolder.transform.GetChild(0).GetComponent<Talisman>();
         }
     }
 

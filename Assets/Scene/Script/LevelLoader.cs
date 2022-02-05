@@ -27,6 +27,7 @@ public class LevelLoader : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             player = GameObject.Find("Tenroh").GetComponent<Player>();
             SpawnPointInit();
+            GameMaster.instance.PatchInventoryReference();
         }
         else
             Destroy(this.gameObject);
@@ -34,12 +35,18 @@ public class LevelLoader : MonoBehaviour
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += UpdatePlayerPosition;
+        SceneManager.sceneLoaded += SceneChange;
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= UpdatePlayerPosition;
+        SceneManager.sceneLoaded -= SceneChange;
+    }
+
+    public void SceneChange(Scene scene, LoadSceneMode mode)
+    {
+        GameMaster.instance.PatchInventoryReference();
+        UpdatePlayerPosition();
     }
 
     private void SpawnPointInit()
@@ -66,12 +73,11 @@ public class LevelLoader : MonoBehaviour
             {
                 GameMaster.instance.playerData.respawnPos = player.transform.position;
             }
-            UpdatePlayerPosition(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+            UpdatePlayerPosition();
         }
     }
 
-    // Parameters are unused
-    private void UpdatePlayerPosition(Scene scene, LoadSceneMode mode)
+    private void UpdatePlayerPosition()
     {
         // Update position because of death
         if (doRespawn)
