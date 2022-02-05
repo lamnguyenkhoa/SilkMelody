@@ -10,24 +10,29 @@ public class GameMaster : MonoBehaviour
     public static GameMaster instance;
     public AudioSource bgm;
 
-    [Header("Crest")]
-    public Talisman equippedTalisman; // Must alway wear a crest. Cannot null.
+    [Header("Talisman")]
+    public GameObject[] talismanData; // prefabs
+    public List<Talisman.TalismanName> foundTalismans = new List<Talisman.TalismanName>();
+    public Talisman equippedTalisman; // Set the default talisman in inspector. Cannot null.
+    public GameObject talismanHolder;
+    public delegate void TalismanChangeAction();
+    public event TalismanChangeAction OnTalismanChange;
 
     [Header("RedTool")]
     public RedTool[] redToolData; // SO Database for all redTool. Order is important.
     public float[] redToolsCurrentCharge; // for ALL redTool, not just equipped one
-    public RedTool.ToolName[] foundRedTools;
+    public List<RedTool.ToolName> foundRedTools = new List<RedTool.ToolName>();
     public List<RedTool.ToolName> equippedRedTools = new List<RedTool.ToolName>();
     public int selectedId; // index of equippedTools
 
     [Header("BlueTool")]
     public BlueTool[] blueToolData;
-    public BlueTool.ToolName[] foundBlueTools;
+    public List<BlueTool.ToolName> foundBlueTools = new List<BlueTool.ToolName>();
     public List<BlueTool.ToolName> equippedBlueTools = new List<BlueTool.ToolName>();
 
     [Header("YellowTool")]
     public YellowTool[] yellowToolData;
-    public YellowTool.ToolName[] foundyellowTools;
+    public List<YellowTool.ToolName> foundyellowTools = new List<YellowTool.ToolName>();
     public List<YellowTool.ToolName> equippedYellowTools = new List<YellowTool.ToolName>();
 
     private void Awake()
@@ -58,8 +63,36 @@ public class GameMaster : MonoBehaviour
         if (equippedTalisman == null)
         {
             Debug.Log("Forgot to set talisman reference");
-            GameObject.Find("InventoryMenu").transform.GetChild(0).Find("TalismanGroup").Find("TalismanImage").GetComponent<Talisman>();
         }
+    }
+
+    public void ChangeToNextTalisman()
+    {
+        if (foundTalismans.Count <= 1)
+            return;
+
+        UnequipAllTools();
+
+        // Get current equip talisman id;
+        Talisman.TalismanName currentTalismanName = equippedTalisman.thisTalismanName;
+        int index = foundTalismans.FindIndex(x => x == currentTalismanName);
+
+        // Get the next index
+        index++;
+        if (index > foundTalismans.Count - 1)
+            index = 0;
+        Destroy(talismanHolder.transform.GetChild(0).gameObject);
+        GameObject newTalisman = Instantiate(talismanData[(int)foundTalismans[index]], talismanHolder.transform, false);
+        equippedTalisman = newTalisman.GetComponent<Talisman>();
+    }
+
+    public void UnequipAllTools()
+    {
+        equippedRedTools.Clear();
+        equippedBlueTools.Clear();
+        equippedYellowTools.Clear();
+        equippedTalisman.UpdateSlotImage();
+        OnTalismanChange();
     }
 
     private void InitRedToolsCharge()
@@ -114,6 +147,7 @@ public class GameMaster : MonoBehaviour
 
         // Update crest
         equippedTalisman.UpdateSlotImage();
+        OnTalismanChange();
     }
 
     public void EquipUnequipBlueTool(BlueTool.ToolName tool)
@@ -132,6 +166,7 @@ public class GameMaster : MonoBehaviour
 
         // Update crest
         equippedTalisman.UpdateSlotImage();
+        OnTalismanChange();
     }
 
     public void EquipUnequipYellowTool(YellowTool.ToolName tool)
@@ -150,5 +185,6 @@ public class GameMaster : MonoBehaviour
 
         // Update crest
         equippedTalisman.UpdateSlotImage();
+        OnTalismanChange();
     }
 }

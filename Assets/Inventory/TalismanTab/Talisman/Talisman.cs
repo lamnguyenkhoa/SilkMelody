@@ -10,7 +10,11 @@ public class Talisman : MonoBehaviour
     public GameObject[] blueSlots;
     public GameObject[] yellowSlots;
 
-    public string talismanName;
+    public enum TalismanName
+    {
+        wanderer, sentinel, toolmaster
+    }
+    public TalismanName thisTalismanName;
 
     public void UpdateSlotImage()
     {

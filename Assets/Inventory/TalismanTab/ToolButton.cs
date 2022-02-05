@@ -20,11 +20,13 @@ public class ToolButton : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
         selectFrame = transform.GetChild(0).gameObject;
         image = GetComponent<Image>();
+        GameMaster.instance.OnTalismanChange += UpdateEquipState;
     }
 
     private void OnDisable()
     {
         selectFrame.SetActive(false);
+        GameMaster.instance.OnTalismanChange -= UpdateEquipState;
     }
 
     public void OnSelect(BaseEventData eventData)
@@ -67,47 +69,32 @@ public class ToolButton : MonoBehaviour, ISelectHandler, IDeselectHandler
             GameMaster.instance.EquipUnequipBlueTool(blueToolName);
         if (toolType == ToolType.yellow)
             GameMaster.instance.EquipUnequipYellowTool(yellowToolName);
-
-        UpdateEquipState();
     }
 
     private void UpdateEquipState()
     {
-        // Red tools
-        if (toolType == ToolType.red)
+        switch (toolType)
         {
-            if (GameMaster.instance.equippedRedTools.Contains(redToolName))
-            {
-                image.color = new Color(1, 1, 1, 0.3f);
-            }
-            else
-            {
-                image.color = new Color(1, 1, 1, 1);
-            }
-        }
-        // Blue tools
-        if (toolType == ToolType.blue)
-        {
-            if (GameMaster.instance.equippedBlueTools.Contains(blueToolName))
-            {
-                image.color = new Color(1, 1, 1, 0.3f);
-            }
-            else
-            {
-                image.color = new Color(1, 1, 1, 1);
-            }
-        }
-        // Yellow tools
-        if (toolType == ToolType.yellow)
-        {
-            if (GameMaster.instance.equippedYellowTools.Contains(yellowToolName))
-            {
-                image.color = new Color(1, 1, 1, 0.3f);
-            }
-            else
-            {
-                image.color = new Color(1, 1, 1, 1);
-            }
+            case ToolType.red:
+                if (image.color.a != 0.3f && GameMaster.instance.equippedRedTools.Contains(redToolName))
+                    image.color = new Color(1, 1, 1, 0.3f);
+                else if (image.color.a != 1f && !GameMaster.instance.equippedRedTools.Contains(redToolName))
+                    image.color = new Color(1, 1, 1, 1);
+                break;
+
+            case ToolType.blue:
+                if (image.color.a != 0.3f && GameMaster.instance.equippedBlueTools.Contains(blueToolName))
+                    image.color = new Color(1, 1, 1, 0.3f);
+                else if (image.color.a != 1f && !GameMaster.instance.equippedBlueTools.Contains(blueToolName))
+                    image.color = new Color(1, 1, 1, 1);
+                break;
+
+            case ToolType.yellow:
+                if (image.color.a != 0.3f && GameMaster.instance.equippedYellowTools.Contains(yellowToolName))
+                    image.color = new Color(1, 1, 1, 0.3f);
+                else if (image.color.a != 1f && !GameMaster.instance.equippedYellowTools.Contains(yellowToolName))
+                    image.color = new Color(1, 1, 1, 1);
+                break;
         }
     }
 }
