@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3582493361096622793}
   - component: {fileID: 3582493361096622794}
   m_Layer: 9
-  m_Name: TripleKnifePrefab
+  m_Name: TripleKnifeProj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

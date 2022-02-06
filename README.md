@@ -29,7 +29,8 @@ Silk skill:
 - F - Parry
 - C - Attack
 - Z - Dash
-- V - Dash attack
+- V - Use tools
+- I - Open inventory
 
 ### Xbox
 
@@ -38,18 +39,21 @@ Silk skill:
 - B - Silk skill
 - Y - Parry
 - RT - Dash
-- LB - Dash Attack
+- LB - Use tools
+- Start - Menu
 
 ## Get the Demo!
+
 ### Option 1: Check the Release tab
+
 Here you will find the version of the game that is stable, mostly bug-free and is updated when the game development reaches certain milestone. The version is put up by the author themself.
 
 ### Option 2: Get the Nightly Build
+
 Navigate to the **Actions** [tab](https://github.com/lamnguyenkhoa/SilkMelody/actions) of the repo, here you will find a list of all the builds' result, each build takes place when a code push happens, so you can try out the new changes, or browse previous builds.
 ![image](https://user-images.githubusercontent.com/24392632/151926058-8d02ae94-dcc2-451d-a4a6-f34f631fd479.png)
 Let's assume you want the lastest build, click on the first one from top to bottom with the green checkmark. It will bring you to the `Action's result` page, here you can find builds for various systems that will suit your needs.
 ![image](https://user-images.githubusercontent.com/24392632/151926232-ca227871-c9fb-4e2b-bf64-5c8e25c2a678.png)
-
 
 ## Design document
 

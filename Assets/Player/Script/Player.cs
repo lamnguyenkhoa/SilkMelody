@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     private GameObject gossamerInstance;
     public GameObject silkBurstPrefab;
     private GameObject silkBurstInstance;
-    [HideInInspector] public PlayerData playerStat;
+    public PlayerData playerStat;
 
     [Header("Movement")]
     [SerializeField] private int dashCount;

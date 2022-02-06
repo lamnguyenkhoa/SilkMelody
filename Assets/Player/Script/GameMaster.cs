@@ -31,6 +31,7 @@ public class GameMaster : MonoBehaviour
         if (!instance)
         {
             instance = this;
+            InitNewGameData();
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -43,11 +44,6 @@ public class GameMaster : MonoBehaviour
             }
             Destroy(this.gameObject);
         }
-    }
-
-    private void Start()
-    {
-        InitNewGameData();
     }
 
     public void PatchInventoryReference()
