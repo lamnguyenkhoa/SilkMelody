@@ -13239,7 +13239,6 @@ MonoBehaviour:
   isInvulnerable: 0
   shouldStopMoving: 0
   isDead: 0
-  iFrame: 0.1
   noContactDamage: 0
   dropLoot: {fileID: 2142000902567130090, guid: 56dbe5fb90cf17147948a203d3e34035, type: 3}
   dropAmount: 5
@@ -13248,6 +13247,7 @@ MonoBehaviour:
   objectsToDisable: []
   flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
   sprite: {fileID: 1555894403}
+  damagedSound: {fileID: 0}
 --- !u!50 &269576492
 Rigidbody2D:
   serializedVersion: 4
@@ -13400,6 +13400,10 @@ PrefabInstance:
     - target: {fileID: 4108478404735970064, guid: a036eade283557848b60b5e0d1e677f3, type: 3}
       propertyPath: m_Name
       value: GameMaster
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108478404735970065, guid: a036eade283557848b60b5e0d1e677f3, type: 3}
+      propertyPath: debugInventory
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4108478404735970065, guid: a036eade283557848b60b5e0d1e677f3, type: 3}
       propertyPath: talismanHolder
@@ -18853,11 +18857,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5268734040163008470, guid: ba19acb34ed04654a9855dd604a9ffac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.3
+      value: -5.99
       objectReference: {fileID: 0}
     - target: {fileID: 5268734040163008470, guid: ba19acb34ed04654a9855dd604a9ffac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.97
+      value: 6.23
       objectReference: {fileID: 0}
     - target: {fileID: 5268734040163008470, guid: ba19acb34ed04654a9855dd604a9ffac, type: 3}
       propertyPath: m_LocalPosition.z

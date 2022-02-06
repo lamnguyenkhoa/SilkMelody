@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     public bool isInvulnerable = false;
     public bool shouldStopMoving = false;
     public bool isDead;
-    public float iFrame = 0.1f;
+    private float iFrame = 0.05f;
     public bool noContactDamage;
 
     [Header("OnDeath")]
@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     [Header("Other")]
     public Material flashMat;
     public SpriteRenderer sprite;
+    public AudioSource damagedSound;
     private Animator anim;
     private Material originalMat;
     private Rigidbody2D rb;
@@ -72,6 +73,7 @@ public class Enemy : MonoBehaviour
         if (!isInvulnerable)
         {
             StartCoroutine(InvincibleFrame());
+            PlayDamagedSound();
             if (spriteFlashCoroutine != null)
                 StopCoroutine(spriteFlashCoroutine);
             spriteFlashCoroutine = StartCoroutine(SpriteFlash());
@@ -79,6 +81,19 @@ public class Enemy : MonoBehaviour
             if (currentHp <= 0)
                 Death();
         }
+    }
+
+    private void PlayDamagedSound()
+    {
+        if (damagedSound == null)
+            return;
+
+        float randomVolume = Random.Range(0.8f, 1f);
+        float randomPitch = Random.Range(0.7f, 1.3f);
+
+        damagedSound.volume = randomVolume;
+        damagedSound.pitch = randomPitch;
+        damagedSound.Play();
     }
 
     public void Death()

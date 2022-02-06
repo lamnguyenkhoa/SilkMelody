@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public bool unhittable;
+    public bool meleeHittable;
+    public bool projectileHittable; // If at least 1 projectile has this when 2 projectile contact, they damaged each other
     public float durability = 1;
     private float currentDurability;
     public int damage;
     public bool knockbackAble = true;
     private Rigidbody2D rb;
     public Material flashMat;
+    public AudioSource hitSound;
     private Material originalMat;
     public SpriteRenderer sprite;
     private Color fadeColor;
@@ -49,17 +51,28 @@ public class Projectile : MonoBehaviour
 
     public void Damaged(float amount, Vector3 knockbackForce)
     {
-        if (unhittable)
-            return;
-
         if (knockbackAble)
         {
             Knockback(knockbackForce);
         }
+        PlayDamagedSound();
         StartCoroutine(SpriteFlash());
         currentDurability -= amount;
         if (currentDurability <= 0)
             Death();
+    }
+
+    private void PlayDamagedSound()
+    {
+        if (hitSound == null)
+            return;
+
+        float randomVolume = Random.Range(0.8f, 1f);
+        float randomPitch = Random.Range(0.7f, 1.3f);
+
+        hitSound.volume = randomVolume;
+        hitSound.pitch = randomPitch;
+        hitSound.Play();
     }
 
     private void Knockback(Vector3 knockbackForce)
@@ -93,7 +106,18 @@ public class Projectile : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         bounceCounter++;
-        if (gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
+
+        // Hit another projectile
+        Projectile projectile = collision.transform.GetComponent<Projectile>();
+        if (projectile)
+        {
+            if (projectile.projectileHittable)
+                projectile.Damaged(damage, (projectile.transform.position - transform.position).normalized);
+            else
+                return;
+        }
+        // Hit some entities (player, enemies, destructible...)
+        else if (gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
         {
             Player player = collision.transform.GetComponent<Player>();
             if (player)
@@ -112,9 +136,10 @@ public class Projectile : MonoBehaviour
         }
         else
         {
-            Debug.Log("Environmental attack (deal damage to everyone). Not yet implemented");
+            Debug.Log("This projectile is an environmental attack (deal damage to everyone). Not yet implemented");
         }
 
+        // Hit ground
         if (bounceCounter > maxBounce)
             Death();
     }

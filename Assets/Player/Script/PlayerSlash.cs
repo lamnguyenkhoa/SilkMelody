@@ -14,7 +14,6 @@ public class PlayerSlash : MonoBehaviour
     private float fadeSpeed = 0f;
     private float fadeSpeedAccel = 100f;
     private float lightOriginalIntensitiy;
-    [SerializeField] private AudioSource hitEnemySound;
     private bool impacted = false;
     private Collider2D attackCollider;
 
@@ -62,20 +61,19 @@ public class PlayerSlash : MonoBehaviour
         }
     }
 
-    public void PlayHitEnemySound()
-    {
-        float randomVolume = Random.Range(0.8f, 1f);
-        float randomPitch = Random.Range(0.7f, 1.3f);
+    //public void PlayHitEnemySound()
+    //{
+    //    float randomVolume = Random.Range(0.8f, 1f);
+    //    float randomPitch = Random.Range(0.7f, 1.3f);
 
-        hitEnemySound.volume = randomVolume;
-        hitEnemySound.pitch = randomPitch;
-        hitEnemySound.Play();
-    }
+    //    hitEnemySound.volume = randomVolume;
+    //    hitEnemySound.pitch = randomPitch;
+    //    hitEnemySound.Play();
+    //}
 
     private void EnemyImpactEffect()
     {
         sparkLight.enabled = true;
-        PlayHitEnemySound();
         impacted = true;
         // If piercing (attack multiple enemy) then no recoil
         if (!piercing && hasRecoil)
@@ -107,7 +105,7 @@ public class PlayerSlash : MonoBehaviour
         }
         if (projectile && projectile.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
         {
-            if (!projectile.unhittable)
+            if (projectile.meleeHittable)
             {
                 if (!impacted)
                 {
