@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SilkBurst : MonoBehaviour
 {
-    public float damage;
+    public int damage;
     public float knockbackPower;
     public Vector3 playerPos;
 

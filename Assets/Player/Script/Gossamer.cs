@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gossamer : MonoBehaviour
 {
     public float damageInterval = 0.1f;
-    public float damage;
+    public int damage;
     private float timer;
     public LayerMask enemyLayer;
     private Vector2 center;

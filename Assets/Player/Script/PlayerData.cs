@@ -11,7 +11,7 @@ public class PlayerData
     public int currentSilk = 0;
     public int maxSilk = 8;
     public int silkHeal = 3;
-    public float damage = 1f;
+    public int damage = 4;
     public float moveSpeed = 7f;
     public float jumpForce = 12f;
     public float dashForce = 20f;
@@ -55,7 +55,7 @@ public class PlayerData
         currentSilk = 0;
         maxSilk = 8;
         silkHeal = 3;
-        damage = 1f;
+        damage = 4;
         moveSpeed = 7f;
         jumpForce = 12f;
         dashForce = 20f;

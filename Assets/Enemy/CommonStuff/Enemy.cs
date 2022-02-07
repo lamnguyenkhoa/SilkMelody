@@ -5,8 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("Stat")]
-    public float maxHp;
-    [SerializeField] private float currentHp;
+    public int maxHp;
+    [SerializeField] private int currentHp;
     public int damage;
     public bool knockbackAble = true;
     public bool isInvulnerable = false;
@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Damaged(float amount, Vector3 knockbackForce)
+    public void Damaged(int amount, Vector3 knockbackForce)
     {
         if (knockbackAble)
         {
@@ -132,6 +132,8 @@ public class Enemy : MonoBehaviour
         foreach (GameObject gameObject in objectsToDisable)
             gameObject.SetActive(false);
 
+        StartCoroutine(FreezeTime());
+
         Destroy(this.gameObject, 10f);
     }
 
@@ -163,5 +165,12 @@ public class Enemy : MonoBehaviour
         isInvulnerable = true;
         yield return new WaitForSeconds(iFrame);
         isInvulnerable = false;
+    }
+
+    private IEnumerator FreezeTime()
+    {
+        Time.timeScale = 0.2f;
+        yield return new WaitForSecondsRealtime(0.2f);
+        Time.timeScale = 1f;
     }
 }

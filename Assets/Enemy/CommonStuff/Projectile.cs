@@ -6,8 +6,8 @@ public class Projectile : MonoBehaviour
 {
     public bool meleeHittable;
     public bool projectileHittable; // If at least 1 projectile has this when 2 projectile contact, they damaged each other
-    public float durability = 1;
-    private float currentDurability;
+    public int durability = 1;
+    private int currentDurability;
     public int damage;
     public bool knockbackAble = true;
     private Rigidbody2D rb;
@@ -49,7 +49,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public void Damaged(float amount, Vector3 knockbackForce)
+    public void Damaged(int amount, Vector3 knockbackForce)
     {
         if (knockbackAble)
         {

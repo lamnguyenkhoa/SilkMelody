@@ -46,11 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3adc7388382bd74d8e2a3063edf69f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unhittable: 0
+  meleeHittable: 0
+  projectileHittable: 0
   durability: 1
-  damage: 1
+  damage: 3
   knockbackAble: 1
   flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
+  hitSound: {fileID: 0}
   sprite: {fileID: 3582493361096622773}
   maxBounce: 0
   inflictStatus: 0
