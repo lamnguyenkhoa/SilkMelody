@@ -10,6 +10,7 @@ public class Gossamer : MonoBehaviour
     public LayerMask enemyLayer;
     private Vector2 center;
     private float radius;
+    public Vector3 playerPos;
 
     private void Start()
     {
@@ -30,7 +31,9 @@ public class Gossamer : MonoBehaviour
                 Enemy enemy = hitEnemy.GetComponent<Enemy>();
                 if (enemy == null && hitEnemy.transform.parent != null)
                     enemy = hitEnemy.transform.parent.GetComponent<Enemy>();
-                enemy.Damaged(damage, Vector2.zero);
+                Vector2 knockbackForce = (Vector2)(enemy.transform.position - playerPos).normalized;
+                knockbackForce = knockbackForce * 0.01f;
+                enemy.Damaged(damage, knockbackForce);
             }
         }
     }

@@ -739,6 +739,7 @@ public class Player : MonoBehaviour
         rb.gravityScale = 0f;
         gossamerInstance = Instantiate(gossamerPrefab, transform, false);
         gossamerInstance.transform.localPosition = new Vector3(0.25f, 0, 0);
+        gossamerInstance.GetComponent<Gossamer>().playerPos = transform.position;
     }
 
     public void BeginSilkBurst()

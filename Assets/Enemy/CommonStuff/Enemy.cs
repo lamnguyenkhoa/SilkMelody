@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
     private Coroutine spriteFlashCoroutine;
     private Coroutine stopMovingCoroutine;
     private Collider2D bodyCollider;
+    public GameObject[] PSPrefabs;
 
     private void Start()
     {
@@ -74,6 +75,7 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(InvincibleFrame());
             PlayDamagedSound();
+            PlayParticleEffects(knockbackForce);
             if (spriteFlashCoroutine != null)
                 StopCoroutine(spriteFlashCoroutine);
             spriteFlashCoroutine = StartCoroutine(SpriteFlash());
@@ -94,6 +96,18 @@ public class Enemy : MonoBehaviour
         damagedSound.volume = randomVolume;
         damagedSound.pitch = randomPitch;
         damagedSound.Play();
+    }
+
+    private void PlayParticleEffects(Vector3 direction)
+    {
+        Quaternion burstDirection = Quaternion.LookRotation(direction, Vector3.up);
+        if (PSPrefabs.Length > 0)
+        {
+            foreach (GameObject PSPrefab in PSPrefabs)
+            {
+                GameObject newPS = Instantiate(PSPrefab, transform.position, burstDirection);
+            }
+        }
     }
 
     public void Death()

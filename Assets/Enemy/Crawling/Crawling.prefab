@@ -246,6 +246,8 @@ MonoBehaviour:
   flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
   sprite: {fileID: 126525052}
   damagedSound: {fileID: 8142012484260467446}
+  PSPrefabs:
+  - {fileID: 6873206517955715662, guid: 00ccdd1650728434492c066f3fe35908, type: 3}
 --- !u!114 &361175349
 MonoBehaviour:
   m_ObjectHideFlags: 0
