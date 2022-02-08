@@ -10,7 +10,7 @@ public class Gossamer : MonoBehaviour
     public LayerMask enemyLayer;
     private Vector2 center;
     private float radius;
-    public Vector3 playerPos;
+    [HideInInspector] public Vector3 playerPos;
 
     private void Start()
     {

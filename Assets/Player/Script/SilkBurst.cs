@@ -6,7 +6,7 @@ public class SilkBurst : MonoBehaviour
 {
     public int damage;
     public float knockbackPower;
-    public Vector3 playerPos;
+    [HideInInspector] public Vector3 playerPos;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
