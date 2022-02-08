@@ -4,6 +4,12 @@
 
 A bootleg game.
 
+### Demo images
+
+![demo_image0](Images/demo_image_0.png "demo game images 0")
+![demo_image1](Images/demo_image_1.png "demo game images 1")
+![demo_image2](Images/demo_image_2.png "demo game images 2")
+
 ## Control
 
 Jump near ledge to grab them.
