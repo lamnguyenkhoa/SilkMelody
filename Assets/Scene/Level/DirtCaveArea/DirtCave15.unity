@@ -17787,7 +17787,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1103032378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.818527, y: -1.8717599, z: -10}
+  m_LocalPosition: {x: -25.818504, y: -1.8717599, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -20540,6 +20540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupText: {fileID: 1937770637077563697}
+  pickupSound: {fileID: 8300000, guid: 457ae9bc0650cc14a8b10caefc02a3b0, type: 3}
   itemType: 0
   redTool: 1
   blueTool: 0

@@ -8325,7 +8325,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1103032378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6886739, y: -1.01304, z: -10}
+  m_LocalPosition: {x: -0.6830967, y: -1.01305, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -10170,10 +10170,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6482269398253747242, guid: de24689133a8d5d48a0f28842f206239, type: 3}
-      propertyPath: m_SortingOrder
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6482269398930748186, guid: de24689133a8d5d48a0f28842f206239, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -10218,22 +10214,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6482269398930748187, guid: de24689133a8d5d48a0f28842f206239, type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6482269398930748187, guid: de24689133a8d5d48a0f28842f206239, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6482269398930748187, guid: de24689133a8d5d48a0f28842f206239, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1623693549
-      objectReference: {fileID: 0}
-    - target: {fileID: 6482269398930748187, guid: de24689133a8d5d48a0f28842f206239, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 6482269398930748188, guid: de24689133a8d5d48a0f28842f206239, type: 3}
       propertyPath: m_Name
       value: ThrowBlade

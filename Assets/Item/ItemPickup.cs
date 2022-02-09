@@ -8,6 +8,7 @@ public class ItemPickup : MonoBehaviour
     private bool activated;
     private InputMaster inputMaster;
     private bool inRange;
+    public AudioClip pickupSound;
 
     public enum ItemType
     {
@@ -62,6 +63,7 @@ public class ItemPickup : MonoBehaviour
         if (pressUp && inRange && !activated)
         {
             activated = true;
+            AudioSource.PlayClipAtPoint(pickupSound, Camera.main.transform.position);
             switch (itemType)
             {
                 case ItemType.redTool:
