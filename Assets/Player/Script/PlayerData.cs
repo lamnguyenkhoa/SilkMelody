@@ -23,6 +23,7 @@ public class PlayerData
     public float attackCooldown = 0.15f;
     public float parryWindow = 0.25f;
     public float parryCooldown = 1f;
+    public float toolCooldown = 0.35f;
 
     [Header("Location")]
     public string respawnScene = "DirtCave0";
@@ -74,6 +75,7 @@ public class PlayerData
         respawnChairName = "";
         respawnScene = "DirtCave0";
         respawnPos = Vector3.zero;
+        toolCooldown = 0.35f;
     }
 
     //public void CopyStatFromThis(PlayerStatSO statToCopy)

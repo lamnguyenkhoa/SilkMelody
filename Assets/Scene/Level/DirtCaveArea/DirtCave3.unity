@@ -8665,7 +8665,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1103032378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6869871, y: -1.01305, z: -10}
+  m_LocalPosition: {x: -0.6953215, y: -1.0130299, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9992,7 +9992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8368222961404959780, guid: dc32454e3fa72e14da3ca8e20d63c769, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 124
       objectReference: {fileID: 0}
     - target: {fileID: 8368222961404959780, guid: dc32454e3fa72e14da3ca8e20d63c769, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -10634,6 +10634,10 @@ PrefabInstance:
     - target: {fileID: 7402090460154892002, guid: 5471ba155617b754fadabe72d6802bf3, type: 3}
       propertyPath: m_Name
       value: RestChair
+      objectReference: {fileID: 0}
+    - target: {fileID: 7402090460154892014, guid: 5471ba155617b754fadabe72d6802bf3, type: 3}
+      propertyPath: restSfx
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5471ba155617b754fadabe72d6802bf3, type: 3}

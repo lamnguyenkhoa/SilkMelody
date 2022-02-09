@@ -48,6 +48,7 @@ public class RedToolController : MonoBehaviour
             else
                 newProj.GetComponent<Rigidbody2D>().velocity = new Vector2(20f, 0);
             GameMaster.instance.playerData.redToolsCurrentCharge[(int)RedTool.ToolName.throwBlade] -= 1;
+            GetComponent<PlayerSoundEffect>().PlaySoundEffect(PlayerSoundEffect.SoundEnum.throwing);
         }
     }
 
@@ -80,6 +81,7 @@ public class RedToolController : MonoBehaviour
                 newProj3.GetComponent<Rigidbody2D>().velocity = spreadDirection2 * 20f;
             }
             GameMaster.instance.playerData.redToolsCurrentCharge[(int)RedTool.ToolName.trippleKnife] -= 1;
+            GetComponent<PlayerSoundEffect>().PlaySoundEffect(PlayerSoundEffect.SoundEnum.throwing);
         }
     }
 }

@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
     public Transform pogoSlashPos;
     public Vector2 dashRecoil;
     private float parryTimer;
+    private float toolTimer;
 
     [Header("SilkAbility")]
     public GameObject silkBindVFXPrefab;
@@ -147,6 +148,8 @@ public class Player : MonoBehaviour
         if (!isParrying)
             parryTimer += Time.deltaTime;
 
+        toolTimer += Time.deltaTime;
+
         if (!resting && disableControlCounter == 0 && !isDashing && !isParalyzed && !inSilkSkill && !isParrying && !inMenu)
         {
             HandleMovement();
@@ -168,7 +171,7 @@ public class Player : MonoBehaviour
 
             HandleSilkSkill();
 
-            HandleItemUsage();
+            HandleToolUsage();
         }
 
         AnimationControl();
@@ -527,7 +530,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void HandleItemUsage()
+    public void HandleToolUsage()
     {
         int nTool = playerStat.equippedRedTools.Count;
         if (nTool == 0)
@@ -541,8 +544,9 @@ public class Player : MonoBehaviour
             GameMaster.instance.SwapTool(true);
         }
 
-        if (useTool.WasPressedThisFrame() && !inAttack)
+        if (useTool.WasPressedThisFrame() && !inAttack && toolTimer > playerStat.toolCooldown)
         {
+            toolTimer = 0f;
             RedTool.ToolName usedTool = playerStat.equippedRedTools[playerStat.selectedRedToolId];
             GetComponent<RedToolController>().UseRedTool(usedTool);
         }
