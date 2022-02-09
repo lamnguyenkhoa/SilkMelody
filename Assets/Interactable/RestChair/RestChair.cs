@@ -46,7 +46,7 @@ public class RestChair : MonoBehaviour
     private void HandleGetOnChair()
     {
         bool pressUp = inputMaster.Gameplay.Movement.ReadValue<Vector2>().y == 1;
-        if (playerInRange && pressUp && !playerSitting)
+        if (playerInRange && pressUp && !playerSitting && !player.inMenu)
         {
             GetOnChair();
             StopAllCoroutines();
