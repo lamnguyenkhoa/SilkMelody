@@ -13,6 +13,7 @@ public class Projectile : MonoBehaviour
     private Rigidbody2D rb;
     public Material flashMat;
     public AudioSource hitSound;
+    public AudioSource collideSound;
     private Material originalMat;
     public SpriteRenderer sprite;
     private Color fadeColor;
@@ -75,6 +76,19 @@ public class Projectile : MonoBehaviour
         hitSound.Play();
     }
 
+    private void PlayCollideSound()
+    {
+        if (collideSound == null)
+            return;
+
+        float randomVolume = Random.Range(0.8f, 1f);
+        float randomPitch = Random.Range(0.7f, 1.3f);
+
+        collideSound.volume = randomVolume;
+        collideSound.pitch = randomPitch;
+        collideSound.Play();
+    }
+
     private void Knockback(Vector3 knockbackForce)
     {
         rb.velocity = Vector2.zero;
@@ -106,6 +120,7 @@ public class Projectile : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         bounceCounter++;
+        PlayCollideSound();
 
         // Hit another projectile
         Projectile projectile = collision.transform.GetComponent<Projectile>();
@@ -116,6 +131,7 @@ public class Projectile : MonoBehaviour
             else
                 return;
         }
+
         // Hit some entities (player, enemies, destructible...)
         else if (gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
         {
