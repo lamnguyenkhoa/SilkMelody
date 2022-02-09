@@ -14,6 +14,7 @@ public class RestChair : MonoBehaviour
     public Image softFlash;
     public GameObject savingText;
     private InputMaster inputMaster;
+    public AudioSource saveSfx;
 
     private void Awake()
     {
@@ -98,6 +99,7 @@ public class RestChair : MonoBehaviour
 
         GameMaster.instance.RefillRedTool();
 
+        saveSfx.Play();
         SaveSystem.SavePlayerData();
 
         interactText.SetActive(false);
