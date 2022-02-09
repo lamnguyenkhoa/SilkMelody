@@ -39,6 +39,7 @@ public class ToolButton : MonoBehaviour, ISelectHandler, IDeselectHandler
     public void OnSelect(BaseEventData eventData)
     {
         selectFrame.SetActive(true);
+        transform.root.GetComponent<InventoryMenu>().selectInventorySound.Play();
 
         if (foundItem)
         {
@@ -134,6 +135,7 @@ public class ToolButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     public void PressButton()
     {
+        transform.root.GetComponent<InventoryMenu>().selectInventorySound.Play();
         switch (toolType)
         {
             case ToolType.red:

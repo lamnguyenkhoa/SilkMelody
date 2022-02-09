@@ -15,6 +15,10 @@ public class InventoryMenu : MonoBehaviour
     private InputAction leftTabAction;
     private InputAction rightTabAction;
 
+    public AudioSource openInventorySound;
+    public AudioSource closeInventorySound;
+    public AudioSource selectInventorySound;
+
     private int currentTabIndex;
 
     public static InventoryMenu instance;
@@ -60,6 +64,7 @@ public class InventoryMenu : MonoBehaviour
         // Open menu
         if (openMenuAction.WasPressedThisFrame() && !player.inMenu)
         {
+            openInventorySound.Play();
             inventoryHolder.SetActive(true);
             player.inMenu = true;
             currentTabIndex = 1;
@@ -68,6 +73,7 @@ public class InventoryMenu : MonoBehaviour
         // Close menu
         else if (closeMenuAction.WasPressedThisFrame() && player.inMenu)
         {
+            closeInventorySound.Play();
             inventoryHolder.SetActive(false);
             player.inMenu = false;
         }

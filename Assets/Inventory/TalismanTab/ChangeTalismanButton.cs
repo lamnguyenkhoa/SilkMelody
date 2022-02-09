@@ -14,6 +14,7 @@ public class ChangeTalismanButton : MonoBehaviour, ISelectHandler, IDeselectHand
 
     public void PressedButton()
     {
+        transform.root.GetComponent<InventoryMenu>().selectInventorySound.Play();
         GameMaster.instance.ChangeToNextTalisman();
     }
 
@@ -24,6 +25,7 @@ public class ChangeTalismanButton : MonoBehaviour, ISelectHandler, IDeselectHand
 
     public void OnSelect(BaseEventData eventData)
     {
+        transform.root.GetComponent<InventoryMenu>().selectInventorySound.Play();
         selectFrame.SetActive(true);
     }
 
