@@ -23,7 +23,7 @@ public class PulsingEffect : MonoBehaviour
     {
         float velocity = 0f;
         transform.localScale = new Vector2(pulseScale, pulseScale);
-        pulseScale = Mathf.SmoothDamp(pulseScale, maxPulse, ref velocity, 1 / pulseSpeed);
+        pulseScale = Mathf.SmoothDamp(pulseScale, maxPulse, ref velocity, 1 / pulseSpeed, 100, Time.deltaTime);
 
         Color color = spriteRenderer.color;
         color.a = 1 - ((pulseScale - minPulse) / (maxPulse - minPulse));

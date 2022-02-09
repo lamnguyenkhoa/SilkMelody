@@ -66,21 +66,33 @@ public class ItemPickup : MonoBehaviour
             {
                 case ItemType.redTool:
                     if (!GameMaster.instance.playerData.foundRedTools.Contains(redTool))
+                    {
                         GameMaster.instance.playerData.foundRedTools.Add(redTool);
+                        RedTool toolData = GameMaster.instance.redToolData[(int)redTool];
+                        NotifyCanvas.instance.AddItemNotifyBox(toolData.sprite, toolData.displayName);
+                    }
                     else
                         Debug.Log("Duplicate tool " + redTool);
                     break;
 
                 case ItemType.blueTool:
                     if (!GameMaster.instance.playerData.foundBlueTools.Contains(blueTool))
+                    {
                         GameMaster.instance.playerData.foundBlueTools.Add(blueTool);
+                        BlueTool toolData = GameMaster.instance.blueToolData[(int)blueTool];
+                        NotifyCanvas.instance.AddItemNotifyBox(toolData.sprite, toolData.displayName);
+                    }
                     else
                         Debug.Log("Duplicate tool " + blueTool);
                     break;
 
                 case ItemType.yellowTool:
                     if (!GameMaster.instance.playerData.foundYellowTools.Contains(yellowTool))
+                    {
                         GameMaster.instance.playerData.foundYellowTools.Add(yellowTool);
+                        YellowTool toolData = GameMaster.instance.yellowToolData[(int)yellowTool];
+                        NotifyCanvas.instance.AddItemNotifyBox(toolData.sprite, toolData.displayName);
+                    }
                     else
                         Debug.Log("Duplicate tool " + yellowTool);
                     break;

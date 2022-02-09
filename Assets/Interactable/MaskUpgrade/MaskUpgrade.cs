@@ -38,6 +38,7 @@ public class MaskUpgrade : MonoBehaviour
             used = true;
             player.playerStat.maxHp += 1;
             player.playerStat.currentHp = player.playerStat.maxHp;
+            NotifyCanvas.instance.AddItemNotifyBox(GetComponent<SpriteRenderer>().sprite, "Mask upgrade");
             Destroy(this.gameObject);
         }
     }

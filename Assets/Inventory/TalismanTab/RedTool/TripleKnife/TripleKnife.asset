@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TripleKnife
   m_EditorClassIdentifier: 
   displayName: Triple Knife
-  description: Throw 3 small knifes in a fan shape. Although has low damage, they
+  description: Throw 3 small knifes in a fan shape. Although it has low damage, they
     can be used to deflect enemy projectiles.
   maxCharge: 5
   fixCostPerCharge: 1
