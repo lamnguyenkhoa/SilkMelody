@@ -3,17 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.EventSystems;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
+    public GameObject selectFrame;
+    public AudioSource selectSound;
+
+    private void Awake()
+    {
+        selectFrame.SetActive(false);
+    }
+
     private void Start()
     {
         if (transform.name == "Continue")
         {
-            Button continueButton = GetComponent<Button>();
+            TextMeshProUGUI continueText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             if (!SaveSystem.CheckSaveExist())
             {
-                continueButton.interactable = false;
+                Color noSaveColor = continueText.color;
+                noSaveColor.a = 0.2f;
+                continueText.color = noSaveColor;
             }
         }
     }
@@ -37,5 +49,16 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        selectFrame.SetActive(true);
+        selectSound.Play();
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        selectFrame.SetActive(false);
     }
 }

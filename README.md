@@ -78,5 +78,6 @@ Map diagram: <https://drive.google.com/file/d/1FNvQ1Rmx9jhIjlrh_A7A3vSlKeX5K8J0/
 
 - Loot sound <https://freesound.org/people/LittleRobotSoundFactory/sounds/276097/>
 - Batter's boss theme <https://www.youtube.com/watch?v=V81DlvZkxGE&ab_channel=wickedslicks1003>
+- Main menu theme <https://www.youtube.com/watch?v=xwX84zgO_Cw&list=PLDisKgcnAC4QMlOXULG2QvT9yvJMTQH3_&index=2&ab_channel=OriginalSoundtrack>
 - Impact SFX <https://www.youtube.com/watch?v=ILtw7SKMjCQ&ab_channel=SoundEffect>
 - Dirt cave ambient soundtrack <https://freesound.org/people/LittleRobotSoundFactory/sounds/270387/>
