@@ -4,11 +4,21 @@
 
 A bootleg game.
 
-### Demo images
+## Table of contents
+
+- [Table of contents](#table-of-contents)
+- [Demo image](#demo-images)
+- [Control](#control)
+- [Get the demo](#get-the-demo)
+- [Design document](#design-document)
+- [Resources](#resources)
+
+## Demo images
 
 ![demo_image0](Images/demo_image_0.png "demo game images 0")
 ![demo_image1](Images/demo_image_1.png "demo game images 1")
 ![demo_image2](Images/demo_image_2.png "demo game images 2")
+![demo_image3](Images/demo_image_3.png "demo game images 3")
 
 ## Control
 
@@ -48,7 +58,7 @@ Silk skill:
 - LB - Use tools
 - Start - Menu
 
-## Get the Demo!
+## Get the Demo
 
 ### Option 1: Check the Release tab
 
@@ -74,7 +84,7 @@ Map diagram: <https://drive.google.com/file/d/1FNvQ1Rmx9jhIjlrh_A7A3vSlKeX5K8J0/
 - URP
 - A\* Pathfinding
 
-### Resources
+## Resources
 
 - Loot sound <https://freesound.org/people/LittleRobotSoundFactory/sounds/276097/>
 - Batter's boss theme <https://www.youtube.com/watch?v=V81DlvZkxGE&ab_channel=wickedslicks1003>
