@@ -78,11 +78,12 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isDead;
     [SerializeField] private bool inSilkSkill;
     [SerializeField] private bool isParrying;
+    public bool resting;
+
     public bool inMenu;
 
     [Header("Misc")]
     public State state = State.idle;
-    public bool resting;
     private Coroutine dashCoroutine;
     private Coroutine parryCoroutine;
     public Material flashMat;

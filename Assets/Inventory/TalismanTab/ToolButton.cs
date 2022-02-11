@@ -135,6 +135,10 @@ public class ToolButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     public void PressButton()
     {
+        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        if (!player.resting)
+            return;
+
         transform.root.GetComponent<InventoryMenu>().selectInventorySound.Play();
         switch (toolType)
         {

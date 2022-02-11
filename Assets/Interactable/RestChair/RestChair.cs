@@ -33,6 +33,7 @@ public class RestChair : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         // Failsafe
         savingText.SetActive(false);
     }
@@ -58,7 +59,7 @@ public class RestChair : MonoBehaviour
     private void HandleGetOffChair()
     {
         bool pressDown = inputMaster.Gameplay.Movement.ReadValue<Vector2>().y == -1;
-        if (playerSitting && pressDown)
+        if (playerSitting && pressDown && !player.inMenu)
         {
             GetOffChair();
         }
@@ -112,8 +113,7 @@ public class RestChair : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        player = collision.gameObject.GetComponent<Player>();
-        if (player)
+        if (collision.gameObject.GetComponent<Player>())
         {
             playerInRange = true;
             if (!playerSitting)
@@ -123,8 +123,7 @@ public class RestChair : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        player = collision.gameObject.GetComponent<Player>();
-        if (player)
+        if (collision.gameObject.GetComponent<Player>())
         {
             playerInRange = false;
             interactText.SetActive(false);

@@ -14,6 +14,10 @@ public class ChangeTalismanButton : MonoBehaviour, ISelectHandler, IDeselectHand
 
     public void PressedButton()
     {
+        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        if (!player.resting)
+            return;
+
         transform.root.GetComponent<InventoryMenu>().selectInventorySound.Play();
         GameMaster.instance.ChangeToNextTalisman();
     }

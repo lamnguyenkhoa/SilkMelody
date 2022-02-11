@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameMaster
       objectReference: {fileID: 0}
+    - target: {fileID: 4108478404735970065, guid: a036eade283557848b60b5e0d1e677f3, type: 3}
+      propertyPath: debugInventory
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4108478404735970070, guid: a036eade283557848b60b5e0d1e677f3, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -8325,7 +8329,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1103032378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6830967, y: -1.01305, z: -10}
+  m_LocalPosition: {x: -0.68897015, y: -1.01304, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
