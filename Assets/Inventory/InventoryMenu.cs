@@ -17,7 +17,8 @@ public class InventoryMenu : MonoBehaviour
 
     public AudioSource openInventorySound;
     public AudioSource closeInventorySound;
-    public AudioSource selectInventorySound;
+    public AudioSource movingButtonSound;
+    public AudioSource pressedButtonSound;
 
     private int currentTabIndex;
 
