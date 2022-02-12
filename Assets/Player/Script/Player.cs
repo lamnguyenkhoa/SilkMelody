@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class Player : MonoBehaviour
 {
@@ -461,7 +463,7 @@ public class Player : MonoBehaviour
 
     public void Damaged(int amount, Vector3 knockbackDir)
     {
-        if (inIFrame) return;
+        if (inIFrame || isDead) return;
         if (isParrying)
         {
             if (parryCoroutine != null)
@@ -489,6 +491,12 @@ public class Player : MonoBehaviour
         sprite.material = originalMaterial;
         anim.SetBool("dashAttack", false);
         anim.SetBool("pogoAttack", false);
+
+        if (GameObject.Find("Global Volume"))
+        {
+            GameObject.Find("Global Volume").GetComponent<PPVolumeController>().DamagedPPEffect();
+        }
+
         if (playerStat.currentHp <= 0)
         {
             StartCoroutine(Death());
