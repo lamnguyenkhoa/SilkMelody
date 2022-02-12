@@ -70,6 +70,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Map",
+                    "type": "Button",
+                    "id": "40f5c2f4-9c6f-4b34-8605-b82b660f1f49",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "0b713fc8-a3a1-4cc4-be35-07a9c2d2c484",
@@ -454,6 +462,17 @@
                     "action": "UseRedTool",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f0d869d4-b2cc-44e3-949d-7ae2a79a4fc7",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -489,6 +508,14 @@
                     "name": "Movement",
                     "type": "Value",
                     "id": "3330b451-6e3f-4b1b-9f94-b87444ec8ea2",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Zoom",
+                    "type": "Value",
+                    "id": "26397dca-f01f-4e09-89ff-b8d20aaa79b3",
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": ""
@@ -714,6 +741,61 @@
                     "action": "OutOfMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f383f0fe-f434-43e5-961d-da5c3b3763c1",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OutOfMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "359e0427-e46e-4c89-8b11-858de407160f",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OutOfMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Keyboard",
+                    "id": "97a38cf7-7f02-47b8-a193-40458ec0d5c5",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "0fde6815-08a0-40e2-ad36-cb6183112840",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "7cc7de27-d697-4732-8b72-9e2303567f6f",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

@@ -83,6 +83,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""Map"",
+                    ""type"": ""Button"",
+                    ""id"": ""40f5c2f4-9c6f-4b34-8605-b82b660f1f49"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""0b713fc8-a3a1-4cc4-be35-07a9c2d2c484"",
@@ -467,6 +475,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""UseRedTool"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f0d869d4-b2cc-44e3-949d-7ae2a79a4fc7"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -502,6 +521,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": ""Movement"",
                     ""type"": ""Value"",
                     ""id"": ""3330b451-6e3f-4b1b-9f94-b87444ec8ea2"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""26397dca-f01f-4e09-89ff-b8d20aaa79b3"",
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -727,6 +754,61 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""OutOfMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f383f0fe-f434-43e5-961d-da5c3b3763c1"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OutOfMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""359e0427-e46e-4c89-8b11-858de407160f"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OutOfMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""97a38cf7-7f02-47b8-a193-40458ec0d5c5"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""0fde6815-08a0-40e2-ad36-cb6183112840"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""7cc7de27-d697-4732-8b72-9e2303567f6f"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -776,6 +858,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Gameplay_DashAttack = m_Gameplay.FindAction("DashAttack", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_InventoryMenu = m_Gameplay.FindAction("InventoryMenu", throwIfNotFound: true);
+        m_Gameplay_Map = m_Gameplay.FindAction("Map", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_UseRedTool = m_Gameplay.FindAction("UseRedTool", throwIfNotFound: true);
         m_Gameplay_SwapToolRight = m_Gameplay.FindAction("SwapToolRight", throwIfNotFound: true);
@@ -786,6 +869,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Inventory_RightTab = m_Inventory.FindAction("RightTab", throwIfNotFound: true);
         m_Inventory_OutOfMenu = m_Inventory.FindAction("OutOfMenu", throwIfNotFound: true);
         m_Inventory_Movement = m_Inventory.FindAction("Movement", throwIfNotFound: true);
+        m_Inventory_Zoom = m_Inventory.FindAction("Zoom", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -843,6 +927,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_DashAttack;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_InventoryMenu;
+    private readonly InputAction m_Gameplay_Map;
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_UseRedTool;
     private readonly InputAction m_Gameplay_SwapToolRight;
@@ -859,6 +944,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @DashAttack => m_Wrapper.m_Gameplay_DashAttack;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @InventoryMenu => m_Wrapper.m_Gameplay_InventoryMenu;
+        public InputAction @Map => m_Wrapper.m_Gameplay_Map;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputAction @UseRedTool => m_Wrapper.m_Gameplay_UseRedTool;
         public InputAction @SwapToolRight => m_Wrapper.m_Gameplay_SwapToolRight;
@@ -896,6 +982,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @InventoryMenu.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventoryMenu;
                 @InventoryMenu.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventoryMenu;
                 @InventoryMenu.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventoryMenu;
+                @Map.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMap;
+                @Map.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMap;
+                @Map.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMap;
                 @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
@@ -936,6 +1025,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @InventoryMenu.started += instance.OnInventoryMenu;
                 @InventoryMenu.performed += instance.OnInventoryMenu;
                 @InventoryMenu.canceled += instance.OnInventoryMenu;
+                @Map.started += instance.OnMap;
+                @Map.performed += instance.OnMap;
+                @Map.canceled += instance.OnMap;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
@@ -960,6 +1052,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Inventory_RightTab;
     private readonly InputAction m_Inventory_OutOfMenu;
     private readonly InputAction m_Inventory_Movement;
+    private readonly InputAction m_Inventory_Zoom;
     public struct InventoryActions
     {
         private @InputMaster m_Wrapper;
@@ -968,6 +1061,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @RightTab => m_Wrapper.m_Inventory_RightTab;
         public InputAction @OutOfMenu => m_Wrapper.m_Inventory_OutOfMenu;
         public InputAction @Movement => m_Wrapper.m_Inventory_Movement;
+        public InputAction @Zoom => m_Wrapper.m_Inventory_Zoom;
         public InputActionMap Get() { return m_Wrapper.m_Inventory; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -989,6 +1083,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Movement.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnMovement;
+                @Zoom.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnZoom;
+                @Zoom.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnZoom;
+                @Zoom.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnZoom;
             }
             m_Wrapper.m_InventoryActionsCallbackInterface = instance;
             if (instance != null)
@@ -1005,6 +1102,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
             }
         }
     }
@@ -1037,6 +1137,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnDashAttack(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnInventoryMenu(InputAction.CallbackContext context);
+        void OnMap(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnUseRedTool(InputAction.CallbackContext context);
         void OnSwapToolRight(InputAction.CallbackContext context);
@@ -1048,5 +1149,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnRightTab(InputAction.CallbackContext context);
         void OnOutOfMenu(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
     }
 }

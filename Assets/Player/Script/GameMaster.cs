@@ -243,4 +243,12 @@ public class GameMaster : MonoBehaviour
         equippedTalisman.UpdateSlotImage();
         OnTalismanChange();
     }
+
+    public void AddVisitedRoom(string roomName)
+    {
+        if (!worldData.visitedRooms.Contains(roomName))
+        {
+            worldData.visitedRooms.Add(roomName);
+        }
+    }
 }

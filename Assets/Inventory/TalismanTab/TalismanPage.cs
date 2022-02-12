@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TabTalisman : MonoBehaviour
+public class TalismanPage : MonoBehaviour
 {
     public GameObject redGroup;
     public GameObject blueGroup;

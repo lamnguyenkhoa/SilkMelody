@@ -22,6 +22,9 @@ public class WorldData
     [Header("Boss")]
     public bool[] bossDefeated = new bool[3];
 
+    [Header("Map")]
+    public List<string> visitedRooms = new List<string>();
+
     public void ResetToNewGameState()
     {
         maskUpgrades[0] = false;
@@ -42,5 +45,7 @@ public class WorldData
         bossDefeated[0] = false;
         bossDefeated[1] = false;
         bossDefeated[2] = false;
+
+        visitedRooms.Clear();
     }
 }

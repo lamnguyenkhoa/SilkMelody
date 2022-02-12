@@ -14,6 +14,7 @@ public class InventoryMenu : MonoBehaviour
     private InputAction closeMenuAction;
     private InputAction leftTabAction;
     private InputAction rightTabAction;
+    private InputAction openMapAction;
 
     public AudioSource openInventorySound;
     public AudioSource closeInventorySound;
@@ -43,6 +44,7 @@ public class InventoryMenu : MonoBehaviour
         inventoryHolder.SetActive(false);
 
         openMenuAction = inputMaster.Gameplay.InventoryMenu;
+        openMapAction = inputMaster.Gameplay.Map;
         closeMenuAction = inputMaster.Inventory.OutOfMenu;
         leftTabAction = inputMaster.Inventory.LeftTab;
         rightTabAction = inputMaster.Inventory.RightTab;
@@ -62,13 +64,24 @@ public class InventoryMenu : MonoBehaviour
 
     private void Update()
     {
-        // Open menu
+        // Open menu - talisman
         if (openMenuAction.WasPressedThisFrame() && !player.inMenu)
         {
+            GetComponent<Canvas>().enabled = true;
             openInventorySound.Play();
             inventoryHolder.SetActive(true);
             player.inMenu = true;
             currentTabIndex = 1;
+            UpdateInventoryMenuTab();
+        }
+        // Open menu - map
+        else if (openMapAction.WasPressedThisFrame() && !player.inMenu)
+        {
+            GetComponent<Canvas>().enabled = true;
+            openInventorySound.Play();
+            inventoryHolder.SetActive(true);
+            player.inMenu = true;
+            currentTabIndex = 2;
             UpdateInventoryMenuTab();
         }
         // Close menu
@@ -77,6 +90,8 @@ public class InventoryMenu : MonoBehaviour
             closeInventorySound.Play();
             inventoryHolder.SetActive(false);
             player.inMenu = false;
+
+            GetComponent<Canvas>().enabled = false;
         }
 
         if (player.isHurt)
@@ -89,13 +104,13 @@ public class InventoryMenu : MonoBehaviour
             {
                 currentTabIndex--;
                 if (currentTabIndex < 0)
-                    currentTabIndex = 2;
+                    currentTabIndex = inventoryMenuTabs.Length - 1;
                 UpdateInventoryMenuTab();
             }
             else if (rightTabAction.WasPressedThisFrame())
             {
                 currentTabIndex++;
-                if (currentTabIndex > 2)
+                if (currentTabIndex > (inventoryMenuTabs.Length - 1))
                     currentTabIndex = 0;
                 UpdateInventoryMenuTab();
             }
@@ -110,7 +125,7 @@ public class InventoryMenu : MonoBehaviour
 
     private void UpdateInventoryMenuTab()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < inventoryMenuTabs.Length; i++)
         {
             if (i == currentTabIndex)
             {

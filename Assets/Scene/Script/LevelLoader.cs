@@ -45,6 +45,7 @@ public class LevelLoader : MonoBehaviour
     public void SceneChange(Scene scene, LoadSceneMode mode)
     {
         GameMaster.instance.PatchInventoryReference();
+        GameMaster.instance.AddVisitedRoom(scene.name);
         UpdatePlayerPosition();
     }
 
