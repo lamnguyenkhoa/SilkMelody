@@ -526,6 +526,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""Movement2"",
+                    ""type"": ""Value"",
+                    ""id"": ""59bd1004-4dd0-43fa-b99d-ab198f7e7ec4"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""Zoom"",
                     ""type"": ""Value"",
                     ""id"": ""26397dca-f01f-4e09-89ff-b8d20aaa79b3"",
@@ -809,6 +817,116 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Arrow keys"",
+                    ""id"": ""66e1c067-7a7a-41c4-bbfa-3327bf685224"",
+                    ""path"": ""2DVector(mode=1)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""29454d85-761e-4b60-8047-3e0079420640"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""78929b97-f897-4e07-9411-09074197c004"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""636015d8-ef45-49a8-9068-5fc489325db1"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""a1006357-9b4a-4430-93d5-6f32ee2823b0"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Leftstick"",
+                    ""id"": ""543f77c9-d749-48da-94c0-04e161cb0155"",
+                    ""path"": ""2DVector(mode=1)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""cebbe142-0125-4a4e-82d9-a69daf96e083"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""6d866ee8-2ac3-4b20-9900-e61970775eb6"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""938959fe-67c4-4666-a65b-4f91a977eff3"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""4a4b1940-bcd1-48d5-810f-015242098feb"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -869,6 +987,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Inventory_RightTab = m_Inventory.FindAction("RightTab", throwIfNotFound: true);
         m_Inventory_OutOfMenu = m_Inventory.FindAction("OutOfMenu", throwIfNotFound: true);
         m_Inventory_Movement = m_Inventory.FindAction("Movement", throwIfNotFound: true);
+        m_Inventory_Movement2 = m_Inventory.FindAction("Movement2", throwIfNotFound: true);
         m_Inventory_Zoom = m_Inventory.FindAction("Zoom", throwIfNotFound: true);
     }
 
@@ -1052,6 +1171,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Inventory_RightTab;
     private readonly InputAction m_Inventory_OutOfMenu;
     private readonly InputAction m_Inventory_Movement;
+    private readonly InputAction m_Inventory_Movement2;
     private readonly InputAction m_Inventory_Zoom;
     public struct InventoryActions
     {
@@ -1061,6 +1181,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @RightTab => m_Wrapper.m_Inventory_RightTab;
         public InputAction @OutOfMenu => m_Wrapper.m_Inventory_OutOfMenu;
         public InputAction @Movement => m_Wrapper.m_Inventory_Movement;
+        public InputAction @Movement2 => m_Wrapper.m_Inventory_Movement2;
         public InputAction @Zoom => m_Wrapper.m_Inventory_Zoom;
         public InputActionMap Get() { return m_Wrapper.m_Inventory; }
         public void Enable() { Get().Enable(); }
@@ -1083,6 +1204,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Movement.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnMovement;
+                @Movement2.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnMovement2;
+                @Movement2.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnMovement2;
+                @Movement2.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnMovement2;
                 @Zoom.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnZoom;
                 @Zoom.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnZoom;
                 @Zoom.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnZoom;
@@ -1102,6 +1226,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @Movement2.started += instance.OnMovement2;
+                @Movement2.performed += instance.OnMovement2;
+                @Movement2.canceled += instance.OnMovement2;
                 @Zoom.started += instance.OnZoom;
                 @Zoom.performed += instance.OnZoom;
                 @Zoom.canceled += instance.OnZoom;
@@ -1149,6 +1276,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnRightTab(InputAction.CallbackContext context);
         void OnOutOfMenu(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnMovement2(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
     }
 }
