@@ -27,12 +27,16 @@ public class MainMenu : MonoBehaviour, ISelectHandler, IDeselectHandler
                 noSaveColor.a = 0.2f;
                 continueText.color = noSaveColor;
             }
+            else
+            {
+                EventSystem.current.firstSelectedGameObject = this.gameObject;
+            }
         }
     }
 
     public void NewGameButton()
     {
-        SaveSystem.DeleteExistingSave();
+        //SaveSystem.DeleteExistingSave();
         SceneManager.LoadScene("DirtCave0");
     }
 
