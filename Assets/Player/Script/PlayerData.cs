@@ -34,9 +34,11 @@ public class PlayerData
     public int copperShard = 0;
     public int scaleShard = 0;
 
+    public int[] inventoryItemAmount; // all item
+
     public List<Talisman.TalismanName> foundTalismans = new List<Talisman.TalismanName>();
     public Talisman.TalismanName equippedTalismanName = Talisman.TalismanName.wanderer;
-    public float[] redToolsCurrentCharge;
+    public float[] redToolsCurrentCharge; // all tool
     public List<RedTool.ToolName> foundRedTools = new List<RedTool.ToolName>();
     public List<RedTool.ToolName> equippedRedTools = new List<RedTool.ToolName>();
     public int selectedRedToolId;

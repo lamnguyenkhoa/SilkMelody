@@ -13,6 +13,9 @@ public class GameMaster : MonoBehaviour
     [Header("Debug")]
     public bool debugInventory;
 
+    [Header("InventoryData")]
+    public GameObject[] inventorySlotPrefabs; // Order matter.
+
     [Header("Talisman")]
     public GameObject[] talismanData; // prefabs
     public Talisman equippedTalisman; // Set the default talisman in inspector. Cannot null.
@@ -126,7 +129,17 @@ public class GameMaster : MonoBehaviour
         {
             playerData.redToolsCurrentCharge[i] = redToolData[i].maxCharge;
         }
+        playerData.inventoryItemAmount = new int[inventorySlotPrefabs.Length];
+        for (int i = 0; i < inventorySlotPrefabs.Length; i++)
+        {
+            playerData.inventoryItemAmount[i] = 0;
+        }
+        playerData.inventoryItemAmount[(int)InventoryItem.ItemName.verdantMantle] = 1;
+        playerData.inventoryItemAmount[(int)InventoryItem.ItemName.silkSpool] = 1;
+        playerData.inventoryItemAmount[(int)InventoryItem.ItemName.mask] = 1;
+        playerData.inventoryItemAmount[(int)InventoryItem.ItemName.needle] = 1;
 
+        // For debugging
         if (Application.isEditor && debugInventory)
         {
             foreach (var talismaPrefab in talismanData)

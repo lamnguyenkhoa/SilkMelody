@@ -62,6 +62,7 @@ MonoBehaviour:
     attackCooldown: 0.15
     parryWindow: 0.25
     parryCooldown: 1
+    toolCooldown: 0.35
     respawnScene: DirtCave0
     respawnChairName: 
     respawnPos: {x: 0, y: 0, z: 0}
@@ -86,8 +87,15 @@ MonoBehaviour:
     wallJump: 0
     doorSwitches: 000000
     bossDefeated: 000000
+    visitedRooms: []
   bgm: {fileID: 723737696}
   debugInventory: 0
+  inventorySlotPrefabs:
+  - {fileID: 475010677608141632, guid: 3487c6d860cfa5a468dda37aaf7f205b, type: 3}
+  - {fileID: 1311102287203912112, guid: 6548a3ac7ff828d41a2ebd55e9ffa83e, type: 3}
+  - {fileID: 9161044550701313846, guid: 705328680eef0a34dbba612117dbf725, type: 3}
+  - {fileID: 6367566741001451386, guid: 9e2001676f822304495aeea9cbbdbd13, type: 3}
+  - {fileID: 6566427743554660605, guid: e50c07c2cbc38d44c9aaed2fbb9480a8, type: 3}
   talismanData:
   - {fileID: 2189655057926892909, guid: 45206d6973ee08c4eb6908e6e963d5e7, type: 3}
   - {fileID: 5569097994143329607, guid: b4a86edfab965ed4b9a48c364b139331, type: 3}

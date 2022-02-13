@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class InventoryItemButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
@@ -10,7 +11,28 @@ public class InventoryItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
 
     private void OnEnable()
     {
-        selectFrame = transform.GetChild(0).gameObject;
+        selectFrame = transform.Find("SelectFrame").gameObject;
+
+        // Update amount / quantity text
+        if (transform.Find("Amount"))
+        {
+            TextMeshProUGUI amountText = transform.Find("Amount").GetComponent<TextMeshProUGUI>();
+            int amount = GameMaster.instance.playerData.inventoryItemAmount[(int)itemData.thisItemName];
+            if (amount > 1)
+            {
+                amountText.gameObject.SetActive(true);
+                amountText.text = amount.ToString();
+            }
+            else
+            {
+                amountText.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            // Does not contain "Amount" gameObject
+            return;
+        }
     }
 
     private void OnDisable()
