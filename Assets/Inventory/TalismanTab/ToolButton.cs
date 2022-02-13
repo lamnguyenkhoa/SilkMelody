@@ -13,8 +13,11 @@ public class ToolButton : MonoBehaviour, ISelectHandler, IDeselectHandler
     { red, blue, yellow };
     public ToolType toolType;
 
+    [DrawIf("toolType", ToolType.red)]
     public RedTool.ToolName redToolName;
+    [DrawIf("toolType", ToolType.blue)]
     public BlueTool.ToolName blueToolName;
+    [DrawIf("toolType", ToolType.yellow)]
     public YellowTool.ToolName yellowToolName;
 
     public Sprite emptyToolSprite;
