@@ -106,6 +106,7 @@ public class InventoryMenu : MonoBehaviour
                 if (currentTabIndex < 0)
                     currentTabIndex = inventoryMenuTabs.Length - 1;
                 UpdateInventoryMenuTab();
+                openInventorySound.Play();
             }
             else if (rightTabAction.WasPressedThisFrame())
             {
@@ -113,6 +114,7 @@ public class InventoryMenu : MonoBehaviour
                 if (currentTabIndex > (inventoryMenuTabs.Length - 1))
                     currentTabIndex = 0;
                 UpdateInventoryMenuTab();
+                openInventorySound.Play();
             }
         }
     }
