@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba01661b0ecf7cb45a350cf67bff3b35, type: 3}
+  m_Name: Crabber
+  m_EditorClassIdentifier: 
+  displayName: Crabber
+  enemyDescription: Big black crab that will attempt to jump on you to attack you.
+  flavourText: It may caught you by suprise with how far it can jump.
+  sprite: {fileID: 4015929612906773191, guid: a845f72c66d83af4dba0d643cbc08f81, type: 3}
+  thisEnemyType: 3

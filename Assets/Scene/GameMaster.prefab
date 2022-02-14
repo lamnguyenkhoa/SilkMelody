@@ -68,6 +68,7 @@ MonoBehaviour:
     respawnPos: {x: 0, y: 0, z: 0}
     copperShard: 0
     scaleShard: 0
+    inventoryItemAmount: 
     foundTalismans: 
     equippedTalismanName: 0
     redToolsCurrentCharge: []
@@ -88,6 +89,7 @@ MonoBehaviour:
     doorSwitches: 000000
     bossDefeated: 000000
     visitedRooms: []
+    enemyKillCount: 
   bgm: {fileID: 723737696}
   debugInventory: 0
   inventorySlotPrefabs:
@@ -96,6 +98,14 @@ MonoBehaviour:
   - {fileID: 9161044550701313846, guid: 705328680eef0a34dbba612117dbf725, type: 3}
   - {fileID: 6367566741001451386, guid: 9e2001676f822304495aeea9cbbdbd13, type: 3}
   - {fileID: 6566427743554660605, guid: e50c07c2cbc38d44c9aaed2fbb9480a8, type: 3}
+  enemyLoreData:
+  - {fileID: 11400000, guid: eb0e515d3b138054d9a9ca9d53b0afab, type: 2}
+  - {fileID: 11400000, guid: 1b44afb35985d9446bd6a55a4b78f340, type: 2}
+  - {fileID: 11400000, guid: 99ae56eb4de8abe49a01f972f0ca66ab, type: 2}
+  - {fileID: 11400000, guid: f6bcfc4be75c88e468a699611ac7abcd, type: 2}
+  - {fileID: 11400000, guid: f2a52ee1b6168d64a9179c2474f02fff, type: 2}
+  - {fileID: 11400000, guid: f87c9cf664fecb94b8823a7b6e8af0d6, type: 2}
+  - {fileID: 11400000, guid: a1c9176e5e2652f409c2207fbcf66c92, type: 2}
   talismanData:
   - {fileID: 2189655057926892909, guid: 45206d6973ee08c4eb6908e6e963d5e7, type: 3}
   - {fileID: 5569097994143329607, guid: b4a86edfab965ed4b9a48c364b139331, type: 3}
@@ -120,7 +130,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1619edfa649324240b8f43a05d5719ab, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

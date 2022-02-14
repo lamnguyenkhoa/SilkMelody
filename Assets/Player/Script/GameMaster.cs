@@ -16,6 +16,9 @@ public class GameMaster : MonoBehaviour
     [Header("InventoryData")]
     public GameObject[] inventorySlotPrefabs; // Order matter.
 
+    [Header("JournalData")]
+    public EnemyLore[] enemyLoreData; // Order matter.
+
     [Header("Talisman")]
     public GameObject[] talismanData; // prefabs
     public Talisman equippedTalisman; // Set the default talisman in inspector. Cannot null.
@@ -125,15 +128,16 @@ public class GameMaster : MonoBehaviour
         worldData = new WorldData();
         playerData.foundTalismans.Add(Talisman.TalismanName.wanderer);
         playerData.redToolsCurrentCharge = new float[redToolData.Length];
+
         for (int i = 0; i < redToolData.Length; i++)
-        {
             playerData.redToolsCurrentCharge[i] = redToolData[i].maxCharge;
-        }
         playerData.inventoryItemAmount = new int[inventorySlotPrefabs.Length];
         for (int i = 0; i < inventorySlotPrefabs.Length; i++)
-        {
             playerData.inventoryItemAmount[i] = 0;
-        }
+        worldData.enemyKillCount = new int[enemyLoreData.Length];
+        for (int i = 0; i < enemyLoreData.Length; i++)
+            worldData.enemyKillCount[i] = 0;
+
         playerData.inventoryItemAmount[(int)InventoryItem.ItemName.verdantMantle] = 1;
         playerData.inventoryItemAmount[(int)InventoryItem.ItemName.silkSpool] = 1;
         playerData.inventoryItemAmount[(int)InventoryItem.ItemName.mask] = 1;

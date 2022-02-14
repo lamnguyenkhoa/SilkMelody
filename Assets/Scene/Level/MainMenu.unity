@@ -6613,6 +6613,7 @@ GameObject:
   - component: {fileID: 1553384736}
   - component: {fileID: 1553384738}
   - component: {fileID: 1553384737}
+  - component: {fileID: 1553384739}
   m_Layer: 5
   m_Name: Version
   m_TagString: Untagged
@@ -6736,6 +6737,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553384735}
   m_CullTransparentMesh: 1
+--- !u!114 &1553384739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553384735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba2374ff1700b504081528de83966449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1650454891
 GameObject:
   m_ObjectHideFlags: 0
@@ -7492,10 +7505,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 723737696, guid: a036eade283557848b60b5e0d1e677f3, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4108478404735970064, guid: a036eade283557848b60b5e0d1e677f3, type: 3}
       propertyPath: m_Name
       value: GameMaster

@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     public bool isDead;
     private float iFrame = 0.05f;
     public bool noContactDamage;
+    public EnemyLore.EnemyType enemyType;
 
     [Header("OnDeath")]
     public GameObject dropLoot;
@@ -113,6 +114,7 @@ public class Enemy : MonoBehaviour
     public void Death()
     {
         // Change collision and sprite
+        GameMaster.instance.worldData.enemyKillCount[(int)enemyType] += 1;
         bodyCollider.enabled = false;
         Color deathColor = sprite.color;
         deathColor.r = 0.3f; deathColor.b = 0.3f; deathColor.g = 0.3f;

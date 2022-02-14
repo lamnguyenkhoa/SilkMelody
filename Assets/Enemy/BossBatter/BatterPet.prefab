@@ -141,6 +141,7 @@ MonoBehaviour:
   shouldStopMoving: 0
   isDead: 0
   noContactDamage: 1
+  enemyType: 6
   dropLoot: {fileID: 0}
   dropAmount: 0
   lootPos: {fileID: 6046852267933630528}
@@ -150,6 +151,7 @@ MonoBehaviour:
   flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
   sprite: {fileID: 6046852267690609736}
   damagedSound: {fileID: 6071085082491103481}
+  PSPrefabs: []
 --- !u!114 &6046852267933630532
 MonoBehaviour:
   m_ObjectHideFlags: 0

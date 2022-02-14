@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba01661b0ecf7cb45a350cf67bff3b35, type: 3}
+  m_Name: Dipsa
+  m_EditorClassIdentifier: 
+  displayName: Dipsa
+  enemyDescription: Shoot orange bullet at you.
+  flavourText: They are fragile and easy to deal with. But in large number they will
+    spell trouble.
+  sprite: {fileID: 2921602499042173684, guid: 5c718a82b586de44d850e2fdeacec247, type: 3}
+  thisEnemyType: 1

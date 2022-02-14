@@ -20,10 +20,13 @@ public class WorldData
     { Batter, Cela }
 
     [Header("Boss")]
-    public bool[] bossDefeated = new bool[3];
+    public bool[] bossDefeated = new bool[2]; // For conditional trigger
 
     [Header("Map")]
     public List<string> visitedRooms = new List<string>();
+
+    [Header("Other")]
+    public int[] enemyKillCount;
 
     public void ResetToNewGameState()
     {

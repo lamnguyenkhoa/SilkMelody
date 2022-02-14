@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba01661b0ecf7cb45a350cf67bff3b35, type: 3}
+  m_Name: LapisLazer
+  m_EditorClassIdentifier: 
+  displayName: Lapis Lazer
+  enemyDescription: Strange flower that can shoot laser at your position and deal
+    high damage.
+  flavourText: Why a plant want to kill me?
+  sprite: {fileID: -2691707114176264495, guid: aaf56f3798cd36a42b4142141a969eb0, type: 3}
+  thisEnemyType: 4

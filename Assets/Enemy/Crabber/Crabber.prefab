@@ -58,6 +58,7 @@ MonoBehaviour:
   shouldStopMoving: 0
   isDead: 0
   noContactDamage: 0
+  enemyType: 3
   dropLoot: {fileID: 2142000902567130090, guid: 56dbe5fb90cf17147948a203d3e34035, type: 3}
   dropAmount: 4
   lootPos: {fileID: 4488178643033096145}
