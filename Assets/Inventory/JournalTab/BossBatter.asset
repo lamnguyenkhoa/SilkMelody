@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba01661b0ecf7cb45a350cf67bff3b35, type: 3}
   m_Name: BossBatter
   m_EditorClassIdentifier: 
-  displayName: Bettle Batter
+  displayName: Beetle Batter
   enemyDescription: Bulky beetle wearing a baseball outfit. Can summon its weird
     ring-like contraption to help in combat.
   flavourText: Why is this one is so out of place?

@@ -37,9 +37,19 @@ public class InventoryPage : MonoBehaviour
         int[] inventoryItemAmount = GameMaster.instance.playerData.inventoryItemAmount;
 
         // Yes I know there are faster whay with for-loop
-        // But we wanna use a bunch of if to control their appear order in grid
+        // But we wanna use a bunch of if to control their appearance order in grid
+        // Need to "if" for ALL item
         if (inventoryItemAmount[(int)InventoryItem.ItemName.verdantMantle] > 0)
             Instantiate(GameMaster.instance.inventorySlotPrefabs[(int)InventoryItem.ItemName.verdantMantle], inventoryGrid.transform, false);
+
+        if (inventoryItemAmount[(int)InventoryItem.ItemName.notebookQuill] > 0)
+            Instantiate(GameMaster.instance.inventorySlotPrefabs[(int)InventoryItem.ItemName.notebookQuill], inventoryGrid.transform, false);
+
+        if (inventoryItemAmount[(int)InventoryItem.ItemName.carapaceBackpack] > 0)
+            Instantiate(GameMaster.instance.inventorySlotPrefabs[(int)InventoryItem.ItemName.carapaceBackpack], inventoryGrid.transform, false);
+
+        if (inventoryItemAmount[(int)InventoryItem.ItemName.silkbindSandal] > 0)
+            Instantiate(GameMaster.instance.inventorySlotPrefabs[(int)InventoryItem.ItemName.silkbindSandal], inventoryGrid.transform, false);
 
         if (inventoryItemAmount[(int)InventoryItem.ItemName.coolKey] > 0)
             Instantiate(GameMaster.instance.inventorySlotPrefabs[(int)InventoryItem.ItemName.coolKey], inventoryGrid.transform, false);

@@ -37,6 +37,7 @@ public class SilkbindSandal : MonoBehaviour
         {
             used = true;
             worldState.doubleJump = true;
+            GameMaster.instance.playerData.inventoryItemAmount[(int)InventoryItem.ItemName.silkbindSandal] += 1;
             player.playerStat.extraJump += 1;
             StartCoroutine(DoubleJumpTutorial(player));
             GetComponent<Collider2D>().enabled = false;

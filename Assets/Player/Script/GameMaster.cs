@@ -142,6 +142,8 @@ public class GameMaster : MonoBehaviour
         playerData.inventoryItemAmount[(int)InventoryItem.ItemName.silkSpool] = 1;
         playerData.inventoryItemAmount[(int)InventoryItem.ItemName.mask] = 1;
         playerData.inventoryItemAmount[(int)InventoryItem.ItemName.needle] = 1;
+        playerData.inventoryItemAmount[(int)InventoryItem.ItemName.carapaceBackpack] = 1;
+        playerData.inventoryItemAmount[(int)InventoryItem.ItemName.notebookQuill] = 1;
 
         // For debugging
         if (Application.isEditor && debugInventory)

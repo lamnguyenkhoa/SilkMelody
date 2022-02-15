@@ -7,7 +7,7 @@ public class InventoryItem : ItemData
 {
     public enum ItemName
     {
-        verdantMantle, silkSpool, mask, needle, coolKey
+        verdantMantle, silkSpool, mask, needle, coolKey, notebookQuill, carapaceBackpack, silkbindSandal
     }
     public ItemName thisItemName;
 }

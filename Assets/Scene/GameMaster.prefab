@@ -91,13 +91,16 @@ MonoBehaviour:
     visitedRooms: []
     enemyKillCount: 
   bgm: {fileID: 723737696}
-  debugInventory: 0
+  debugInventory: 1
   inventorySlotPrefabs:
   - {fileID: 475010677608141632, guid: 3487c6d860cfa5a468dda37aaf7f205b, type: 3}
   - {fileID: 1311102287203912112, guid: 6548a3ac7ff828d41a2ebd55e9ffa83e, type: 3}
   - {fileID: 9161044550701313846, guid: 705328680eef0a34dbba612117dbf725, type: 3}
   - {fileID: 6367566741001451386, guid: 9e2001676f822304495aeea9cbbdbd13, type: 3}
   - {fileID: 6566427743554660605, guid: e50c07c2cbc38d44c9aaed2fbb9480a8, type: 3}
+  - {fileID: 5760083326480760256, guid: 6c7e91c0a4978a344b998ee14ef56517, type: 3}
+  - {fileID: 1446873144896664509, guid: a3179827f0f64484db70ef6bacbab155, type: 3}
+  - {fileID: 5760083326480760256, guid: bd13da5240e2af045a1c5aafa528268b, type: 3}
   enemyLoreData:
   - {fileID: 11400000, guid: eb0e515d3b138054d9a9ca9d53b0afab, type: 2}
   - {fileID: 11400000, guid: 1b44afb35985d9446bd6a55a4b78f340, type: 2}
