@@ -76,11 +76,27 @@ public class ToolButton : MonoBehaviour, ISelectHandler, IDeselectHandler
             ToolInfoBox.instance.image.sprite = emptyToolSprite;
             ToolInfoBox.instance.image.enabled = false;
         }
+
+        ScrollPanel();
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
         selectFrame.SetActive(false);
+    }
+
+    private void ScrollPanel()
+    {
+        Canvas.ForceUpdateCanvases();
+
+        RectTransform rect = GetComponent<RectTransform>();
+        RectTransform groupRect = transform.parent.GetComponent<RectTransform>();
+        RectTransform panelRect = groupRect.parent.GetComponent<RectTransform>();
+        RectTransform scrollRect = panelRect.parent.GetComponent<RectTransform>();
+
+        float itemPosY = rect.anchoredPosition.y + groupRect.anchoredPosition.y;
+        float endPosY = 0 - (scrollRect.sizeDelta.y / 2) - itemPosY;
+        panelRect.anchoredPosition = new Vector2(panelRect.anchoredPosition.x, endPosY);
     }
 
     private void CheckIfToolFound()
