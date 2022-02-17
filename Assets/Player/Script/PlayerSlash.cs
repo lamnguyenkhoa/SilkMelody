@@ -17,6 +17,7 @@ public class PlayerSlash : MonoBehaviour
     private bool impacted = false;
     private Collider2D attackCollider;
     public GameObject slashSpark;
+    public GameObject slashPE;
 
     [Header("SpecialAttack")]
     public bool canResetDash;
@@ -95,8 +96,8 @@ public class PlayerSlash : MonoBehaviour
             /* https://forum.unity.com/threads/look-rotation-2d-equivalent.611044/ */
             float randomRotateValue = Random.Range(-10f, 10f);
             Vector3 rotatedVectorToTarget = Quaternion.Euler(0, 0, 90 + randomRotateValue) * knockbackForce;
-            GameObject newSP = Instantiate(slashSpark, enemy.transform.position, Quaternion.LookRotation(Vector3.forward, rotatedVectorToTarget));
-            Quaternion q = Quaternion.AngleAxis(10f, Vector3.forward);
+            Instantiate(slashSpark, enemy.transform.position, Quaternion.LookRotation(Vector3.forward, rotatedVectorToTarget));
+            Instantiate(slashPE, enemy.transform.position, Quaternion.LookRotation(knockbackForce, Vector3.up));
 
             playerStat.currentSilk += 1;
             playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);

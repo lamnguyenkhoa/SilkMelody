@@ -599,9 +599,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 251096917213728707}
+  - component: {fileID: 1553535645527644202}
   - component: {fileID: 377332941879058409}
   - component: {fileID: 6468432894482900958}
-  - component: {fileID: 1553535645527644202}
   - component: {fileID: 1478593772}
   m_Layer: 9
   m_Name: SlashPrefab
@@ -625,6 +625,66 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1553535645527644202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6183813211911635922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28043dda53d915d419ab942542bf7db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  sparkLight: {fileID: 1786011910}
+  playerStat:
+    maxHp: 5
+    currentHp: 5
+    currentSilk: 0
+    maxSilk: 8
+    silkHeal: 3
+    damage: 4
+    moveSpeed: 7
+    jumpForce: 12
+    dashForce: 20
+    maxDash: 1
+    extraJump: 0
+    dashTime: 0.25
+    enemyKnockbackPower: 5
+    selfKnockbackPower: 1
+    attackCooldown: 0.15
+    parryWindow: 0.25
+    parryCooldown: 1
+    toolCooldown: 0.35
+    respawnScene: DirtCave0
+    respawnChairName: 
+    respawnPos: {x: 0, y: 0, z: 0}
+    copperShard: 0
+    scaleShard: 0
+    inventoryItemAmount: 
+    foundTalismans: 
+    equippedTalismanName: 0
+    redToolsCurrentCharge: []
+    foundRedTools: 
+    equippedRedTools: 
+    selectedRedToolId: 0
+    foundBlueTools: 
+    equippedBlueTools: 
+    foundYellowTools: 
+    equippedYellowTools: 
+    stunTime: 0.4
+    iFrameTime: 1.5
+  knockbackPower: 1
+  fadeSpeedAccel: 100
+  slashSpark: {fileID: 5897450137694248913, guid: 20474b93c6fb0f24390a979164e13bbc, type: 3}
+  slashPE: {fileID: 4479168512030915676, guid: 9cdc33c45b674c04ba514361e34a1fa4, type: 3}
+  canResetDash: 0
+  piercing: 0
+  hasRecoil: 0
+  isDashAttack: 0
+  disappearTime: 0.15
 --- !u!212 &377332941879058409
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -703,64 +763,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.3593998, y: 1.6225717}
   m_EdgeRadius: 0
---- !u!114 &1553535645527644202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6183813211911635922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28043dda53d915d419ab942542bf7db0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  sparkLight: {fileID: 1786011910}
-  playerStat:
-    maxHp: 5
-    currentHp: 5
-    currentSilk: 0
-    maxSilk: 8
-    silkHeal: 3
-    damage: 4
-    moveSpeed: 7
-    jumpForce: 12
-    dashForce: 20
-    maxDash: 1
-    extraJump: 0
-    dashTime: 0.25
-    enemyKnockbackPower: 5
-    selfKnockbackPower: 1
-    attackCooldown: 0.15
-    parryWindow: 0.25
-    parryCooldown: 1
-    toolCooldown: 0.35
-    respawnScene: DirtCave0
-    respawnChairName: 
-    respawnPos: {x: 0, y: 0, z: 0}
-    copperShard: 0
-    scaleShard: 0
-    inventoryItemAmount: 
-    foundTalismans: 
-    equippedTalismanName: 0
-    redToolsCurrentCharge: []
-    foundRedTools: 
-    equippedRedTools: 
-    selectedRedToolId: 0
-    foundBlueTools: 
-    equippedBlueTools: 
-    foundYellowTools: 
-    equippedYellowTools: 
-    stunTime: 0.4
-    iFrameTime: 1.5
-  knockbackPower: 1
-  slashSpark: {fileID: 5897450137694248913, guid: 20474b93c6fb0f24390a979164e13bbc, type: 3}
-  canResetDash: 0
-  piercing: 0
-  hasRecoil: 0
-  isDashAttack: 0
-  disappearTime: 0.15
 --- !u!82 &1478593772
 AudioSource:
   m_ObjectHideFlags: 0
