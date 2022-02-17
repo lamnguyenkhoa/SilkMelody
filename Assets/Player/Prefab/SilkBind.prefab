@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 260770743590998979}
   - component: {fileID: 260770743590998976}
   m_Layer: 0
-  m_Name: SilkBindVFX
+  m_Name: SilkBind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

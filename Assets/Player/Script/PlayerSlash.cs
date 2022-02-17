@@ -16,6 +16,7 @@ public class PlayerSlash : MonoBehaviour
     private float lightOriginalIntensitiy;
     private bool impacted = false;
     private Collider2D attackCollider;
+    public GameObject slashSpark;
 
     [Header("SpecialAttack")]
     public bool canResetDash;
@@ -61,16 +62,6 @@ public class PlayerSlash : MonoBehaviour
         }
     }
 
-    //public void PlayHitEnemySound()
-    //{
-    //    float randomVolume = Random.Range(0.8f, 1f);
-    //    float randomPitch = Random.Range(0.7f, 1.3f);
-
-    //    hitEnemySound.volume = randomVolume;
-    //    hitEnemySound.pitch = randomPitch;
-    //    hitEnemySound.Play();
-    //}
-
     private void EnemyImpactEffect()
     {
         sparkLight.enabled = true;
@@ -99,6 +90,13 @@ public class PlayerSlash : MonoBehaviour
             // Push enemy backward slightly
             Vector2 knockbackForce = (Vector2)(enemy.transform.position - player.transform.position).normalized * knockbackPower;
             enemy.Damaged(playerStat.damage, knockbackForce);
+
+            /* https://forum.unity.com/threads/look-rotation-2d-equivalent.611044/ */
+            float randomRotateValue = Random.Range(-10f, 10f);
+            Vector3 rotatedVectorToTarget = Quaternion.Euler(0, 0, 90 + randomRotateValue) * knockbackForce;
+            GameObject newSP = Instantiate(slashSpark, enemy.transform.position, Quaternion.LookRotation(Vector3.forward, rotatedVectorToTarget));
+            Quaternion q = Quaternion.AngleAxis(10f, Vector3.forward);
+
             playerStat.currentSilk += 1;
             playerStat.currentSilk = Mathf.Clamp(playerStat.currentSilk, 0, playerStat.maxSilk);
             // Play hit/damaged effect on enemy (if there are multiple enemies within attack)
