@@ -644,24 +644,16 @@ public class Player : MonoBehaviour
 
     public void AttackDealDamage(bool isUpAttack)
     {
-        PlayerSlash slash = Instantiate(slashPrefab);
-        slash.transform.position = transform.position;
+        PlayerSlash slash = Instantiate(slashPrefab, transform, false);
+        slash.transform.localPosition = Vector3.zero;
         if (isUpAttack)
         {
-            slash.transform.position = transform.position + Vector3.up * 0.5f;
-            slash.transform.rotation = Quaternion.Euler(0, 0, 90);
-            if (isFacingLeft)
-                slash.transform.localScale = new Vector3(1, -1, 1);
+            slash.transform.localPosition += Vector3.up * 0.5f;
+            slash.transform.localRotation = Quaternion.Euler(0, 0, 90);
         }
         else
         {
-            if (isFacingLeft)
-            {
-                slash.transform.position += Vector3.right * -0.5f;
-                slash.transform.localScale = new Vector3(-1, 1, 1);
-            }
-            else
-                slash.transform.position += Vector3.right * 0.5f;
+            slash.transform.localPosition += Vector3.right * 1f;
         }
         slash.player = this;
         slash.knockbackPower = playerStat.enemyKnockbackPower;

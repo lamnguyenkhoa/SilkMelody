@@ -12,7 +12,7 @@ public class PlayerSlash : MonoBehaviour
     private SpriteRenderer sprite;
     private Color fadeColor;
     private float fadeSpeed = 0f;
-    private float fadeSpeedAccel = 100f;
+    public float fadeSpeedAccel = 100f;
     private float lightOriginalIntensitiy;
     private bool impacted = false;
     private Collider2D attackCollider;
@@ -45,20 +45,21 @@ public class PlayerSlash : MonoBehaviour
         {
             if (attackCollider.enabled)
                 attackCollider.enabled = false;
+            fadeSpeedAccel = 100f;
+        }
 
-            // Fade the sprite
-            if (fadeColor.a > 0)
-            {
-                fadeColor.a -= fadeSpeed * Time.deltaTime;
-                fadeColor.a = Mathf.Clamp(fadeColor.a, 0, 1);
-                sprite.color = fadeColor;
-                fadeSpeed += fadeSpeedAccel * Time.deltaTime;
-                sparkLight.intensity = lightOriginalIntensitiy * fadeColor.a;
-            }
-            else
-            {
-                Destroy(this.gameObject, 1f);
-            }
+        // Fade the sprite
+        if (fadeColor.a > 0)
+        {
+            fadeColor.a -= fadeSpeed * Time.deltaTime;
+            fadeColor.a = Mathf.Clamp(fadeColor.a, 0, 1);
+            sprite.color = fadeColor;
+            fadeSpeed += fadeSpeedAccel * Time.deltaTime;
+            sparkLight.intensity = lightOriginalIntensitiy * fadeColor.a;
+        }
+        else
+        {
+            Destroy(this.gameObject, 1f);
         }
     }
 
