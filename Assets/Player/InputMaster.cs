@@ -434,6 +434,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""550cbf24-9147-47da-9e78-9c02de4fadd2"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""6296404f-f2bd-4003-bdec-c466c983a11c"",
                     ""path"": ""<Keyboard>/v"",
                     ""interactions"": """",
