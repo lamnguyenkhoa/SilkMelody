@@ -10,6 +10,7 @@ public class CinemachineShake : MonoBehaviour
     private float shakeTimerTotal;
     public static CinemachineShake instance;
     private float startingIntensity;
+    private bool unscaled;
 
     private void Start()
     {
@@ -21,21 +22,29 @@ public class CinemachineShake : MonoBehaviour
     {
         if (shakeTimer > 0f)
         {
-            shakeTimer -= Time.deltaTime;
+            if (unscaled)
+                shakeTimer -= Time.unscaledDeltaTime;
+            else
+                shakeTimer -= Time.deltaTime;
+
             if (shakeTimer <= 0f)
             {
                 CinemachineBasicMultiChannelPerlin cmPerlin = cmVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
                 cmPerlin.m_AmplitudeGain = Mathf.Lerp(startingIntensity, 0f, 1 - (shakeTimer / shakeTimerTotal));
+                GameObject.Find("Main Camera").GetComponent<CinemachineBrain>().m_IgnoreTimeScale = false;
             }
         }
     }
 
-    public void ShakeCamera(float intensity, float time)
+    public void ShakeCamera(float intensity, float time, bool unscaled)
     {
         CinemachineBasicMultiChannelPerlin cmPerlin = cmVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         cmPerlin.m_AmplitudeGain = intensity;
         startingIntensity = intensity;
         shakeTimer = time;
         shakeTimerTotal = time;
+        this.unscaled = unscaled;
+
+        GameObject.Find("Main Camera").GetComponent<CinemachineBrain>().m_IgnoreTimeScale = unscaled;
     }
 }

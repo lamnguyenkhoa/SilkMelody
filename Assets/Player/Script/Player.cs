@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
     private GameObject gossamerInstance;
     public GameObject silkBurstPrefab;
     private GameObject silkBurstInstance;
+    public GameObject hurtPE;
+    public GameObject hurtSpark;
     public PlayerData playerStat;
 
     [Header("Movement")]
@@ -496,6 +498,11 @@ public class Player : MonoBehaviour
         {
             GameObject.Find("Global Volume").GetComponent<PPVolumeController>().DamagedPPEffect();
         }
+        CinemachineShake.instance.ShakeCamera(5f, 0.3f, true);
+        float randomRotateValue = Random.Range(-15f, 15f);
+        GameObject tmp = Instantiate(hurtSpark, transform.position, Quaternion.identity);
+        tmp.transform.localRotation = Quaternion.Euler(0, 0, randomRotateValue);
+        Instantiate(hurtPE, transform.position, Quaternion.identity);
 
         if (playerStat.currentHp <= 0)
         {

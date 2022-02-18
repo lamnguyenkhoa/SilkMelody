@@ -326,7 +326,7 @@ public class BossBatterAI : MonoBehaviour
             if (Physics2D.OverlapCircle(wallChecker.position, 1f, wallMask))
             {
                 collideWall = true;
-                CinemachineShake.instance.ShakeCamera(5f, 0.5f);
+                CinemachineShake.instance.ShakeCamera(5f, 0.5f, false);
                 wallCrashSound.Play();
                 SpawnBoulder();
             }
@@ -404,7 +404,7 @@ public class BossBatterAI : MonoBehaviour
 
         // Slam
         anim.SetInteger("slamState", 3);
-        CinemachineShake.instance.ShakeCamera(5f, 0.5f);
+        CinemachineShake.instance.ShakeCamera(5f, 0.5f, false);
         groundCrashSound.Play();
         // Create shockwave (default sprite direction is right)
         Shockwave shockwaveRight = Instantiate(shockwavePrefab, transform.position + new Vector3(1f, 0f), Quaternion.identity);

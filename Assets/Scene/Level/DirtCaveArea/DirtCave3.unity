@@ -8164,7 +8164,7 @@ MonoBehaviour:
     Press Start to open Inventory.
 
     Press
-    LB to use tool after equip it.'
+    RB to use tool after equip it.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10052,7 +10052,7 @@ MonoBehaviour:
     Press Start to open Inventory.
 
     Press
-    L1 to use tool after equip it.'
+    R1 to use tool after equip it.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
