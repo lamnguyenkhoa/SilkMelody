@@ -56,6 +56,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/Level/DirtCaveArea/DirtCave15.unity
     guid: ea7a396b45669094e91c47d88b56016b
+  - enabled: 1
+    path: Assets/Scene/Level/MossyCavernArea/MossyCavern0.unity
+    guid: bff6eb27c004a554f855cdbbda5f8063
+  - enabled: 1
+    path: Assets/Scene/Level/MossyCavernArea/MossyCavern1.unity
+    guid: c6a324f063020ac40bfd8caef73a745f
   - enabled: 0
     path: Assets/Scene/Level/TestArea/LamTestScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729

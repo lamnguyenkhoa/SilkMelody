@@ -41,11 +41,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Platform
-    uniqueID: 1623693549
-    locked: 0
   - name: Entity
     uniqueID: 2997963177
+    locked: 0
+  - name: Platform
+    uniqueID: 1623693549
     locked: 0
   - name: Foreground
     uniqueID: 2012230099
