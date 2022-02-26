@@ -62,6 +62,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/Level/MossyCavernArea/MossyCavern1.unity
     guid: c6a324f063020ac40bfd8caef73a745f
+  - enabled: 1
+    path: Assets/Scene/Level/MossyCavernArea/MossyCavern2.unity
+    guid: d69fe67658f681448883e8012c887175
   - enabled: 0
     path: Assets/Scene/Level/TestArea/LamTestScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
