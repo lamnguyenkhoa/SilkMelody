@@ -64,6 +64,11 @@ public class InventoryMenu : MonoBehaviour
 
     private void Update()
     {
+        if (player.disableInventoryMenu)
+        {
+            return;
+        }
+
         // Open menu - talisman
         if (openMenuAction.WasPressedThisFrame() && !player.inMenu)
         {

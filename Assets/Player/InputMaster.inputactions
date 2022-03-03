@@ -938,6 +938,33 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Dialogue",
+            "id": "4b8c316f-bd4d-4354-89a7-eb7e8753f43b",
+            "actions": [
+                {
+                    "name": "Continue",
+                    "type": "Button",
+                    "id": "a342a3dd-b775-47e5-ad4a-1edc257eb2c6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "98fa902c-d7c8-4ea3-8700-083c3cadf5bc",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Continue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

@@ -92,6 +92,7 @@ public class Player : MonoBehaviour
     private Coroutine parryCoroutine;
     public Material flashMat;
     private Material originalMaterial;
+    public bool disableInventoryMenu;
 
     public enum State
     { idle, running, jumping, falling, hurt, dashing, ledgeGrabbing }
@@ -99,7 +100,7 @@ public class Player : MonoBehaviour
     { none, paralyzed, slowed, drained };
 
     public static Player instance;
-    private InputMaster inputMaster;
+    public InputMaster inputMaster;
 
     #endregion Variables
 
@@ -704,6 +705,18 @@ public class Player : MonoBehaviour
         inAttack = false;
         anim.SetBool("dashAttack", false);
         anim.SetBool("pogoAttack", false);
+    }
+
+    public void DisableGameplayControl(bool disable)
+    {
+        disableInventoryMenu = disable;
+        if (inputMaster != null)
+        {
+            if (disable)
+                inputMaster.Gameplay.Disable();
+            else
+                inputMaster.Gameplay.Enable();
+        }
     }
 
     #endregion Sub Functions

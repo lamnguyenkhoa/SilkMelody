@@ -4,37 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RestChair : MonoBehaviour
+public class RestChair : InRangeInteractable
 {
     public Transform sittingPos;
-    [SerializeField] private bool playerInRange;
     [SerializeField] private bool playerSitting;
-    [SerializeField] private Player player;
-    public GameObject interactText;
     public Image softFlash;
     public GameObject savingText;
-    private InputMaster inputMaster;
     public AudioSource saveSfx;
 
-    private void Awake()
+    protected override void Start()
     {
-        inputMaster = new InputMaster();
-    }
-
-    private void OnEnable()
-    {
-        inputMaster.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputMaster.Disable();
-    }
-
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        // Failsafe
+        base.Start();
         savingText.SetActive(false);
     }
 
@@ -111,25 +91,6 @@ public class RestChair : MonoBehaviour
         this.player = player;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.GetComponent<Player>())
-        {
-            playerInRange = true;
-            if (!playerSitting)
-                interactText.SetActive(true);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.GetComponent<Player>())
-        {
-            playerInRange = false;
-            interactText.SetActive(false);
-        }
-    }
-
     private IEnumerator SoftFlash()
     {
         Color fadeColor = softFlash.color;
@@ -148,5 +109,15 @@ public class RestChair : MonoBehaviour
         savingText.SetActive(true);
         yield return new WaitForSeconds(1f);
         savingText.SetActive(false);
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<Player>())
+        {
+            playerInRange = true;
+            if (!playerSitting)
+                interactText.SetActive(true);
+        }
     }
 }
