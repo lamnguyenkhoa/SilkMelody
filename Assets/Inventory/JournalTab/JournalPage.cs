@@ -24,7 +24,7 @@ public class JournalPage : MonoBehaviour
 
     private IEnumerator SetSelectedGameObject(GameObject selectedGameObject)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.01f);
         EventSystem.current.SetSelectedGameObject(selectedGameObject, new BaseEventData(EventSystem.current));
     }
 }

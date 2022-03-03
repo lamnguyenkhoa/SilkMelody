@@ -8,10 +8,20 @@ public class TalismanPage : MonoBehaviour
     public GameObject redGroup;
     public GameObject blueGroup;
     public GameObject yellowGroup;
+    public GameObject reminder;
 
     private void OnEnable()
     {
         SetFirstSelectedButton();
+        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        if (!player.resting)
+        {
+            reminder.SetActive(true);
+        }
+        else
+        {
+            reminder.SetActive(false);
+        }
     }
 
     public void SetFirstSelectedButton()
@@ -41,7 +51,7 @@ public class TalismanPage : MonoBehaviour
 
     private IEnumerator SetSelectedGameObject(GameObject selectedGameObject)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.01f);
         EventSystem.current.SetSelectedGameObject(selectedGameObject, new BaseEventData(EventSystem.current));
     }
 }
