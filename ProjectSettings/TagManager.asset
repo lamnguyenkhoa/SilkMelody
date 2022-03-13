@@ -47,6 +47,9 @@ TagManager:
   - name: Platform
     uniqueID: 1623693549
     locked: 0
+  - name: SlashEffect
+    uniqueID: 608739401
+    locked: 0
   - name: Foreground
     uniqueID: 2012230099
     locked: 0

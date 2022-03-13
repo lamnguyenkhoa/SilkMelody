@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Intensity: 0.4
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: a949b1b2ed98c76000000000
+  m_ApplyToSortingLayers: a949b1b2ed98c7600000000049a04824
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1365,7 +1365,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1297004119
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: -6769917992029995322, guid: 9ca34c7b670c60d4e95bb6313448c8ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6410,7 +6410,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1297004119
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: -1
   m_RenderMode: 0
   m_SortMode: 0
@@ -7116,6 +7116,7 @@ MonoBehaviour:
   inMenu: 0
   state: 0
   flashMat: {fileID: 2100000, guid: 1b9d425332bc20d44a85287f8d0c4b06, type: 2}
+  disableInventoryMenu: 0
 --- !u!114 &1179739879
 MonoBehaviour:
   m_ObjectHideFlags: 0
