@@ -17,5 +17,5 @@ MonoBehaviour:
     content: Hi there. I'm Horcat the Shopkeeper.
   - speaker: Tenroh
     content: Do you sell useful tools?
-  - speaker: Malig
-    content: I sell useful tools. Horcat has ware if you has shard.
+  - speaker: Horcat
+    content: I sell useful tools. Horcat has ware if you has shards.
