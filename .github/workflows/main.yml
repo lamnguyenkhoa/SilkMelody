@@ -1,6 +1,6 @@
 name: Build on Push/Merge
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   buildForAllSupportedPlatforms:
