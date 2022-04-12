@@ -3,7 +3,8 @@
 ## Summary
 
 A bootleg game.
-Status: On hold (but not dropped) cause I need to find internship :v
+
+Status: On hold (not dropped) cause I need to find internship :v
 
 ## Table of contents
 
