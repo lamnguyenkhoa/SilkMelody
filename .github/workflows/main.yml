@@ -1,6 +1,8 @@
 name: Build on Push/Merge
 
 on: [push, pull_request]
+  paths-ignore:
+    - '**.md'
 
 jobs:
   buildForAllSupportedPlatforms:
