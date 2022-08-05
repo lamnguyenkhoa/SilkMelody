@@ -14,6 +14,6 @@ public class EnemyLore : ScriptableObject
     public Sprite sprite;
 
     public enum EnemyType
-    { crawling, dipsa, twistedDipsa, crabber, lapisLazer, bossBatter, batterRing }
+    { crawling, dipsa, twistedDipsa, crabber, lapisLazer, bossBatter, batterRing, greatCrawler }
     public EnemyType thisEnemyType;
 }

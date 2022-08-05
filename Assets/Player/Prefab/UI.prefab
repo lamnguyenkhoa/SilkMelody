@@ -501,7 +501,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -602, y: 183.8}
+  m_AnchoredPosition: {x: -691, y: 249}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7628514514820793897
@@ -896,7 +896,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 131, y: -212}
+  m_AnchoredPosition: {x: 123, y: -160}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3802645025469726250
@@ -1409,7 +1409,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 130, y: -324}
+  m_AnchoredPosition: {x: 34, y: -254}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8368222960593159002
@@ -1469,11 +1469,23 @@ MonoBehaviour:
     attackCooldown: 0.15
     parryWindow: 0.25
     parryCooldown: 1
+    toolCooldown: 0.35
     respawnScene: DirtCave0
     respawnChairName: 
     respawnPos: {x: 0, y: 0, z: 0}
     copperShard: 0
     scaleShard: 0
+    inventoryItemAmount: 
+    foundTalismans: 
+    equippedTalismanName: 0
+    redToolsCurrentCharge: []
+    foundRedTools: 
+    equippedRedTools: 
+    selectedRedToolId: 0
+    foundBlueTools: 
+    equippedBlueTools: 
+    foundYellowTools: 
+    equippedYellowTools: 
     stunTime: 0.4
     iFrameTime: 1.5
 --- !u!114 &56716310
@@ -2022,7 +2034,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 219, y: -79}
+  m_AnchoredPosition: {x: 219, y: -27}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8368222961942203513

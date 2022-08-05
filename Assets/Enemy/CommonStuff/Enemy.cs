@@ -6,10 +6,11 @@ public class Enemy : MonoBehaviour
 {
     [Header("Stat")]
     public int maxHp;
-    [SerializeField] private int currentHp;
+    public int currentHp;
     public int damage;
     public bool knockbackAble = true;
     public bool isInvulnerable = false;
+    [HideInInspector]
     public bool shouldStopMoving = false;
     public bool isDead;
     private float iFrame = 0.05f;

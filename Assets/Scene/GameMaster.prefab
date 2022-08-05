@@ -109,6 +109,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f2a52ee1b6168d64a9179c2474f02fff, type: 2}
   - {fileID: 11400000, guid: f87c9cf664fecb94b8823a7b6e8af0d6, type: 2}
   - {fileID: 11400000, guid: a1c9176e5e2652f409c2207fbcf66c92, type: 2}
+  - {fileID: 11400000, guid: ae67d1fdb5786fc448918f416f1365f6, type: 2}
   talismanData:
   - {fileID: 2189655057926892909, guid: 45206d6973ee08c4eb6908e6e963d5e7, type: 3}
   - {fileID: 5569097994143329607, guid: b4a86edfab965ed4b9a48c364b139331, type: 3}
