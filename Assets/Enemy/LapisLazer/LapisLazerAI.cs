@@ -15,6 +15,9 @@ public class LapisLazerAI : MonoBehaviour
     public LayerMask groundMask;
     public LayerMask shootTargetMask;
     public GameObject pistilLight;
+    public AudioSource shootAudioSource;
+    public AudioClip chargeClip;
+    public AudioClip laserClip;
 
     private Enemy stat;
     private Transform player;
@@ -27,6 +30,7 @@ public class LapisLazerAI : MonoBehaviour
     {
         stat = GetComponent<Enemy>();
         player = GameObject.Find("Tenroh").transform;
+        shootAudioSource.Stop();
     }
 
     private void Update()
@@ -36,6 +40,7 @@ public class LapisLazerAI : MonoBehaviour
             StopAllCoroutines();
             pistilLight.SetActive(false);
             lineRenderer.positionCount = 0;
+            shootAudioSource.Stop();
             this.enabled = false;
         }
 
@@ -66,6 +71,9 @@ public class LapisLazerAI : MonoBehaviour
     {
         // Aiming
         isShooting = true;
+        shootAudioSource.Stop();
+        shootAudioSource.clip = chargeClip;
+        shootAudioSource.Play();
         Vector2 playerDirection = (player.position - transform.position).normalized;
         RaycastHit2D laserDestination = Physics2D.Raycast(transform.position, playerDirection, 100f, groundMask);
         lineRenderer.startWidth = beamAimWidth;
@@ -79,6 +87,9 @@ public class LapisLazerAI : MonoBehaviour
         yield return new WaitForSeconds(aimDuration);
 
         // Shoot
+        shootAudioSource.Stop();
+        shootAudioSource.clip = laserClip;
+        shootAudioSource.Play();
         lineRenderer.startWidth = beamDamageWidth;
         lineRenderer.endWidth = beamDamageWidth;
         RaycastHit2D hitCast = Physics2D.Raycast(transform.position, playerDirection, 100f, shootTargetMask);
