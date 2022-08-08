@@ -151,6 +151,9 @@ public class Enemy : MonoBehaviour
 
         StartCoroutine(FreezeTime());
 
+        // We delayed the actual destruction of enemy object so it's death effect (sound
+        // effect, loot, update game state, ...) can be finished. Until then, the enemy object
+        // is just invisible and inactive (will not interact with the game anymore).
         Destroy(this.gameObject, 10f);
     }
 
