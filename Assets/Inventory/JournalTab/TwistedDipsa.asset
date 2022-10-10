@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba01661b0ecf7cb45a350cf67bff3b35, type: 3}
   m_Name: TwistedDipsa
   m_EditorClassIdentifier: 
-  displayName: TwistedDipsa
+  displayName: Twisted Dipsa
   enemyDescription: Shoot three bullets. Red bullet will slow you, yellow bullet
     will paralyze you and blue bullet will drain your silks.
   flavourText: A dipsa that really good with gambling.
