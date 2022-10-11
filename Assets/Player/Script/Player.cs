@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isLedgeGrabbing;
     [SerializeField] private bool isDead;
     [SerializeField] private bool inSilkSkill;
+    [SerializeField] private bool toolAnimLock;
     [SerializeField] private bool isParrying;
     public bool resting;
 
@@ -156,7 +157,7 @@ public class Player : MonoBehaviour
 
         toolTimer += Time.deltaTime;
 
-        if (!resting && disableControlCounter == 0 && !isDashing && !isParalyzed && !inSilkSkill && !isParrying && !inMenu)
+        if (!resting && disableControlCounter == 0 && !isDashing && !isParalyzed && !inSilkSkill && !toolAnimLock && !isParrying && !inMenu)
         {
             HandleMovement();
 
@@ -490,6 +491,7 @@ public class Player : MonoBehaviour
         inAttack = false;
         isParalyzed = false;
         inSilkSkill = false;
+        toolAnimLock = false;
         isParrying = false;
         sprite.material = originalMaterial;
         anim.SetBool("dashAttack", false);
@@ -737,6 +739,25 @@ public class Player : MonoBehaviour
     public void EndAttackAnim()
     {
         inAttack = false;
+    }
+
+    public void BeginToolAnimLock()
+    {
+        toolAnimLock = true;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0f;
+    }
+
+    public void EndToolAnimLock()
+    {
+        toolAnimLock = false;
+        rb.gravityScale = originalGravityScale;
+    }
+
+    public void LifebloodNeedleEffect()
+    {
+        Heal(2);
+        StartCoroutine(FlashWhite());
     }
 
     public void BeginHeal()

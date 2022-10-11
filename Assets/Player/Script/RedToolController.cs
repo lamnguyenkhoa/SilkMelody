@@ -88,8 +88,13 @@ public class RedToolController : MonoBehaviour
 
     public void UseLifeBloodNeedle()
     {
-        player.Heal(2);
-        GameMaster.instance.playerData.redToolsCurrentCharge[(int)RedTool.ToolName.lifebloodNeedle] -= 1;
-        //GetComponent<PlayerSoundEffect>().PlaySoundEffect(PlayerSoundEffect.SoundEnum.throwing);
+
+        if (GameMaster.instance.playerData.redToolsCurrentCharge[(int)RedTool.ToolName.lifebloodNeedle] > 0)
+        {
+            GameMaster.instance.playerData.redToolsCurrentCharge[(int)RedTool.ToolName.lifebloodNeedle] -= 1;
+            player.anim.SetTrigger("useLifebloodNeedle");
+            GetComponent<PlayerSoundEffect>().PlaySoundEffect(PlayerSoundEffect.SoundEnum.throwing);
+        }
+
     }
 }

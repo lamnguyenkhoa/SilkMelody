@@ -21,6 +21,21 @@ public class PlayerAnimEventRef : MonoBehaviour
         player.EndAttackAnim();
     }
 
+    public void BeginToolAnimLock()
+    {
+        player.BeginToolAnimLock();
+    }
+
+    public void EndToolAnimLock()
+    {
+        player.EndToolAnimLock();
+    }
+
+    public void LifebloodNeedleEffect()
+    {
+        player.LifebloodNeedleEffect();
+    }
+
     public void BeginHeal()
     {
         player.BeginHeal();
