@@ -26,7 +26,8 @@ public class RedToolController : MonoBehaviour
                 break;
 
             case RedTool.ToolName.lifebloodNeedle:
-                Debug.Log("Used lifeblood needle");
+                Debug.Log("Used lifeblood needle. Should add extra 2 temporary hp, but for now will heal 2hp instead.");
+                UseLifeBloodNeedle();
                 break;
 
             default:
@@ -83,5 +84,12 @@ public class RedToolController : MonoBehaviour
             GameMaster.instance.playerData.redToolsCurrentCharge[(int)RedTool.ToolName.trippleKnife] -= 1;
             GetComponent<PlayerSoundEffect>().PlaySoundEffect(PlayerSoundEffect.SoundEnum.throwing);
         }
+    }
+
+    public void UseLifeBloodNeedle()
+    {
+        player.Heal(2);
+        GameMaster.instance.playerData.redToolsCurrentCharge[(int)RedTool.ToolName.lifebloodNeedle] -= 1;
+        //GetComponent<PlayerSoundEffect>().PlaySoundEffect(PlayerSoundEffect.SoundEnum.throwing);
     }
 }

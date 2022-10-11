@@ -719,6 +719,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Heal(int amount)
+    {
+        playerStat.currentHp += amount;
+        playerStat.currentHp = Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
+    }
+
     #endregion Sub Functions
 
     #region Animation Events
@@ -745,8 +751,7 @@ public class Player : MonoBehaviour
 
     public void ActualHeal()
     {
-        playerStat.currentHp += playerStat.silkHeal;
-        playerStat.currentHp = Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
+        Heal(playerStat.silkHeal);
         StartCoroutine(FlashWhite());
     }
 
