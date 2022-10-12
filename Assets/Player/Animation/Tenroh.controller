@@ -230,7 +230,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UseLifeBloodNeedle
+  m_Name: UseLifebloodNeedle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -854,8 +854,8 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: useToolId
-    m_Type: 3
+  - m_Name: useLifebloodNeedle
+    m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -881,9 +881,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 6
-    m_ConditionEvent: useToolId
-    m_EventTreshold: 3
+  - m_ConditionMode: 1
+    m_ConditionEvent: useLifebloodNeedle
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6635621353195868489}
   m_Solo: 0

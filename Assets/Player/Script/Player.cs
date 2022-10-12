@@ -465,8 +465,14 @@ public class Player : MonoBehaviour
         anim.SetInteger("state", (int)state);
     }
 
+    /// <summary>
+    /// Amount must be positive for dealing damage.
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <param name="knockbackDir"></param>
     public void Damaged(int amount, Vector3 knockbackDir)
     {
+        int originalAmount = amount;
         if (inIFrame || isDead) return;
         if (isParrying)
         {
@@ -476,6 +482,7 @@ public class Player : MonoBehaviour
             return;
         }
 
+        // Disable all active silk skills
         if (gossamerInstance != null)
             Destroy(gossamerInstance);
         if (silkBurstInstance != null)
@@ -483,9 +490,28 @@ public class Player : MonoBehaviour
 
         if (amount == 0)
             Debug.Log("This attack deal 0 damage!");
+
+        // Damage calculation
         soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.damaged);
+        if (amount <= playerStat.lifebloodHp) // Lifeblood hp absorb some damage
+        {
+            playerStat.lifebloodHp -= amount; // Should not reach 0
+            if (playerStat.lifebloodHp < 0)
+            {
+                playerStat.lifebloodHp = 0;
+                Debug.LogWarning("Lifeblood go negative! This should not happened");
+            }
+            amount = 0;
+        }
+        else
+        {
+            amount -= playerStat.lifebloodHp;
+            playerStat.lifebloodHp = 0;
+        }
         playerStat.currentHp -= amount;
         playerStat.currentHp = Mathf.Clamp(playerStat.currentHp, 0, playerStat.maxHp);
+
+        // Damaged after effect
         rb.gravityScale = originalGravityScale;
         isDashing = false;
         inAttack = false;
@@ -513,7 +539,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            StartCoroutine(DamagedFreezeTime(amount));
+            StartCoroutine(DamagedFreezeTime(originalAmount));
             StartCoroutine(IFrame());
             StartCoroutine(Stunned());
             rb.AddForce(knockbackDir * 5f + Vector3.up * 5f, ForceMode2D.Impulse);
@@ -756,7 +782,7 @@ public class Player : MonoBehaviour
 
     public void LifebloodNeedleEffect()
     {
-        Heal(2);
+        playerStat.lifebloodHp += 2;
         StartCoroutine(FlashWhite());
     }
 

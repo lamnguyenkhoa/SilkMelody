@@ -26,7 +26,6 @@ public class RedToolController : MonoBehaviour
                 break;
 
             case RedTool.ToolName.lifebloodNeedle:
-                Debug.Log("Used lifeblood needle. Should add extra 2 temporary hp, but for now will heal 2hp instead.");
                 UseLifeBloodNeedle();
                 break;
 

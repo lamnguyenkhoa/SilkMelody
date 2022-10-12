@@ -8,6 +8,7 @@ public class PlayerData
     [Header("Stat")]
     public int maxHp = 5;
     public int currentHp = 5;
+    public int lifebloodHp = 0;
     public int currentSilk = 0;
     public int maxSilk = 8;
     public int silkHeal = 3;
@@ -55,6 +56,7 @@ public class PlayerData
     {
         maxHp = 5;
         currentHp = 5;
+        lifebloodHp = 0;
         currentSilk = 0;
         maxSilk = 8;
         silkHeal = 3;
