@@ -7,6 +7,7 @@ public class RedToolController : MonoBehaviour
     private Player player;
     public Projectile throwBladeProj;
     public Projectile tripleKnifeProj;
+    public GameObject lifebloodNeedlePE;
 
     private void Start()
     {

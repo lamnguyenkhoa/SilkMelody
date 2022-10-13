@@ -783,7 +783,13 @@ public class Player : MonoBehaviour
     public void LifebloodNeedleEffect()
     {
         playerStat.lifebloodHp += 2;
-        StartCoroutine(FlashWhite());
+        StartCoroutine(FlashBlue());
+        GameObject effect = GetComponent<RedToolController>().lifebloodNeedlePE;
+        // Create a splash of lifeblood effect from the back and slightly upward
+        if (isFacingLeft)
+            Instantiate(effect, transform.position, Quaternion.LookRotation(new Vector3(1, 0.2f, 0), Vector3.up));
+        else
+            Instantiate(effect, transform.position, Quaternion.LookRotation(new Vector3(-1, 0.2f, 0), Vector3.up));
     }
 
     public void BeginHeal()
@@ -1004,9 +1010,19 @@ public class Player : MonoBehaviour
 
     private IEnumerator FlashWhite()
     {
+        sprite.color = new Color(1, 1, 1);
         sprite.material = flashMat;
         yield return new WaitForSeconds(0.25f);
         sprite.material = originalMaterial;
+    }
+
+    private IEnumerator FlashBlue()
+    {
+        sprite.material = flashMat;
+        sprite.color = new Color(0, 0.5f, 1);
+        yield return new WaitForSeconds(0.15f);
+        sprite.material = originalMaterial;
+        sprite.color = new Color(1, 1, 1);
     }
 
     #endregion Coroutines
