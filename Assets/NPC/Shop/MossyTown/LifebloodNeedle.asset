@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Lifeblood Needle
   price: 100
   image: {fileID: 21300000, guid: 51e7cb809cece264c9864d21013ee4af, type: 3}
+  description: AAAAAAAA

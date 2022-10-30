@@ -15,3 +15,5 @@ MonoBehaviour:
   itemName: Sentinel Talisman
   price: 400
   image: {fileID: 21300000, guid: 911a47bd2e788c04aba02f9830313933, type: 3}
+  description: DDDDDDDDDD
+  itemEnum: 2

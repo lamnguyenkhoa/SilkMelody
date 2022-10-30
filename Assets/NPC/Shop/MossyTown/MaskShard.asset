@@ -15,3 +15,5 @@ MonoBehaviour:
   itemName: Mask Shard
   price: 150
   image: {fileID: 21300000, guid: 61f0d15b7f03d8f4d9b1d99f3ac73358, type: 3}
+  description: SSSSSSSSS
+  itemEnum: 1

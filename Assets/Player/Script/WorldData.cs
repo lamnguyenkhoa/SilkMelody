@@ -29,6 +29,11 @@ public class WorldData
     [Header("Other")]
     public int[] enemyKillCount;
 
+    [Header("Shop")]
+    public List<string> boughItemNameAndLocation = new List<string>();
+    // Example: MossyTown_MaskShard02, MossyTown_LifebloodNeedle, Kingdom_BombBeetle
+
+
     public void ResetToNewGameState()
     {
         for (int i = 0; i < maskUpgrades.Length; i++)
@@ -44,5 +49,6 @@ public class WorldData
         wallJump = false;
 
         visitedRooms.Clear();
+        boughItemNameAndLocation.Clear();
     }
 }
