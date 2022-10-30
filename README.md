@@ -4,7 +4,9 @@
 
 A bootleg game.
 
-Status: On hold (not dropped) cause I need to find internship :v
+Status: Probably dropped. I want to try new things.
+
+Unity version: 2021.1.18f1.
 
 ## Table of contents
 
