@@ -88,6 +88,8 @@ public class RedToolController : MonoBehaviour
 
     public void UseLifeBloodNeedle()
     {
+        if (GameMaster.instance.playerData.lifebloodHp > 0)
+            return;
 
         if (GameMaster.instance.playerData.redToolsCurrentCharge[(int)RedTool.ToolName.lifebloodNeedle] > 0)
         {

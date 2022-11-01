@@ -783,6 +783,7 @@ public class Player : MonoBehaviour
     public void LifebloodNeedleEffect()
     {
         playerStat.lifebloodHp += 2;
+        soundEffect.PlaySoundEffect(PlayerSoundEffect.SoundEnum.syringe);
         StartCoroutine(FlashBlue());
         GameObject effect = GetComponent<RedToolController>().lifebloodNeedlePE;
         // Create a splash of lifeblood effect from the back and slightly upward

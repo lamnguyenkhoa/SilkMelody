@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: LifebloodNeedle
   m_EditorClassIdentifier: 
   displayName: Lifeblood Needle
-  description: 'Gain some temporary health.
-
-    Not yet implemented.'
+  description: Gain 2 lifeblood masks. Can't be used if already have lifeblood masks.
+  sprite: {fileID: 21300000, guid: 51e7cb809cece264c9864d21013ee4af, type: 3}
   maxCharge: 2
   fixCostPerCharge: 0
-  sprite: {fileID: 21300000, guid: 51e7cb809cece264c9864d21013ee4af, type: 3}
   thisToolName: 2
